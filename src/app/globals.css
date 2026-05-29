@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --navbar-height: 57px;
+}
+
 body {
   height: 100dvh;
   overflow: hidden;
@@ -12,6 +16,8 @@ body {
   overflow-y: auto;
   scroll-snap-type: y mandatory;
   scrollbar-width: none;
+  padding-top: var(--navbar-height);
+  box-sizing: border-box;
 }
 
 #scroll-container::-webkit-scrollbar {
@@ -20,7 +26,7 @@ body {
 
 section {
   scroll-snap-align: start;
-  height: 100dvh;
+  height: calc(100dvh - var(--navbar-height));
 }
 
 /* Fade-in animation for section content */
