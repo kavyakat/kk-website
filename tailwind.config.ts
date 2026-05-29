@@ -8,12 +8,15 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        serif: ["Georgia", "Times New Roman", "serif"],
+      },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        accent: "#6366f1",
       },
     },
   },
   plugins: [],
 };
+
 export default config;
