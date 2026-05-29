@@ -23,10 +23,17 @@ export default function About() {
           pipelines, and AI-driven insights — currently on the SAP Commerce Cloud team
           in Munich, working across SAP BTP, HANA Cloud, SAP Analytics Cloud, and CAP.
         </p>
-        <p className="text-base text-orange-400 leading-loose max-w-xl">
+        <p className="text-base text-orange-400 leading-loose max-w-xl mb-8">
           Strong ownership, clean engineering, and a habit of driving projects from
-          whiteboard to production. B.Tech in Computer Science, Manipal Institute of Technology.
+          whiteboard to production.
         </p>
+        <a
+          href="/resume.pdf"
+          download
+          className="inline-flex items-center gap-2 px-6 py-3 bg-orange-600 text-white text-xs font-bold tracking-wide rounded-lg hover:bg-orange-700 transition-colors"
+        >
+          Download Resume ↓
+        </a>
       </div>
 
       <span className="absolute bottom-6 left-6 md:left-16 text-xs text-orange-200 tracking-widest">
