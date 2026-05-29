@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useInView } from "@/hooks/useInView";
 
 const skills = [
@@ -47,8 +48,25 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="relative flex items-center bg-emerald-50 px-6 md:px-16"
+      className="relative flex items-center bg-emerald-50 px-6 md:px-16 overflow-hidden"
     >
+      {/* Background photo */}
+      <div className="absolute inset-y-0 right-0 w-1/2 pointer-events-none select-none hidden md:block overflow-hidden">
+        <Image
+          src="/kavya.jpeg"
+          alt=""
+          fill
+          className="object-cover object-top"
+          style={{ opacity: 0.12, filter: "saturate(1.2) contrast(1.05)" }}
+          aria-hidden
+        />
+        <div className="absolute inset-0" style={{
+          background: "linear-gradient(to right, #ecfdf5 0%, rgba(236,253,245,0.85) 20%, rgba(236,253,245,0.2) 50%, transparent 100%)"
+        }} />
+        <div className="absolute inset-0" style={{
+          background: "linear-gradient(to bottom, rgba(236,253,245,0.6) 0%, transparent 20%, transparent 80%, rgba(236,253,245,0.6) 100%)"
+        }} />
+      </div>
       <div
         ref={ref as React.RefObject<HTMLDivElement>}
         className={`fade-in max-w-2xl w-full ${isVisible ? "visible" : ""}`}
