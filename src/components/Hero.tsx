@@ -19,7 +19,7 @@ export default function Hero() {
       className="relative flex items-center bg-white px-6 md:px-16"
     >
       <div
-        ref={ref}
+        ref={ref as React.RefObject<HTMLDivElement>}
         className={`fade-in max-w-2xl ${isVisible ? "visible" : ""}`}
       >
         <p className="text-xs text-gray-400 uppercase tracking-widest mb-4">

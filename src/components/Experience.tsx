@@ -11,7 +11,6 @@ const experience = [
     description:
       "Building the analytics layer of the CCv2 platform — event tracking systems, data pipelines, and cloud-native services on SAP BTP.",
   },
-  // Add more roles here
 ];
 
 export default function Experience() {
@@ -23,7 +22,7 @@ export default function Experience() {
       className="relative flex items-center bg-white px-6 md:px-16"
     >
       <div
-        ref={ref}
+        ref={ref as React.RefObject<HTMLDivElement>}
         className={`fade-in max-w-2xl w-full ${isVisible ? "visible" : ""}`}
       >
         <h2 className="font-serif italic text-5xl md:text-6xl text-gray-900 tracking-wide mb-8">

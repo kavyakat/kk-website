@@ -11,7 +11,7 @@ export default function About() {
       className="relative flex items-center bg-gray-50 px-6 md:px-16"
     >
       <div
-        ref={ref}
+        ref={ref as React.RefObject<HTMLDivElement>}
         className={`fade-in max-w-2xl ${isVisible ? "visible" : ""}`}
       >
         <h2 className="font-serif italic text-5xl md:text-6xl text-gray-900 tracking-wide mb-8">
