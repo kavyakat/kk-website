@@ -20,7 +20,7 @@ export default function Hero() {
       className="relative flex items-center bg-white px-6 md:px-16 overflow-hidden"
     >
       {/* Background photo — faded, right-aligned, full height */}
-      <div className="absolute inset-y-0 right-0 w-1/2 pointer-events-none select-none hidden md:block">
+      <div className="absolute inset-y-0 right-0 w-2/3 pointer-events-none select-none hidden md:block">
         <Image
           src="/kavya.jpeg"
           alt=""
@@ -79,19 +79,6 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Photo — crisp foreground portrait */}
-        <div className="hidden md:block shrink-0">
-          <div className="w-72 h-72 rounded-2xl overflow-hidden border-2 border-gray-100">
-            <Image
-              src="/kavya.jpeg"
-              alt="Kavya Kathuria"
-              width={288}
-              height={288}
-              className="object-cover w-full h-full"
-              priority
-            />
-          </div>
-        </div>
       </div>
 
       <span className="absolute bottom-6 left-6 md:left-16 text-xs text-gray-200 tracking-widest z-10">
