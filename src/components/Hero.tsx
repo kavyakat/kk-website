@@ -19,20 +19,23 @@ export default function Hero() {
       id="hero"
       className="relative flex items-center bg-white px-6 md:px-16 overflow-hidden"
     >
-      {/* Background photo — faded, right-aligned, full height */}
-      <div className="absolute inset-0 pointer-events-none select-none hidden md:block">
+      {/* Background photo — tight crop, high contrast, right-anchored */}
+      <div className="absolute inset-y-0 right-0 w-1/2 pointer-events-none select-none hidden md:block overflow-hidden">
         <Image
           src="/kavya.jpeg"
           alt=""
           fill
-          className="object-contain object-right"
-          style={{ opacity: 0.15, filter: "blur(1px) saturate(1.4)" }}
+          className="object-cover object-top"
+          style={{ opacity: 0.28, filter: "saturate(1.6) contrast(1.1)" }}
           priority
           aria-hidden
         />
-        {/* Fade-out gradient on the left edge so it blends into the white */}
+        {/* Vignette: fade from left, top, and bottom */}
         <div className="absolute inset-0" style={{
-          background: "linear-gradient(to right, #ffffff 0%, #ffffff 50%, rgba(255,255,255,0.7) 70%, rgba(255,255,255,0.3) 85%, transparent 100%)"
+          background: "linear-gradient(to right, #ffffff 0%, rgba(255,255,255,0.85) 20%, rgba(255,255,255,0.2) 50%, transparent 100%)"
+        }} />
+        <div className="absolute inset-0" style={{
+          background: "linear-gradient(to bottom, rgba(255,255,255,0.6) 0%, transparent 20%, transparent 80%, rgba(255,255,255,0.6) 100%)"
         }} />
       </div>
 
