@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useInView } from "@/hooks/useInView";
 
 export default function Hero() {
@@ -20,41 +21,58 @@ export default function Hero() {
     >
       <div
         ref={ref as React.RefObject<HTMLDivElement>}
-        className={`fade-in max-w-2xl ${isVisible ? "visible" : ""}`}
+        className={`fade-in w-full flex items-center justify-between gap-12 ${isVisible ? "visible" : ""}`}
       >
-        <p className="text-xs text-gray-400 uppercase tracking-widest mb-4">
-          Senior AI Data Engineer · SAP Commerce Cloud
-        </p>
-        <h1 className="text-7xl md:text-8xl font-bold text-gray-900 leading-none tracking-tight mb-6">
-          Kavya<br />Kathuria
-        </h1>
-        <p className="text-sm text-gray-500 leading-relaxed max-w-md mb-8">
-          10+ years building data pipelines, analytical solutions, and AI-driven
-          insights across the SAP ecosystem. Based in Munich.
-        </p>
-        <div className="flex items-center gap-3 flex-wrap">
-          <button
-            onClick={scrollToContact}
-            className="px-5 py-2.5 bg-gray-900 text-white text-xs font-medium rounded hover:bg-gray-700 transition-colors"
-          >
-            Get in touch ↓
-          </button>
-          <a
-            href="https://github.com/kavyakat"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-4 py-2.5 border border-gray-200 text-gray-600 text-xs rounded hover:border-gray-400 hover:text-gray-900 transition-colors"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://linkedin.com/in/kavyakathuria"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-4 py-2.5 border border-gray-200 text-gray-600 text-xs rounded hover:border-gray-400 hover:text-gray-900 transition-colors"
-          >
-            LinkedIn
-          </a>
+        {/* Text */}
+        <div className="max-w-xl">
+          <p className="text-xs text-gray-400 uppercase tracking-widest mb-4">
+            Senior AI Data Engineer · SAP Commerce Cloud
+          </p>
+          <h1 className="text-7xl md:text-8xl font-bold text-gray-900 leading-none tracking-tight mb-6">
+            Kavya<br />Kathuria
+          </h1>
+          <p className="text-sm text-gray-500 leading-relaxed max-w-md mb-8">
+            10+ years building data pipelines, analytical solutions, and AI-driven
+            insights across the SAP ecosystem. Based in Munich.
+          </p>
+          <div className="flex items-center gap-3 flex-wrap">
+            <button
+              onClick={scrollToContact}
+              className="px-5 py-2.5 bg-gray-900 text-white text-xs font-medium rounded hover:bg-gray-700 transition-colors"
+            >
+              Get in touch ↓
+            </button>
+            <a
+              href="https://github.com/kavyakat"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2.5 border border-gray-200 text-gray-600 text-xs rounded hover:border-gray-400 hover:text-gray-900 transition-colors"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://linkedin.com/in/kavyakathuria"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2.5 border border-gray-200 text-gray-600 text-xs rounded hover:border-gray-400 hover:text-gray-900 transition-colors"
+            >
+              LinkedIn
+            </a>
+          </div>
+        </div>
+
+        {/* Photo */}
+        <div className="hidden md:block shrink-0">
+          <div className="w-64 h-64 rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+            <Image
+              src="/kavya.jpeg"
+              alt="Kavya Kathuria"
+              width={256}
+              height={256}
+              className="object-cover w-full h-full"
+              priority
+            />
+          </div>
         </div>
       </div>
 
