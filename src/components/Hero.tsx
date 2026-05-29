@@ -52,14 +52,9 @@ export default function Hero() {
           <h1 className="text-[clamp(4rem,9vw,7rem)] font-black text-gray-900 leading-none tracking-tight mb-6">
             Kavya<br />Kathuria
           </h1>
-          <p className="text-base text-gray-700 leading-loose max-w-md mb-4">
-            I build large-scale analytical solutions, high-performance data pipelines, and
-            AI-driven insights — currently on the SAP Commerce Cloud team in Munich, working
-            across SAP BTP, HANA Cloud, SAP Analytics Cloud, and CAP.
-          </p>
-          <p className="text-sm text-gray-400 leading-loose max-w-md mb-8">
-            Strong ownership, clean engineering, and a habit of driving projects from
-            whiteboard to production. B.Tech in Computer Science, Manipal Institute of Technology.
+          <p className="text-base text-gray-500 leading-relaxed max-w-md mb-10">
+            10+ years building data pipelines, analytical solutions, and AI-driven
+            insights across the SAP ecosystem. Based in Munich.
           </p>
           <div className="flex items-center gap-3 flex-wrap">
             <button
@@ -90,7 +85,7 @@ export default function Hero() {
       </div>
 
       <span className="absolute bottom-6 left-6 md:left-16 text-xs text-gray-200 tracking-widest z-10">
-        01 / 04
+        01 / 05
       </span>
     </section>
   );

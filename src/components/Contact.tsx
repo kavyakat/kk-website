@@ -47,7 +47,7 @@ export default function Contact() {
       </div>
 
       <span className="absolute bottom-6 left-6 md:left-16 text-xs text-gray-200 tracking-widest">
-        04 / 04
+        05 / 05
       </span>
     </section>
   );
