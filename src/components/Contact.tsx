@@ -14,7 +14,7 @@ export default function Contact() {
         ref={ref as React.RefObject<HTMLDivElement>}
         className={`fade-in max-w-4xl w-full ${isVisible ? "visible" : ""}`}
       >
-        <h2 className="font-serif italic text-5xl md:text-6xl text-white tracking-wide mb-6">
+        <h2 className="font-serif italic text-4xl md:text-6xl text-white tracking-wide mb-6">
           Contact
         </h2>
         <p className="text-base text-violet-300 leading-loose mb-10 max-w-2xl">

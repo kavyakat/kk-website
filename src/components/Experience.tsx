@@ -92,7 +92,7 @@ export default function Experience() {
       >
         {/* Header row */}
         <div className="flex items-end justify-between mb-8">
-          <h2 className="font-serif italic text-5xl md:text-6xl text-indigo-900 tracking-wide">
+          <h2 className="font-serif italic text-4xl md:text-6xl text-indigo-900 tracking-wide">
             Experience
           </h2>
           {/* Arrow nav */}
@@ -132,7 +132,7 @@ export default function Experience() {
               onClick={() => scrollTo(i)}
               className="snap-start shrink-0 cursor-pointer rounded-2xl border p-6 transition-all"
               style={{
-                width: "clamp(280px, 45vw, 520px)",
+                width: "clamp(280px, 85vw, 520px)",
                 borderColor: active === i ? "#4f46e5" : "#e2e8f0",
                 background: active === i ? "#eef2ff" : "#fff",
               }}

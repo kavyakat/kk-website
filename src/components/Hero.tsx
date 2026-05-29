@@ -30,7 +30,6 @@ export default function Hero() {
           priority
           aria-hidden
         />
-        {/* Vignette: fade from left, top, and bottom */}
         <div className="absolute inset-0" style={{
           background: "linear-gradient(to right, #1e1b4b 0%, rgba(30,27,75,0.85) 20%, rgba(30,27,75,0.2) 50%, transparent 100%)"
         }} />
@@ -45,14 +44,14 @@ export default function Hero() {
         className={`fade-in w-full flex items-center justify-between gap-12 relative z-10 ${isVisible ? "visible" : ""}`}
       >
         {/* Text */}
-        <div className="max-w-2xl">
-          <p className="text-xs font-semibold text-indigo-300 uppercase tracking-[0.2em] mb-5">
+        <div className="w-full max-w-2xl">
+          <p className="text-xs font-semibold text-indigo-300 uppercase tracking-[0.2em] mb-4 md:mb-5">
             Senior AI Data Engineer · SAP Commerce Cloud
           </p>
-          <h1 className="text-[clamp(4rem,9vw,7rem)] font-black text-white leading-none tracking-tight mb-6">
+          <h1 className="text-[clamp(3rem,9vw,7rem)] font-black text-white leading-none tracking-tight mb-4 md:mb-6">
             Kavya<br />Kathuria
           </h1>
-          <p className="text-base text-indigo-200 leading-relaxed max-w-2xl mb-10">
+          <p className="text-sm md:text-base text-indigo-200 leading-relaxed max-w-2xl mb-8 md:mb-10">
             10+ years building data pipelines, analytical solutions, and AI-driven
             insights across the SAP ecosystem. Based in Munich.
           </p>
@@ -81,7 +80,6 @@ export default function Hero() {
             </a>
           </div>
         </div>
-
       </div>
 
       <span className="absolute bottom-6 left-6 md:left-16 text-xs text-indigo-700 tracking-widest z-10">
