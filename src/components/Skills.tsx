@@ -51,7 +51,7 @@ export default function Skills() {
     >
       <div
         ref={ref as React.RefObject<HTMLDivElement>}
-        className={`fade-in max-w-2xl w-full ${isVisible ? "visible" : ""}`}
+        className={`fade-in max-w-4xl w-full ${isVisible ? "visible" : ""}`}
       >
         <h2 className="font-serif italic text-5xl md:text-6xl text-emerald-700 tracking-wide mb-10">
           Skills

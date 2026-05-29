@@ -12,12 +12,12 @@ export default function Contact() {
     >
       <div
         ref={ref as React.RefObject<HTMLDivElement>}
-        className={`fade-in max-w-2xl ${isVisible ? "visible" : ""}`}
+        className={`fade-in max-w-4xl w-full ${isVisible ? "visible" : ""}`}
       >
         <h2 className="font-serif italic text-5xl md:text-6xl text-white tracking-wide mb-6">
           Contact
         </h2>
-        <p className="text-base text-violet-300 leading-loose mb-10 max-w-md">
+        <p className="text-base text-violet-300 leading-loose mb-10 max-w-2xl">
           Interested in working together or just want to say hello? My inbox is open.
         </p>
         <div className="flex items-center gap-3 flex-wrap">

@@ -12,26 +12,26 @@ export default function About() {
     >
       <div
         ref={ref as React.RefObject<HTMLDivElement>}
-        className={`fade-in max-w-2xl ${isVisible ? "visible" : ""}`}
+        className={`fade-in max-w-4xl w-full ${isVisible ? "visible" : ""}`}
       >
         <h2 className="font-serif italic text-5xl md:text-6xl text-orange-600 tracking-wide mb-8">
           About
         </h2>
-        <p className="text-base text-gray-800 leading-loose max-w-xl mb-6">
+        <p className="text-base text-gray-800 leading-loose max-w-2xl mb-6">
           I'm a Senior Data Engineer and Software Developer at SAP, based in Munich.
           I build platform-level systems — the kind that other teams depend on but never
           think about. Currently on the Commerce Analytics team, working on the analytics
           layer of SAP Commerce Cloud v2: event tracking infrastructure, data pipelines,
           backend services, and the dashboards and AI features built on top of them.
         </p>
-        <p className="text-base text-gray-800 leading-loose max-w-xl mb-6">
+        <p className="text-base text-gray-800 leading-loose max-w-2xl mb-6">
           My stack spans Java and Python backends, SAP BTP, HANA Cloud, and SAP Analytics
           Cloud. I've taken projects from early design through production — owning the
           engineering end to end, not just a slice of it. More recently, that's included
           AI: summarization, forecasting, and anomaly detection running in production on
           real commerce data.
         </p>
-        <p className="text-base text-orange-400 leading-loose max-w-xl mb-8">
+        <p className="text-base text-orange-400 leading-loose max-w-2xl mb-8">
           10+ years in. I care about building things that are correct, reliable, and
           worth maintaining — and I still find the problems interesting.
         </p>
