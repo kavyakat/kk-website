@@ -18,14 +18,21 @@ export default function About() {
           About
         </h2>
         <p className="text-base text-gray-800 leading-loose max-w-xl mb-6">
-          Senior AI Data Engineer and full-stack developer with 10+ years in the SAP
-          ecosystem. I build large-scale analytical solutions, high-performance data
-          pipelines, and AI-driven insights — currently on the SAP Commerce Cloud team
-          in Munich, working across SAP BTP, HANA Cloud, SAP Analytics Cloud, and CAP.
+          I'm a Senior AI Data Engineer on the Commerce Analytics team at SAP, based in Munich.
+          My work sits at the intersection of platform engineering and data — I build and maintain
+          the analytics layer of SAP Commerce Cloud v2 itself, not applications on top of it.
+          That means the systems other teams depend on: event tracking pipelines, data models,
+          and the infrastructure that turns raw commerce activity into insight.
+        </p>
+        <p className="text-base text-gray-800 leading-loose max-w-xl mb-6">
+          Day to day, I work across the full data stack — Java and Python backends, SAP BTP services,
+          HANA Cloud, and SAP Analytics Cloud. I've built ETL pipelines that move data reliably at scale,
+          designed data models that hold up under real analytical load, and recently added AI to the mix:
+          summarization, forecasting, and anomaly detection running in production.
         </p>
         <p className="text-base text-orange-400 leading-loose max-w-xl mb-8">
-          Strong ownership, clean engineering, and a habit of driving projects from
-          whiteboard to production.
+          I care about correctness, reliability, and understanding how things actually work —
+          not just shipping something that looks right. 10+ years in, I still find the problems interesting.
         </p>
         <a
           href="/resume.pdf"
