@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 export function useInView(threshold = 0.15) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {

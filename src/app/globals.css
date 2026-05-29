@@ -2,24 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 }
 
 #scroll-container {
-  height: 100vh;
-  overflow-y: scroll;
+  height: 100dvh;
+  overflow-y: auto;
   scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+}
+
+#scroll-container::-webkit-scrollbar {
+  display: none;
 }
 
 section {
   scroll-snap-align: start;
-  height: 100vh;
+  height: 100dvh;
 }
 
 /* Fade-in animation for section content */
