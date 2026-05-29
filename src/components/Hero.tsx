@@ -26,13 +26,13 @@ export default function Hero() {
           alt=""
           fill
           className="object-cover object-center"
-          style={{ opacity: 0.12, filter: "blur(3px) saturate(1.4)" }}
+          style={{ opacity: 0.15, filter: "blur(1px) saturate(1.4)" }}
           priority
           aria-hidden
         />
         {/* Fade-out gradient on the left edge so it blends into the white */}
         <div className="absolute inset-0" style={{
-          background: "linear-gradient(to right, #ffffff 0%, rgba(255,255,255,0.6) 30%, transparent 60%)"
+          background: "linear-gradient(to right, #ffffff 0%, #ffffff 15%, rgba(255,255,255,0.5) 45%, transparent 70%)"
         }} />
       </div>
 
