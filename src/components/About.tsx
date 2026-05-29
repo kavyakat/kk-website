@@ -18,21 +18,22 @@ export default function About() {
           About
         </h2>
         <p className="text-base text-gray-800 leading-loose max-w-xl mb-6">
-          I'm a Senior AI Data Engineer on the Commerce Analytics team at SAP, based in Munich.
-          My work sits at the intersection of platform engineering and data — I build and maintain
-          the analytics layer of SAP Commerce Cloud v2 itself, not applications on top of it.
-          That means the systems other teams depend on: event tracking pipelines, data models,
-          and the infrastructure that turns raw commerce activity into insight.
+          I'm a Senior Data Engineer and Software Developer at SAP, based in Munich.
+          I build platform-level systems — the kind that other teams depend on but never
+          think about. Currently on the Commerce Analytics team, working on the analytics
+          layer of SAP Commerce Cloud v2: event tracking infrastructure, data pipelines,
+          backend services, and the dashboards and AI features built on top of them.
         </p>
         <p className="text-base text-gray-800 leading-loose max-w-xl mb-6">
-          Day to day, I work across the full data stack — Java and Python backends, SAP BTP services,
-          HANA Cloud, and SAP Analytics Cloud. I've built ETL pipelines that move data reliably at scale,
-          designed data models that hold up under real analytical load, and recently added AI to the mix:
-          summarization, forecasting, and anomaly detection running in production.
+          My stack spans Java and Python backends, SAP BTP, HANA Cloud, and SAP Analytics
+          Cloud. I've taken projects from early design through production — owning the
+          engineering end to end, not just a slice of it. More recently, that's included
+          AI: summarization, forecasting, and anomaly detection running in production on
+          real commerce data.
         </p>
         <p className="text-base text-orange-400 leading-loose max-w-xl mb-8">
-          I care about correctness, reliability, and understanding how things actually work —
-          not just shipping something that looks right. 10+ years in, I still find the problems interesting.
+          10+ years in. I care about building things that are correct, reliable, and
+          worth maintaining — and I still find the problems interesting.
         </p>
         <a
           href="/resume.pdf"
