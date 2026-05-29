@@ -17,11 +17,29 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex items-center bg-white px-6 md:px-16"
+      className="relative flex items-center bg-white px-6 md:px-16 overflow-hidden"
     >
+      {/* Background photo — faded, right-aligned, full height */}
+      <div className="absolute inset-y-0 right-0 w-1/2 pointer-events-none select-none hidden md:block">
+        <Image
+          src="/kavya.jpeg"
+          alt=""
+          fill
+          className="object-cover object-center"
+          style={{ opacity: 0.07, filter: "grayscale(100%) blur(2px)" }}
+          priority
+          aria-hidden
+        />
+        {/* Fade-out gradient on the left edge so it blends into the white */}
+        <div className="absolute inset-0" style={{
+          background: "linear-gradient(to right, #ffffff 0%, transparent 40%)"
+        }} />
+      </div>
+
+      {/* Foreground content */}
       <div
         ref={ref as React.RefObject<HTMLDivElement>}
-        className={`fade-in w-full flex items-center justify-between gap-12 ${isVisible ? "visible" : ""}`}
+        className={`fade-in w-full flex items-center justify-between gap-12 relative z-10 ${isVisible ? "visible" : ""}`}
       >
         {/* Text */}
         <div className="max-w-xl">
@@ -61,7 +79,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Photo */}
+        {/* Photo — crisp foreground portrait */}
         <div className="hidden md:block shrink-0">
           <div className="w-72 h-72 rounded-2xl overflow-hidden border-2 border-gray-100">
             <Image
@@ -76,7 +94,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <span className="absolute bottom-6 left-6 md:left-16 text-xs text-gray-200 tracking-widest">
+      <span className="absolute bottom-6 left-6 md:left-16 text-xs text-gray-200 tracking-widest z-10">
         01 / 05
       </span>
     </section>
