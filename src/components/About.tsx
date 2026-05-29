@@ -17,28 +17,17 @@ export default function About() {
         <h2 className="font-serif italic text-5xl md:text-6xl text-gray-900 tracking-wide mb-8">
           About
         </h2>
-        <p className="text-sm text-gray-600 leading-loose max-w-xl mb-10">
-          Senior AI Data Engineer and full-stack developer with 10+ years of experience
-          across the SAP ecosystem. I specialise in building large-scale analytical
-          solutions, high-performance data pipelines, and AI-driven insights — currently
-          on the SAP Commerce Cloud team in Munich, where I work across SAP BTP, HANA
-          Cloud, SAP Analytics Cloud, and Cloud Application Programming (CAP).
+        <p className="text-sm text-gray-600 leading-loose max-w-xl mb-6">
+          Senior AI Data Engineer and full-stack developer with 10+ years in the SAP
+          ecosystem. I build large-scale analytical solutions, high-performance data
+          pipelines, and AI-driven insights — currently on the SAP Commerce Cloud team
+          in Munich, working across SAP BTP, HANA Cloud, SAP Analytics Cloud, and CAP.
         </p>
-        <div className="flex gap-4 flex-wrap">
-          {[
-            { label: "Role", value: "Senior AI Data Engineer" },
-            { label: "Company", value: "SAP Commerce Cloud" },
-            { label: "Location", value: "Munich, Germany" },
-          ].map((chip) => (
-            <div
-              key={chip.label}
-              className="px-4 py-3 bg-white border border-gray-200 rounded-lg"
-            >
-              <p className="text-xs text-gray-400 mb-1">{chip.label}</p>
-              <p className="text-sm text-gray-700">{chip.value}</p>
-            </div>
-          ))}
-        </div>
+        <p className="text-sm text-gray-400 leading-loose max-w-xl">
+          Strong ownership, clean engineering, and a habit of driving projects from
+          whiteboard to production. B.Tech in Computer Science from Manipal Institute
+          of Technology.
+        </p>
       </div>
 
       <span className="absolute bottom-6 left-6 md:left-16 text-xs text-gray-200 tracking-widest">
