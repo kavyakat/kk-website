@@ -32,7 +32,7 @@ export default function Hero() {
         />
         {/* Fade-out gradient on the left edge so it blends into the white */}
         <div className="absolute inset-0" style={{
-          background: "linear-gradient(to right, #ffffff 0%, #ffffff 40%, rgba(255,255,255,0.4) 60%, transparent 80%)"
+          background: "linear-gradient(to right, #ffffff 0%, #ffffff 50%, rgba(255,255,255,0.7) 70%, rgba(255,255,255,0.3) 85%, transparent 100%)"
         }} />
       </div>
 
