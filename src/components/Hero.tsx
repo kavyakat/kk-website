@@ -17,7 +17,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex items-center bg-white px-6 md:px-16 overflow-hidden"
+      className="relative flex items-center bg-indigo-950 px-6 md:px-16 overflow-hidden"
     >
       {/* Background photo — tight crop, high contrast, right-anchored */}
       <div className="absolute inset-y-0 right-0 w-1/2 pointer-events-none select-none hidden md:block overflow-hidden">
@@ -32,10 +32,10 @@ export default function Hero() {
         />
         {/* Vignette: fade from left, top, and bottom */}
         <div className="absolute inset-0" style={{
-          background: "linear-gradient(to right, #ffffff 0%, rgba(255,255,255,0.85) 20%, rgba(255,255,255,0.2) 50%, transparent 100%)"
+          background: "linear-gradient(to right, #1e1b4b 0%, rgba(30,27,75,0.85) 20%, rgba(30,27,75,0.2) 50%, transparent 100%)"
         }} />
         <div className="absolute inset-0" style={{
-          background: "linear-gradient(to bottom, rgba(255,255,255,0.6) 0%, transparent 20%, transparent 80%, rgba(255,255,255,0.6) 100%)"
+          background: "linear-gradient(to bottom, rgba(30,27,75,0.6) 0%, transparent 20%, transparent 80%, rgba(30,27,75,0.6) 100%)"
         }} />
       </div>
 
@@ -46,20 +46,20 @@ export default function Hero() {
       >
         {/* Text */}
         <div className="max-w-xl">
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-[0.2em] mb-5">
+          <p className="text-xs font-semibold text-indigo-300 uppercase tracking-[0.2em] mb-5">
             Senior AI Data Engineer · SAP Commerce Cloud
           </p>
-          <h1 className="text-[clamp(4rem,9vw,7rem)] font-black text-gray-900 leading-none tracking-tight mb-6">
+          <h1 className="text-[clamp(4rem,9vw,7rem)] font-black text-white leading-none tracking-tight mb-6">
             Kavya<br />Kathuria
           </h1>
-          <p className="text-base text-gray-500 leading-relaxed max-w-md mb-10">
+          <p className="text-base text-indigo-200 leading-relaxed max-w-md mb-10">
             10+ years building data pipelines, analytical solutions, and AI-driven
             insights across the SAP ecosystem. Based in Munich.
           </p>
           <div className="flex items-center gap-3 flex-wrap">
             <button
               onClick={scrollToContact}
-              className="px-6 py-3 bg-gray-900 text-white text-xs font-bold tracking-wide rounded-lg hover:bg-gray-700 transition-colors"
+              className="px-6 py-3 bg-white text-indigo-950 text-xs font-bold tracking-wide rounded-lg hover:bg-indigo-100 transition-colors"
             >
               Get in touch ↓
             </button>
@@ -67,7 +67,7 @@ export default function Hero() {
               href="https://github.com/kavyakat"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-3 border-2 border-gray-200 text-gray-600 text-xs font-semibold rounded-lg hover:border-gray-900 hover:text-gray-900 transition-colors"
+              className="px-5 py-3 border-2 border-indigo-400 text-indigo-200 text-xs font-semibold rounded-lg hover:border-white hover:text-white transition-colors"
             >
               GitHub
             </a>
@@ -75,7 +75,7 @@ export default function Hero() {
               href="https://linkedin.com/in/kavyakathuria"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-3 border-2 border-gray-200 text-gray-600 text-xs font-semibold rounded-lg hover:border-gray-900 hover:text-gray-900 transition-colors"
+              className="px-5 py-3 border-2 border-indigo-400 text-indigo-200 text-xs font-semibold rounded-lg hover:border-white hover:text-white transition-colors"
             >
               LinkedIn
             </a>
@@ -84,7 +84,7 @@ export default function Hero() {
 
       </div>
 
-      <span className="absolute bottom-6 left-6 md:left-16 text-xs text-gray-200 tracking-widest z-10">
+      <span className="absolute bottom-6 left-6 md:left-16 text-xs text-indigo-700 tracking-widest z-10">
         01 / 05
       </span>
     </section>
