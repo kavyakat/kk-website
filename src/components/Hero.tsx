@@ -25,20 +25,20 @@ export default function Hero() {
       >
         {/* Text */}
         <div className="max-w-xl">
-          <p className="text-xs text-gray-400 uppercase tracking-widest mb-4">
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-[0.2em] mb-5">
             Senior AI Data Engineer · SAP Commerce Cloud
           </p>
-          <h1 className="text-7xl md:text-8xl font-bold text-gray-900 leading-none tracking-tight mb-6">
+          <h1 className="text-[clamp(4rem,9vw,7rem)] font-black text-gray-900 leading-none tracking-tight mb-6">
             Kavya<br />Kathuria
           </h1>
-          <p className="text-sm text-gray-500 leading-relaxed max-w-md mb-8">
+          <p className="text-base text-gray-500 leading-relaxed max-w-md mb-10">
             10+ years building data pipelines, analytical solutions, and AI-driven
             insights across the SAP ecosystem. Based in Munich.
           </p>
           <div className="flex items-center gap-3 flex-wrap">
             <button
               onClick={scrollToContact}
-              className="px-5 py-2.5 bg-gray-900 text-white text-xs font-medium rounded hover:bg-gray-700 transition-colors"
+              className="px-6 py-3 bg-gray-900 text-white text-xs font-bold tracking-wide rounded-lg hover:bg-gray-700 transition-colors"
             >
               Get in touch ↓
             </button>
@@ -46,7 +46,7 @@ export default function Hero() {
               href="https://github.com/kavyakat"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2.5 border border-gray-200 text-gray-600 text-xs rounded hover:border-gray-400 hover:text-gray-900 transition-colors"
+              className="px-5 py-3 border-2 border-gray-200 text-gray-600 text-xs font-semibold rounded-lg hover:border-gray-900 hover:text-gray-900 transition-colors"
             >
               GitHub
             </a>
@@ -54,7 +54,7 @@ export default function Hero() {
               href="https://linkedin.com/in/kavyakathuria"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2.5 border border-gray-200 text-gray-600 text-xs rounded hover:border-gray-400 hover:text-gray-900 transition-colors"
+              className="px-5 py-3 border-2 border-gray-200 text-gray-600 text-xs font-semibold rounded-lg hover:border-gray-900 hover:text-gray-900 transition-colors"
             >
               LinkedIn
             </a>
@@ -63,12 +63,12 @@ export default function Hero() {
 
         {/* Photo */}
         <div className="hidden md:block shrink-0">
-          <div className="w-64 h-64 rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+          <div className="w-72 h-72 rounded-2xl overflow-hidden border-2 border-gray-100">
             <Image
               src="/kavya.jpeg"
               alt="Kavya Kathuria"
-              width={256}
-              height={256}
+              width={288}
+              height={288}
               className="object-cover w-full h-full"
               priority
             />

@@ -53,21 +53,21 @@ export default function Skills() {
         ref={ref as React.RefObject<HTMLDivElement>}
         className={`fade-in max-w-2xl w-full ${isVisible ? "visible" : ""}`}
       >
-        <h2 className="font-serif italic text-5xl md:text-6xl text-gray-900 tracking-wide mb-8">
+        <h2 className="font-serif italic text-5xl md:text-6xl text-gray-900 tracking-wide mb-10">
           Skills
         </h2>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-6">
           {skills.map((group) => (
-            <div key={group.group} className="flex items-start gap-4">
-              <div className="flex items-center gap-1.5 text-gray-400 w-28 pt-1 shrink-0">
+            <div key={group.group} className="flex items-start gap-6">
+              <div className="flex items-center gap-2 text-gray-500 w-32 pt-1 shrink-0">
                 {group.icon}
-                <span className="text-xs">{group.group}</span>
+                <span className="text-xs font-bold uppercase tracking-wider">{group.group}</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {group.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-3 py-1 text-xs text-gray-600 border border-gray-200 rounded-full bg-white"
+                    className="px-4 py-1.5 text-xs font-medium text-gray-700 border-2 border-gray-200 rounded-full bg-white hover:border-gray-900 hover:text-gray-900 transition-colors"
                   >
                     {tag}
                   </span>

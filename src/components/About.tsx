@@ -17,16 +17,15 @@ export default function About() {
         <h2 className="font-serif italic text-5xl md:text-6xl text-gray-900 tracking-wide mb-8">
           About
         </h2>
-        <p className="text-sm text-gray-600 leading-loose max-w-xl mb-6">
+        <p className="text-base text-gray-700 leading-loose max-w-xl mb-6">
           Senior AI Data Engineer and full-stack developer with 10+ years in the SAP
           ecosystem. I build large-scale analytical solutions, high-performance data
           pipelines, and AI-driven insights — currently on the SAP Commerce Cloud team
           in Munich, working across SAP BTP, HANA Cloud, SAP Analytics Cloud, and CAP.
         </p>
-        <p className="text-sm text-gray-400 leading-loose max-w-xl">
+        <p className="text-base text-gray-400 leading-loose max-w-xl">
           Strong ownership, clean engineering, and a habit of driving projects from
-          whiteboard to production. B.Tech in Computer Science from Manipal Institute
-          of Technology.
+          whiteboard to production. B.Tech in Computer Science, Manipal Institute of Technology.
         </p>
       </div>
 

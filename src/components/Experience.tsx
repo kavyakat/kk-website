@@ -11,8 +11,11 @@ const experience = [
     location: "Munich, Germany",
     period: "Jan 2024 — Present",
     logo: "https://www.sap.com/dam/application/shared/logos/sap-logo-svg.svg/sap-logo-svg.svg",
-    description:
-      "Engineering end-to-end data pipelines across SAP BTP and Java-based ETLs. Implementing AI-powered summarization and insights. Full ownership of major data and engineering projects from design through rollout.",
+    bullets: [
+      "Engineered end-to-end data pipelines across SAP BTP and Java-based ETLs into HANA Cloud.",
+      "Implemented AI-powered summarization, forecasting, and anomaly detection across the platform.",
+      "Took full ownership of major data engineering projects from design through production rollout.",
+    ],
   },
   {
     title: "Data Scientist",
@@ -20,8 +23,11 @@ const experience = [
     location: "Munich, Germany",
     period: "May 2022 — Dec 2023",
     logo: "https://www.sap.com/dam/application/shared/logos/sap-logo-svg.svg/sap-logo-svg.svg",
-    description:
-      "Built analytical dashboards in SAP Analytics Cloud delivering KPIs and AI-powered insights. Maintained SAP HANA Cloud data models and led UI/UX development for internal tools using SAP Fiori standards.",
+    bullets: [
+      "Built analytical dashboards in SAP Analytics Cloud delivering KPIs and AI-driven insights to stakeholders.",
+      "Maintained SAP HANA Cloud data models and optimised performance for analytics at scale.",
+      "Led UI/UX development for internal tools, aligning with SAP Fiori standards.",
+    ],
   },
   {
     title: "Working Student",
@@ -29,8 +35,11 @@ const experience = [
     location: "Munich, Germany",
     period: "Nov 2019 — May 2022",
     logo: "https://www.sap.com/dam/application/shared/logos/sap-logo-svg.svg/sap-logo-svg.svg",
-    description:
-      "Built dashboards and backend services for Commerce Cloud analytics. Developed a GoLang integration library for SAP Kyma, with Kubernetes/Docker deployments on AWS, Azure, and GCP.",
+    bullets: [
+      "Built dashboards and backend services for Commerce Cloud analytics using SAP HANA and Java.",
+      "Developed a GoLang-based integration library for SAP Kyma.",
+      "Worked with Kubernetes and Docker deployments across AWS, Azure, and GCP.",
+    ],
   },
   {
     title: "Associate Developer",
@@ -38,8 +47,11 @@ const experience = [
     location: "Bengaluru, India",
     period: "Aug 2018 — Aug 2019",
     logo: "https://www.sap.com/dam/application/shared/logos/sap-logo-svg.svg/sap-logo-svg.svg",
-    description:
-      "Built a centralised Product Master Data orchestration solution on SAP Cloud Platform using CAP. Developed core backend services; applied SAP HANA Cloud and Fiori across the project.",
+    bullets: [
+      "Built a centralised Product Master Data orchestration solution on SAP Cloud Platform using CAP.",
+      "Developed core backend services supporting product lifecycle workflows.",
+      "Applied SAP HANA Cloud and Fiori across multiple project stages.",
+    ],
   },
   {
     title: "Associate Developer",
@@ -47,8 +59,11 @@ const experience = [
     location: "Bengaluru, India",
     period: "Jul 2015 — Jul 2018",
     logo: "https://www.sap.com/dam/application/shared/logos/sap-logo-svg.svg/sap-logo-svg.svg",
-    description:
-      "Contributed to the SAP Fieldglass vendor management system. Built REST APIs with Spring framework and integrated Java microservices for smoother data exchange and operational consistency.",
+    bullets: [
+      "Contributed to the SAP Fieldglass vendor management system — feature development and enhancements.",
+      "Built REST APIs with the Spring framework for modular and maintainable backend services.",
+      "Integrated Java microservices for smoother data exchange and operational consistency.",
+    ],
   },
 ];
 
@@ -58,10 +73,11 @@ export default function Experience() {
   const [active, setActive] = useState(0);
 
   const scrollTo = (index: number) => {
-    setActive(index);
+    const clamped = Math.max(0, Math.min(experience.length - 1, index));
+    setActive(clamped);
     const carousel = carouselRef.current;
     if (!carousel) return;
-    const card = carousel.children[index] as HTMLElement;
+    const card = carousel.children[clamped] as HTMLElement;
     carousel.scrollTo({ left: card.offsetLeft - carousel.offsetLeft, behavior: "smooth" });
   };
 
@@ -72,11 +88,37 @@ export default function Experience() {
     >
       <div
         ref={ref as React.RefObject<HTMLDivElement>}
-        className={`fade-in w-full max-w-3xl ${isVisible ? "visible" : ""}`}
+        className={`fade-in w-full ${isVisible ? "visible" : ""}`}
       >
-        <h2 className="font-serif italic text-5xl md:text-6xl text-gray-900 tracking-wide mb-8">
-          Experience
-        </h2>
+        {/* Header row */}
+        <div className="flex items-end justify-between mb-8">
+          <h2 className="font-serif italic text-5xl md:text-6xl text-gray-900 tracking-wide">
+            Experience
+          </h2>
+          {/* Arrow nav */}
+          <div className="flex gap-2">
+            <button
+              onClick={() => scrollTo(active - 1)}
+              disabled={active === 0}
+              className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:border-gray-900 hover:text-gray-900 disabled:opacity-20 transition-colors"
+              aria-label="Previous"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6"/>
+              </svg>
+            </button>
+            <button
+              onClick={() => scrollTo(active + 1)}
+              disabled={active === experience.length - 1}
+              className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:border-gray-900 hover:text-gray-900 disabled:opacity-20 transition-colors"
+              aria-label="Next"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </button>
+          </div>
+        </div>
 
         {/* Carousel */}
         <div
@@ -87,33 +129,53 @@ export default function Experience() {
           {experience.map((role, i) => (
             <div
               key={i}
-              onClick={() => setActive(i)}
-              className="snap-start shrink-0 w-72 p-5 border rounded-xl cursor-pointer transition-colors"
-              style={{ borderColor: active === i ? "#d1d5db" : "#f3f4f6" }}
+              onClick={() => scrollTo(i)}
+              className="snap-start shrink-0 cursor-pointer rounded-2xl border p-6 transition-all"
+              style={{
+                width: "clamp(280px, 45vw, 520px)",
+                borderColor: active === i ? "#111827" : "#f3f4f6",
+                background: active === i ? "#fafafa" : "#fff",
+              }}
             >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 rounded-md border border-gray-100 bg-white flex items-center justify-center overflow-hidden shrink-0">
-                  <Image src={role.logo} alt={role.company} width={24} height={24} className="object-contain" />
+              {/* Logo + company */}
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-10 h-10 rounded-lg border border-gray-100 bg-white flex items-center justify-center overflow-hidden shrink-0">
+                  <Image src={role.logo} alt={role.company} width={28} height={28} className="object-contain" />
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-gray-900 leading-tight">{role.title}</p>
-                  <p className="text-xs text-gray-400 leading-tight mt-0.5">{role.company}</p>
+                  <p className="text-sm font-bold text-gray-900 leading-tight">{role.company}</p>
+                  <p className="text-xs text-gray-400 mt-0.5">{role.location}</p>
                 </div>
               </div>
-              <p className="text-xs text-gray-300 mb-3">{role.period} · {role.location}</p>
-              <p className="text-xs text-gray-500 leading-relaxed">{role.description}</p>
+
+              {/* Title + period */}
+              <p className="text-lg font-bold text-gray-900 leading-snug mb-1">{role.title}</p>
+              <p className="text-xs text-gray-400 mb-5">{role.period}</p>
+
+              {/* Bullets */}
+              <ul className="flex flex-col gap-2">
+                {role.bullets.map((b, j) => (
+                  <li key={j} className="flex gap-2 text-xs text-gray-500 leading-relaxed">
+                    <span className="text-gray-300 mt-0.5 shrink-0">—</span>
+                    {b}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
 
-        {/* Dot indicators */}
-        <div className="flex gap-2 mt-4">
+        {/* Dots */}
+        <div className="flex gap-2 mt-5">
           {experience.map((_, i) => (
             <button
               key={i}
               onClick={() => scrollTo(i)}
-              className="w-1.5 h-1.5 rounded-full transition-colors"
-              style={{ background: active === i ? "#9ca3af" : "#e5e7eb" }}
+              className="h-1 rounded-full transition-all"
+              style={{
+                width: active === i ? "24px" : "6px",
+                background: active === i ? "#111827" : "#e5e7eb",
+              }}
               aria-label={`Go to slide ${i + 1}`}
             />
           ))}

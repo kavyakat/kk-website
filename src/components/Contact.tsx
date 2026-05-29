@@ -17,14 +17,13 @@ export default function Contact() {
         <h2 className="font-serif italic text-5xl md:text-6xl text-gray-900 tracking-wide mb-6">
           Contact
         </h2>
-        <p className="text-sm text-gray-500 leading-loose mb-8 max-w-md">
-          Interested in working together or just want to say hello? My inbox is
-          open.
+        <p className="text-base text-gray-500 leading-loose mb-10 max-w-md">
+          Interested in working together or just want to say hello? My inbox is open.
         </p>
         <div className="flex items-center gap-3 flex-wrap">
           <a
             href="mailto:kavyakat@gmail.com"
-            className="px-5 py-2.5 bg-gray-900 text-white text-xs font-medium rounded hover:bg-gray-700 transition-colors"
+            className="px-6 py-3 bg-gray-900 text-white text-xs font-bold tracking-wide rounded-lg hover:bg-gray-700 transition-colors"
           >
             Email me
           </a>
@@ -32,7 +31,7 @@ export default function Contact() {
             href="https://github.com/kavyakat"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2.5 border border-gray-200 text-gray-600 text-xs rounded hover:border-gray-400 hover:text-gray-900 transition-colors"
+            className="px-5 py-3 border-2 border-gray-200 text-gray-600 text-xs font-semibold rounded-lg hover:border-gray-900 hover:text-gray-900 transition-colors"
           >
             GitHub
           </a>
@@ -40,7 +39,7 @@ export default function Contact() {
             href="https://linkedin.com/in/kavyakathuria"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2.5 border border-gray-200 text-gray-600 text-xs rounded hover:border-gray-400 hover:text-gray-900 transition-colors"
+            className="px-5 py-3 border-2 border-gray-200 text-gray-600 text-xs font-semibold rounded-lg hover:border-gray-900 hover:text-gray-900 transition-colors"
           >
             LinkedIn
           </a>
