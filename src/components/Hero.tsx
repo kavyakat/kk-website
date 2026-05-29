@@ -25,7 +25,7 @@ export default function Hero() {
           src="/kavya.jpeg"
           alt=""
           fill
-          className="object-cover object-center"
+          className="object-contain object-right"
           style={{ opacity: 0.15, filter: "blur(1px) saturate(1.4)" }}
           priority
           aria-hidden
