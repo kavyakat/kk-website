@@ -84,25 +84,8 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="relative flex items-center bg-slate-50 px-6 md:px-16 overflow-hidden"
+      className="relative flex items-center bg-slate-50 px-6 md:px-16"
     >
-      {/* Background photo */}
-      <div className="absolute inset-y-0 right-0 w-1/2 pointer-events-none select-none hidden md:block overflow-hidden">
-        <Image
-          src="/kavya.jpeg"
-          alt=""
-          fill
-          className="object-cover object-top"
-          style={{ opacity: 0.1, filter: "saturate(0.8) contrast(1.05)" }}
-          aria-hidden
-        />
-        <div className="absolute inset-0" style={{
-          background: "linear-gradient(to right, #f8fafc 0%, rgba(248,250,252,0.85) 20%, rgba(248,250,252,0.2) 50%, transparent 100%)"
-        }} />
-        <div className="absolute inset-0" style={{
-          background: "linear-gradient(to bottom, rgba(248,250,252,0.6) 0%, transparent 20%, transparent 80%, rgba(248,250,252,0.6) 100%)"
-        }} />
-      </div>
       <div
         ref={ref as React.RefObject<HTMLDivElement>}
         className={`fade-in w-full ${isVisible ? "visible" : ""}`}
