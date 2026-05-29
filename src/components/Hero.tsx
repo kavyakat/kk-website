@@ -20,7 +20,7 @@ export default function Hero() {
       className="relative flex items-center bg-white px-6 md:px-16 overflow-hidden"
     >
       {/* Background photo — faded, right-aligned, full height */}
-      <div className="absolute inset-y-0 right-0 w-2/3 pointer-events-none select-none hidden md:block">
+      <div className="absolute inset-0 pointer-events-none select-none hidden md:block">
         <Image
           src="/kavya.jpeg"
           alt=""
@@ -32,7 +32,7 @@ export default function Hero() {
         />
         {/* Fade-out gradient on the left edge so it blends into the white */}
         <div className="absolute inset-0" style={{
-          background: "linear-gradient(to right, #ffffff 0%, #ffffff 15%, rgba(255,255,255,0.5) 45%, transparent 70%)"
+          background: "linear-gradient(to right, #ffffff 0%, #ffffff 40%, rgba(255,255,255,0.4) 60%, transparent 80%)"
         }} />
       </div>
 
