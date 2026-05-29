@@ -18,18 +18,17 @@ export default function About() {
           About
         </h2>
         <p className="text-sm text-gray-600 leading-loose max-w-xl mb-10">
-          I&apos;m a software developer on the Commerce Analytics team at SAP,
-          where I build the CCv2 platform&apos;s analytics layer — the systems
-          that track, move, and make sense of commerce events at scale. My work
-          sits at the intersection of platform engineering and data, spanning
-          event-driven architecture, data pipelines, and cloud-native services
-          on SAP BTP.
+          Senior AI Data Engineer and full-stack developer with 10+ years of experience
+          across the SAP ecosystem. I specialise in building large-scale analytical
+          solutions, high-performance data pipelines, and AI-driven insights — currently
+          on the SAP Commerce Cloud team in Munich, where I work across SAP BTP, HANA
+          Cloud, SAP Analytics Cloud, and Cloud Application Programming (CAP).
         </p>
         <div className="flex gap-4 flex-wrap">
           {[
-            { label: "Role", value: "Software Developer" },
-            { label: "Company", value: "SAP" },
-            { label: "Focus", value: "Platform · Analytics" },
+            { label: "Role", value: "Senior AI Data Engineer" },
+            { label: "Company", value: "SAP Commerce Cloud" },
+            { label: "Location", value: "Munich, Germany" },
           ].map((chip) => (
             <div
               key={chip.label}

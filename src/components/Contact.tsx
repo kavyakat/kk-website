@@ -23,7 +23,7 @@ export default function Contact() {
         </p>
         <div className="flex items-center gap-3 flex-wrap">
           <a
-            href="mailto:kavya.kathuria@example.com"
+            href="mailto:kavyakat@gmail.com"
             className="px-5 py-2.5 bg-gray-900 text-white text-xs font-medium rounded hover:bg-gray-700 transition-colors"
           >
             Email me

@@ -4,12 +4,44 @@ import { useInView } from "@/hooks/useInView";
 
 const experience = [
   {
-    title: "Software Developer",
-    company: "SAP",
-    team: "Commerce Analytics",
-    period: "2023 — Present",
+    title: "Senior AI Data Engineer",
+    company: "SAP Commerce Cloud",
+    team: "Munich, Germany",
+    period: "Jan 2024 — Present",
     description:
-      "Building the analytics layer of the CCv2 platform — event tracking systems, data pipelines, and cloud-native services on SAP BTP.",
+      "Engineering end-to-end data pipelines across SAP BTP and Java-based ETLs. Implementing AI-powered summarization and insights. Driving initiatives from planning through execution with full ownership of major data and engineering projects.",
+  },
+  {
+    title: "Data Scientist",
+    company: "SAP Commerce Cloud",
+    team: "Munich, Germany",
+    period: "May 2022 — Dec 2023",
+    description:
+      "Built analytical dashboards in SAP Analytics Cloud delivering KPIs and AI-powered insights. Maintained SAP HANA Cloud data models and led UI/UX development for internal tools using SAP Fiori standards.",
+  },
+  {
+    title: "Working Student",
+    company: "SAP Commerce Cloud & SAP Kyma",
+    team: "Munich, Germany",
+    period: "Nov 2019 — May 2022",
+    description:
+      "Built dashboards and backend services for SAP Commerce Cloud analytics. Developed a GoLang-based integration library for SAP Kyma and worked with Kubernetes/Docker on AWS, Azure, and GCP.",
+  },
+  {
+    title: "Associate Developer",
+    company: "SAP Master Data Management",
+    team: "Bengaluru, India",
+    period: "Aug 2018 — Aug 2019",
+    description:
+      "Built a centralised Product Master Data orchestration solution on SAP Cloud Platform using CAP. Developed core backend services and applied SAP HANA Cloud and SAP Fiori across the project.",
+  },
+  {
+    title: "Associate Developer",
+    company: "SAP Fieldglass",
+    team: "Bengaluru, India",
+    period: "Jul 2015 — Jul 2018",
+    description:
+      "Contributed to the SAP Fieldglass vendor management system. Created REST APIs with Spring framework and integrated Java microservices for data exchange and operational consistency.",
   },
 ];
 

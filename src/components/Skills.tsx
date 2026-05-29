@@ -5,19 +5,19 @@ import { useInView } from "@/hooks/useInView";
 const skills = [
   {
     group: "Languages",
-    tags: ["Java", "Python"],
+    tags: ["Java", "Python", "SQL", "GoLang"],
   },
   {
-    group: "Platform",
-    tags: ["SAP BTP", "CCv2", "mTLS", "XSUAA"],
+    group: "SAP & Cloud",
+    tags: ["SAP BTP", "SAP HANA Cloud", "SAP Analytics Cloud", "CAP", "SAP Fiori", "SAP Commerce Cloud"],
   },
   {
-    group: "Architecture",
-    tags: ["Event-driven", "Message queues", "Data pipelines"],
+    group: "Data & AI",
+    tags: ["Data pipelines", "Data modeling", "AI summarization", "Forecasting", "Anomaly detection"],
   },
   {
-    group: "Tools",
-    tags: ["CI/CD", "Git"],
+    group: "DevOps",
+    tags: ["Jenkins", "GitHub Actions", "Kubernetes", "Docker", "AWS", "Azure", "GCP"],
   },
 ];
 

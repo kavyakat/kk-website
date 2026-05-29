@@ -23,14 +23,14 @@ export default function Hero() {
         className={`fade-in max-w-2xl ${isVisible ? "visible" : ""}`}
       >
         <p className="text-xs text-gray-400 uppercase tracking-widest mb-4">
-          Software Developer · SAP
+          Senior AI Data Engineer · SAP Commerce Cloud
         </p>
         <h1 className="text-7xl md:text-8xl font-bold text-gray-900 leading-none tracking-tight mb-6">
           Kavya<br />Kathuria
         </h1>
         <p className="text-sm text-gray-500 leading-relaxed max-w-md mb-8">
-          Building analytics infrastructure for SAP Commerce Cloud.
-          Event-driven systems, data pipelines, platform engineering.
+          10+ years building data pipelines, analytical solutions, and AI-driven
+          insights across the SAP ecosystem. Based in Munich.
         </p>
         <div className="flex items-center gap-3 flex-wrap">
           <button
