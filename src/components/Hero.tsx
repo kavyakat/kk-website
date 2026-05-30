@@ -19,25 +19,6 @@ export default function Hero() {
       id="hero"
       className="relative flex items-center bg-indigo-950 px-6 md:px-16 overflow-hidden"
     >
-      {/* Background photo — tight crop, high contrast, right-anchored */}
-      <div className="absolute inset-y-0 right-0 w-1/2 pointer-events-none select-none hidden md:block overflow-hidden">
-        <Image
-          src="/kavya.jpeg"
-          alt=""
-          fill
-          className="object-cover object-top"
-          style={{ opacity: 0.28, filter: "saturate(1.6) contrast(1.1)" }}
-          priority
-          aria-hidden
-        />
-        <div className="absolute inset-0" style={{
-          background: "linear-gradient(to right, #1e1b4b 0%, rgba(30,27,75,0.85) 20%, rgba(30,27,75,0.2) 50%, transparent 100%)"
-        }} />
-        <div className="absolute inset-0" style={{
-          background: "linear-gradient(to bottom, rgba(30,27,75,0.6) 0%, transparent 20%, transparent 80%, rgba(30,27,75,0.6) 100%)"
-        }} />
-      </div>
-
       {/* Foreground content */}
       <div
         ref={ref as React.RefObject<HTMLDivElement>}
@@ -52,8 +33,7 @@ export default function Hero() {
             Kavya<br />Kathuria
           </h1>
           <p className="text-sm md:text-base text-indigo-200 leading-relaxed max-w-2xl mb-8 md:mb-10">
-            10+ years building data pipelines, analytical solutions, and AI-driven
-            insights across the SAP ecosystem. Based in Munich.
+            10+ years across software engineering, data engineering, and AI — currently focused on analytical insights at SAP Commerce Cloud. Based in Munich.
           </p>
           <div className="flex items-center gap-3 flex-wrap">
             <button
@@ -82,9 +62,22 @@ export default function Hero() {
         </div>
       </div>
 
-      <span className="absolute bottom-6 left-6 md:left-16 text-xs text-indigo-700 tracking-widest z-10">
-        01 / 05
-      </span>
+      {/* Headshot — option C: right-anchored, semi-visible */}
+      <div className="absolute inset-y-0 right-0 w-1/2 pointer-events-none select-none hidden md:block overflow-hidden">
+        <Image
+          src="/prof_photo.jpeg"
+          alt=""
+          fill
+          className="object-cover object-top"
+          style={{ opacity: 0.68, transform: "scaleX(-1)", filter: "contrast(1.15) saturate(1.3) brightness(1.05)" }}
+          priority
+          aria-hidden
+        />
+        <div className="absolute inset-0" style={{
+          background: "linear-gradient(to right, #1e1b4b 0%, rgba(30,27,75,0.6) 40%, transparent 100%)"
+        }} />
+      </div>
+
     </section>
   );
 }

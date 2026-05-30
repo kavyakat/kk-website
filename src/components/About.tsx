@@ -44,9 +44,6 @@ export default function About() {
         </a>
       </div>
 
-      <span className="absolute bottom-6 left-6 md:left-16 text-xs text-orange-200 tracking-widest">
-        02 / 05
-      </span>
     </section>
   );
 }

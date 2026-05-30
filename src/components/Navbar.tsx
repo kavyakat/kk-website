@@ -3,9 +3,11 @@
 import { useState } from "react";
 
 const links = [
+  { label: "Home", href: "#hero" },
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
   { label: "Skills", href: "#skills" },
+  { label: "Beyond Work", href: "#beyond-work" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -24,14 +26,7 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100">
-      <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-        <button
-          onClick={() => handleNavClick("#hero")}
-          className="text-sm font-bold tracking-widest text-gray-900 hover:text-accent transition-colors"
-        >
-          KK
-        </button>
-
+      <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between md:justify-center">
         {/* Desktop links */}
         <div className="hidden md:flex gap-8">
           {links.map((link) => (

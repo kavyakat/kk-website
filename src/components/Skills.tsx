@@ -78,9 +78,6 @@ export default function Skills() {
         </div>
       </div>
 
-      <span className="absolute bottom-6 left-6 md:left-16 text-xs text-emerald-200 tracking-widest">
-        04 / 05
-      </span>
     </section>
   );
 }

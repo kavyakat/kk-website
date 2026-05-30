@@ -182,9 +182,6 @@ export default function Experience() {
         </div>
       </div>
 
-      <span className="absolute bottom-6 left-6 md:left-16 text-xs text-slate-300 tracking-widest">
-        03 / 05
-      </span>
     </section>
   );
 }
