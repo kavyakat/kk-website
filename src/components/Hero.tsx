@@ -17,7 +17,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex items-center bg-indigo-950 px-6 md:px-16 overflow-hidden"
+      className="relative flex items-start md:items-center bg-indigo-950 px-6 md:px-16 overflow-hidden pt-[20vh] md:pt-0"
     >
       {/* Foreground content */}
       <div
@@ -26,12 +26,25 @@ export default function Hero() {
       >
         {/* Text */}
         <div className="w-full max-w-2xl">
-          <p className="text-xs font-semibold text-indigo-300 uppercase tracking-[0.2em] mb-4 md:mb-5">
+          <p className="text-[10px] md:text-xs font-semibold text-indigo-300 uppercase tracking-[0.15em] md:tracking-[0.2em] mb-4 md:mb-5 whitespace-nowrap">
             Senior AI Data Engineer · SAP Commerce Cloud
           </p>
-          <h1 className="text-[clamp(3rem,9vw,7rem)] font-black text-white leading-none tracking-tight mb-4 md:mb-6">
-            Kavya<br />Kathuria
-          </h1>
+          <div className="flex items-center justify-between gap-4 mb-4 md:mb-6">
+            <h1 className="text-[clamp(3rem,9vw,7rem)] font-black text-white leading-none tracking-tight">
+              Kavya<br />Kathuria
+            </h1>
+            {/* Circle headshot — mobile only */}
+            <div className="md:hidden flex-shrink-0 w-24 h-24 rounded-full overflow-hidden border-2 border-indigo-400">
+              <Image
+                src="/prof_photo.jpeg"
+                alt="Kavya Kathuria"
+                width={96}
+                height={96}
+                className="object-cover object-top w-full h-full"
+                style={{ transform: "scaleX(-1)" }}
+              />
+            </div>
+          </div>
           <p className="text-sm md:text-base text-indigo-200 leading-relaxed max-w-2xl mb-8 md:mb-10">
             10+ years across software engineering, data engineering, and AI — currently focused on analytical insights at SAP Commerce Cloud. Based in Munich.
           </p>
@@ -60,6 +73,14 @@ export default function Hero() {
             </a>
           </div>
         </div>
+      </div>
+
+      {/* Scroll hint */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-indigo-400 animate-bounce z-10">
+        <span className="text-[10px] uppercase tracking-widest">Scroll</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
       </div>
 
       {/* Headshot — option C: right-anchored, semi-visible */}
