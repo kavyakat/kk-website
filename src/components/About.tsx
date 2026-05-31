@@ -36,8 +36,8 @@ export default function About() {
           worth maintaining — and I still find the problems interesting.
         </p>
         <a
-          href="/resume.pdf"
-          download
+          href="/Kavya_Kathuria_Resume.pdf"
+          download="Kavya Kathuria Resume"
           className="inline-flex items-center gap-2 px-6 py-3 bg-orange-600 text-white text-xs font-bold tracking-wide rounded-lg hover:bg-orange-700 transition-colors"
         >
           Download Resume ↓

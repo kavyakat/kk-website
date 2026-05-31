@@ -8,6 +8,8 @@ export function useInView(threshold = 0.15) {
     const el = ref.current;
     if (!el) return;
 
+    const root = document.getElementById("scroll-container");
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -15,7 +17,7 @@ export function useInView(threshold = 0.15) {
           observer.disconnect();
         }
       },
-      { threshold }
+      { threshold, root }
     );
 
     observer.observe(el);

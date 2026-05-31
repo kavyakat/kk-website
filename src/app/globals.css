@@ -26,7 +26,7 @@ body {
 
 section {
   scroll-snap-align: start;
-  height: calc(100dvh - var(--navbar-height));
+  min-height: calc(100dvh - var(--navbar-height));
 }
 
 /* Fade-in animation for section content */
