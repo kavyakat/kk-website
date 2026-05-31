@@ -22,7 +22,6 @@ export default function Navbar() {
   const progressPct = sectionIds.length > 1
     ? (activeIndex / (sectionIds.length - 1)) * 100
     : 0;
-  const activeLabel = links.find((l) => l.href === `#${activeId}`)?.label ?? "";
 
   const handleNavClick = (href: string) => {
     setMenuOpen(false);
@@ -79,9 +78,6 @@ export default function Navbar() {
             )}
           </svg>
         </button>
-        <span className="md:hidden text-[11px] uppercase tracking-wider font-semibold text-gray-700 flex-1 text-right truncate">
-          {activeLabel}
-        </span>
       </div>
 
       {/* Mobile progress bar */}
