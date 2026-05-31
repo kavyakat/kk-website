@@ -1,7 +1,6 @@
 "use client";
 
 import { useInView } from "@/hooks/useInView";
-import ScrollHint from "@/components/ScrollHint";
 
 export default function About() {
   const { ref, isVisible } = useInView();
@@ -25,16 +24,12 @@ export default function About() {
           layer of SAP Commerce Cloud v2: event tracking infrastructure, data pipelines,
           backend services, and the dashboards and AI features built on top of them.
         </p>
-        <p className="text-sm md:text-base text-gray-800 leading-loose max-w-2xl mb-4 md:mb-6">
+        <p className="text-sm md:text-base text-gray-800 leading-loose max-w-2xl mb-6 md:mb-8">
           My stack spans Java and Python backends, SAP BTP, HANA Cloud, and SAP Analytics
           Cloud. I&apos;ve taken projects from early design through production — owning the
           engineering end to end, not just a slice of it. More recently, that&apos;s included
           AI: summarization, forecasting, and anomaly detection running in production on
           real commerce data.
-        </p>
-        <p className="text-sm md:text-base text-orange-400 leading-loose max-w-2xl mb-6 md:mb-8">
-          10+ years in. I care about building things that are correct, reliable, and
-          worth maintaining — and I still find the problems interesting.
         </p>
         <a
           href="/Kavya_Kathuria_Resume.pdf"
@@ -44,7 +39,6 @@ export default function About() {
           Download Resume ↓
         </a>
       </div>
-      <ScrollHint targetId="experience" />
     </section>
   );
 }
