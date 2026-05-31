@@ -79,7 +79,7 @@ export default function Navbar() {
             )}
           </svg>
         </button>
-        <span className="md:hidden text-[11px] uppercase tracking-wider font-semibold text-gray-700">
+        <span className="md:hidden text-[11px] uppercase tracking-wider font-semibold text-gray-700 flex-1 text-right truncate">
           {activeLabel}
         </span>
       </div>
