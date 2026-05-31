@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useInView } from "@/hooks/useInView";
+import ScrollHint from "@/components/ScrollHint";
 
 export default function Hero() {
   const { ref, isVisible } = useInView();
@@ -76,12 +77,7 @@ export default function Hero() {
       </div>
 
       {/* Scroll hint */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-indigo-400 animate-bounce z-10">
-        <span className="text-[10px] uppercase tracking-widest">Scroll</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="6 9 12 15 18 9" />
-        </svg>
-      </div>
+      <ScrollHint targetId="about" />
 
       {/* Headshot — option C: right-anchored, semi-visible */}
       <div className="absolute inset-y-0 right-0 w-1/2 pointer-events-none select-none hidden md:block overflow-hidden">
