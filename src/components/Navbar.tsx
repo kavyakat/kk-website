@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useActiveSection } from "@/hooks/useActiveSection";
 
 const links = [
   { label: "Home", href: "#hero" },
@@ -11,8 +12,17 @@ const links = [
   { label: "Contact", href: "#contact" },
 ];
 
+const sectionIds = links.map((l) => l.href.replace("#", ""));
+
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const activeId = useActiveSection(sectionIds);
+
+  const activeIndex = sectionIds.indexOf(activeId);
+  const progressPct = sectionIds.length > 1
+    ? (activeIndex / (sectionIds.length - 1)) * 100
+    : 0;
+  const activeLabel = links.find((l) => l.href === `#${activeId}`)?.label ?? "";
 
   const handleNavClick = (href: string) => {
     setMenuOpen(false);
@@ -29,18 +39,25 @@ export default function Navbar() {
       <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between md:justify-center">
         {/* Desktop links */}
         <div className="hidden md:flex gap-8">
-          {links.map((link) => (
-            <button
-              key={link.href}
-              onClick={() => handleNavClick(link.href)}
-              className="text-xs text-gray-500 hover:text-gray-900 transition-colors tracking-wide"
-            >
-              {link.label}
-            </button>
-          ))}
+          {links.map((link) => {
+            const isActive = link.href === `#${activeId}`;
+            return (
+              <button
+                key={link.href}
+                onClick={() => handleNavClick(link.href)}
+                className={`text-xs tracking-wide transition-colors border-b pb-0.5 ${
+                  isActive
+                    ? "text-gray-900 border-gray-900"
+                    : "text-gray-500 border-transparent hover:text-gray-900"
+                }`}
+              >
+                {link.label}
+              </button>
+            );
+          })}
         </div>
 
-        {/* Mobile hamburger */}
+        {/* Mobile: hamburger + active section label */}
         <button
           className="md:hidden text-gray-500 hover:text-gray-900"
           onClick={() => setMenuOpen((v) => !v)}
@@ -62,6 +79,17 @@ export default function Navbar() {
             )}
           </svg>
         </button>
+        <span className="md:hidden text-[11px] uppercase tracking-wider font-semibold text-gray-700">
+          {activeLabel}
+        </span>
+      </div>
+
+      {/* Mobile progress bar */}
+      <div className="md:hidden h-[2px] bg-gray-100">
+        <div
+          className="h-[2px] bg-gray-900 transition-all duration-300"
+          style={{ width: `${progressPct}%` }}
+        />
       </div>
 
       {/* Mobile dropdown */}
