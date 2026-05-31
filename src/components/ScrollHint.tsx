@@ -14,15 +14,17 @@ export default function ScrollHint({ targetId }: ScrollHintProps) {
   };
 
   return (
-    <button
-      onClick={handleClick}
-      aria-label="Scroll to next section"
-      className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-indigo-400 animate-bounce z-10 cursor-pointer bg-transparent border-none p-0"
-    >
-      <span className="text-[10px] uppercase tracking-widest">Scroll</span>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="6 9 12 15 18 9" />
-      </svg>
-    </button>
+    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10">
+      <button
+        onClick={handleClick}
+        aria-label="Scroll to next section"
+        className="flex flex-col items-center gap-1 text-indigo-400 animate-bounce cursor-pointer bg-transparent border-none p-0"
+      >
+        <span className="text-[10px] uppercase tracking-widest">Scroll</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
+    </div>
   );
 }
