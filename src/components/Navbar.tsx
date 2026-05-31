@@ -91,15 +91,22 @@ export default function Navbar() {
       {/* Mobile dropdown */}
       {menuOpen && (
         <div className="md:hidden bg-white border-t border-gray-100 px-6 py-4 flex flex-col gap-4">
-          {links.map((link) => (
-            <button
-              key={link.href}
-              onClick={() => handleNavClick(link.href)}
-              className="text-sm text-gray-600 hover:text-gray-900 text-left transition-colors"
-            >
-              {link.label}
-            </button>
-          ))}
+          {links.map((link) => {
+            const isActive = link.href === `#${activeId}`;
+            return (
+              <button
+                key={link.href}
+                onClick={() => handleNavClick(link.href)}
+                className={`text-sm text-left transition-colors border-b pb-0.5 w-fit ${
+                  isActive
+                    ? "text-gray-900 border-gray-900"
+                    : "text-gray-600 border-transparent hover:text-gray-900"
+                }`}
+              >
+                {link.label}
+              </button>
+            );
+          })}
         </div>
       )}
     </nav>
