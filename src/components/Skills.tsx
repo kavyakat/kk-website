@@ -1,6 +1,7 @@
 "use client";
 
 import { useInView } from "@/hooks/useInView";
+import ScrollHint from "@/components/ScrollHint";
 
 const skills = [
   {
@@ -77,7 +78,7 @@ export default function Skills() {
           ))}
         </div>
       </div>
-
+      <ScrollHint targetId="beyond-work" />
     </section>
   );
 }

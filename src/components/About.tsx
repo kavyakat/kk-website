@@ -1,6 +1,7 @@
 "use client";
 
 import { useInView } from "@/hooks/useInView";
+import ScrollHint from "@/components/ScrollHint";
 
 export default function About() {
   const { ref, isVisible } = useInView();
@@ -43,7 +44,7 @@ export default function About() {
           Download Resume ↓
         </a>
       </div>
-
+      <ScrollHint targetId="experience" />
     </section>
   );
 }

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { useInView } from "@/hooks/useInView";
+import ScrollHint from "@/components/ScrollHint";
 
 const experience = [
   {
@@ -181,7 +182,7 @@ export default function Experience() {
           ))}
         </div>
       </div>
-
+      <ScrollHint targetId="skills" />
     </section>
   );
 }

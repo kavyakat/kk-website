@@ -1,6 +1,7 @@
 "use client";
 
 import { useInView } from "@/hooks/useInView";
+import ScrollHint from "@/components/ScrollHint";
 
 export default function BeyondWork() {
   const { ref, isVisible } = useInView();
@@ -46,6 +47,7 @@ export default function BeyondWork() {
           </a>
         </div>
       </div>
+      <ScrollHint targetId="contact" />
     </section>
   );
 }
