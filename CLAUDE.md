@@ -4,6 +4,20 @@ Project-specific memory for kk_website, moved out of the global `about-me/memory
 
 ---
 
+## Active redesign in progress: Windows 98 desktop portfolio
+
+The whole site is being rebuilt as a Windows 98 desktop simulation (draggable windows, taskbar/Start menu, boot sequence) replacing the current scroll-snap page described further down in this file. That "Current state" section below describes what's live on `main` — it does not describe this redesign.
+
+- **Branch:** `win98-redesign` (pushed to origin, tracking set up)
+- **Design spec:** `docs/superpowers/specs/2026-07-24-win98-portfolio-redesign-design.md` — full design: desktop shell, content-to-window mapping, the live 2-agent A2A chat showcase ("Ask Kavya's Agents" — Kavya Agent + Fun Facts Agent, real Agent Cards + task-based JSON-RPC delegation, Groq + Upstash), Minesweeper/Solitaire, mobile fallback, what gets removed from the current site
+- **Implementation plans** (`docs/superpowers/plans/`), written via the superpowers writing-plans skill:
+  - `2026-07-24-win98-desktop-shell.md` — **written, not yet executed.** Phase 1 of 3: window manager, boot sequence, taskbar/Start menu, and the 5 content windows (About/Experience/Skills/Resume/Contact) with mobile fallback. Produces a fully working, deployable site on its own.
+  - **Agent Showcase plan — not written yet.** Needs a Groq account + API key and an Upstash Redis instance (Kavya has to create these; blocking dependency).
+  - **Games plan — not written yet.** Minesweeper + Solitaire.
+- To continue on a new machine: check out `win98-redesign`, then either write the remaining two plans, or execute the Desktop Shell plan via `superpowers:subagent-driven-development` / `superpowers:executing-plans`.
+
+---
+
 ## kk_website — Personal Website
 - **Location:** `C:\Projects\kk-website`
 - **Live URL:** https://kavyakathuria.vercel.app
