@@ -3,41 +3,7 @@
 @tailwind utilities;
 @import "98.css";
 
-:root {
-  --navbar-height: 57px;
-}
-
 body {
-  height: 100dvh;
+  margin: 0;
   overflow: hidden;
-}
-
-#scroll-container {
-  height: 100dvh;
-  overflow-y: auto;
-  scroll-snap-type: y mandatory;
-  scrollbar-width: none;
-  padding-top: var(--navbar-height);
-  box-sizing: border-box;
-}
-
-#scroll-container::-webkit-scrollbar {
-  display: none;
-}
-
-section {
-  scroll-snap-align: start;
-  min-height: 100dvh;
-}
-
-/* Fade-in animation for section content */
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
 }
