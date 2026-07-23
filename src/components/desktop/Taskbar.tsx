@@ -41,7 +41,7 @@ export default function Taskbar({ isMobile, windows, onSelectApp }: TaskbarProps
         zIndex: 300,
       }}
     >
-      <button onClick={() => setStartOpen((v) => !v)} style={{ fontWeight: "bold", fontSize: 11, height: 22, padding: "0 10px" }}>
+      <button onClick={() => setStartOpen((v) => !v)} style={{ fontWeight: "bold", fontSize: 11, color: "#000", height: 22, padding: "0 10px" }}>
         Start
       </button>
       {startOpen && <StartMenu isMobile={isMobile} onSelect={(id) => onSelectApp(id)} onClose={() => setStartOpen(false)} />}
@@ -49,7 +49,7 @@ export default function Taskbar({ isMobile, windows, onSelectApp }: TaskbarProps
         <button
           key={app.id}
           onClick={() => onSelectApp(app.id)}
-          style={{ fontSize: 11, height: 22, padding: "0 10px", minWidth: 100, textAlign: "left" }}
+          style={{ fontSize: 11, color: "#000", height: 22, padding: "0 10px", minWidth: 100, textAlign: "left" }}
         >
           {app.icon} {app.label}
         </button>
