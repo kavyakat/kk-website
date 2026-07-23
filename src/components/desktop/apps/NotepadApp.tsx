@@ -5,7 +5,7 @@ export default function NotepadApp() {
     <div
       style={{
         background: "#fff",
-        height: "100%",
+        minHeight: "100%",
         padding: 8,
         fontFamily: "'Courier New', monospace",
         fontSize: 12,

@@ -6,9 +6,12 @@ const baseProps = {
   title: "About.txt",
   isFocused: true,
   isMobile: false,
+  maximized: false,
   position: { x: 10, y: 20 },
   size: { width: 300, height: 200 },
   onMove: vi.fn(),
+  onResize: vi.fn(),
+  onToggleMaximize: vi.fn(),
 };
 
 describe("Window", () => {
@@ -33,6 +36,27 @@ describe("Window", () => {
     );
     fireEvent.click(screen.getByRole("button", { name: /minimize/i }));
     expect(onMinimize).toHaveBeenCalled();
+  });
+
+  it("calls onToggleMaximize when the maximize button is clicked", () => {
+    const onToggleMaximize = vi.fn();
+    render(
+      <Window {...baseProps} onToggleMaximize={onToggleMaximize} onFocus={vi.fn()} onClose={vi.fn()} onMinimize={vi.fn()}>
+        <p>content</p>
+      </Window>
+    );
+    fireEvent.click(screen.getByRole("button", { name: /maximize/i }));
+    expect(onToggleMaximize).toHaveBeenCalled();
+  });
+
+  it("shows a Restore button instead of Maximize when maximized", () => {
+    render(
+      <Window {...baseProps} maximized onFocus={vi.fn()} onClose={vi.fn()} onMinimize={vi.fn()}>
+        <p>content</p>
+      </Window>
+    );
+    expect(screen.getByRole("button", { name: /restore/i })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /maximize/i })).not.toBeInTheDocument();
   });
 
   it("calls onFocus when the window body is clicked", () => {

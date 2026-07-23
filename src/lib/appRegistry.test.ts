@@ -10,7 +10,7 @@ describe("appRegistry", () => {
   it("gives every app a non-empty label and icon", () => {
     for (const app of appRegistry) {
       expect(app.label.length).toBeGreaterThan(0);
-      expect(app.icon.length).toBeGreaterThan(0);
+      expect(app.iconSrc.length).toBeGreaterThan(0);
     }
   });
 });

@@ -7,3 +7,12 @@ body {
   margin: 0;
   overflow: hidden;
 }
+
+@keyframes boot-bar {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(400%);
+  }
+}

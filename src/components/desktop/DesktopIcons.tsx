@@ -18,7 +18,7 @@ export default function DesktopIcons({ isMobile, onOpen }: DesktopIconsProps) {
       }
     >
       {appRegistry.map((app) => (
-        <DesktopIcon key={app.id} label={app.label} icon={app.icon} isMobile={isMobile} onOpen={() => onOpen(app.id)} />
+        <DesktopIcon key={app.id} label={app.label} iconSrc={app.iconSrc} isMobile={isMobile} onOpen={() => onOpen(app.id)} />
       ))}
     </div>
   );
