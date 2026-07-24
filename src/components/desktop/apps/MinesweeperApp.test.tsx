@@ -1,10 +1,10 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import MinesweeperApp from "./MinesweeperApp";
 
 describe("MinesweeperApp", () => {
   it("renders a 9×9 grid of cells and a reset button", () => {
-    render(<MinesweeperApp onLaunchApp={vi.fn()} />);
+    render(<MinesweeperApp />);
     expect(screen.getByLabelText("cell-0-0")).toBeInTheDocument();
     expect(screen.getByLabelText("cell-8-8")).toBeInTheDocument();
     expect(
@@ -14,14 +14,14 @@ describe("MinesweeperApp", () => {
   });
 
   it("reveals cells on left click (first click never loses)", () => {
-    render(<MinesweeperApp onLaunchApp={vi.fn()} />);
+    render(<MinesweeperApp />);
     const cell = screen.getByLabelText("cell-4-4");
     fireEvent.click(cell);
     expect(screen.getByRole("button", { name: /reset/i })).not.toHaveTextContent("😵");
   });
 
   it("flags a cell on right click and updates the mine counter", () => {
-    render(<MinesweeperApp onLaunchApp={vi.fn()} />);
+    render(<MinesweeperApp />);
     const counter = screen.getByTestId("mine-counter");
     expect(counter).toHaveTextContent("10");
     fireEvent.contextMenu(screen.getByLabelText("cell-0-0"));
@@ -29,7 +29,7 @@ describe("MinesweeperApp", () => {
   });
 
   it("resets to a fresh board", () => {
-    render(<MinesweeperApp onLaunchApp={vi.fn()} />);
+    render(<MinesweeperApp />);
     fireEvent.contextMenu(screen.getByLabelText("cell-0-0"));
     expect(screen.getByTestId("mine-counter")).toHaveTextContent("9");
     fireEvent.click(screen.getByRole("button", { name: /reset/i }));

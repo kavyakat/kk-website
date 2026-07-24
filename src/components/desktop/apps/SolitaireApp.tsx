@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import type { AppId } from "@/lib/appRegistry";
 import {
   color,
   createDeck,
@@ -37,7 +36,7 @@ interface DragSource {
   cardId: string;
 }
 
-export default function SolitaireApp(_props: { onLaunchApp?: (id: AppId) => void }) {
+export default function SolitaireApp() {
   const [state, setState] = useState<GameState>(freshGame);
   const [drag, setDrag] = useState<DragSource | null>(null);
 

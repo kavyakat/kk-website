@@ -20,8 +20,12 @@ import ContactApp from "./apps/ContactApp";
 import AgentChatApp from "./apps/AgentChatApp";
 import MinesweeperApp from "./apps/MinesweeperApp";
 import SolitaireApp from "./apps/SolitaireApp";
+import TerminalApp from "./apps/TerminalApp";
+import SettingsApp from "./apps/SettingsApp";
+import FindApp from "./apps/FindApp";
+import HelpApp from "./apps/HelpApp";
 
-type AppContentProps = { onLaunchApp: (id: AppId) => void };
+type AppContentProps = { onLaunchApp: (id: AppId) => void; onClose?: () => void };
 
 const APP_CONTENT: Record<Exclude<AppId, "agents">, ComponentType<AppContentProps>> = {
   about: NotepadApp,
@@ -31,6 +35,10 @@ const APP_CONTENT: Record<Exclude<AppId, "agents">, ComponentType<AppContentProp
   contact: ContactApp,
   minesweeper: MinesweeperApp,
   solitaire: SolitaireApp,
+  terminal: TerminalApp,
+  settings: SettingsApp,
+  find: FindApp,
+  help: HelpApp,
 };
 
 const defaultCharacter = characters.find((c) => c.id === "clippy")!;
@@ -97,7 +105,7 @@ export default function Desktop() {
             ) : (
               (() => {
                 const Content = APP_CONTENT[app.id];
-                return <Content onLaunchApp={launch} />;
+                return <Content onLaunchApp={launch} onClose={() => closeWindow(app.id)} />;
               })()
             )}
           </Window>

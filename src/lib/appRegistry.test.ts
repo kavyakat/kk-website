@@ -17,6 +17,6 @@ describe("appRegistry", () => {
   it("includes the agents chat app", () => {
     const agents = appRegistry.find((a) => a.id === "agents");
     expect(agents).toBeDefined();
-    expect(agents!.label).toMatch(/Agents/i);
+    expect(agents!.label).toMatch(/Kavya/i);
   });
 });

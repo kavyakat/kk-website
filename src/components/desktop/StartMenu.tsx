@@ -95,7 +95,7 @@ export default function StartMenu({ isMobile, onSelect, onShutDown, onClose }: S
           <span style={{ fontWeight: 700, fontSize: 16, color: "#000" }}>Programs</span>
           <button onClick={onClose} style={{ color: "#000" }}>Close</button>
         </div>
-        {appRegistry.map((app) => (
+        {appRegistry.filter((app) => !app.hidden).map((app) => (
           <MenuItem key={app.id} iconSrc={app.iconSrc} label={app.label} onClick={() => pick(app.id)} />
         ))}
         <Separator />
@@ -133,17 +133,17 @@ export default function StartMenu({ isMobile, onSelect, onShutDown, onClose }: S
 
         <div style={{ position: "relative", minWidth: 190, padding: "2px 0" }}>
           <MenuItem icon="📂" label="Programs" arrow onClick={() => setProgramsOpen((v) => !v)} onMouseEnter={() => setProgramsOpen(true)} />
-          <MenuItem icon="📄" label="Documents" onClick={onClose} onMouseEnter={() => setProgramsOpen(false)} />
-          <MenuItem icon="⚙️" label="Settings" onClick={onClose} onMouseEnter={() => setProgramsOpen(false)} />
-          <MenuItem icon="🔍" label="Find" onClick={onClose} onMouseEnter={() => setProgramsOpen(false)} />
-          <MenuItem icon="❓" label="Help" onClick={onClose} onMouseEnter={() => setProgramsOpen(false)} />
-          <MenuItem icon="🏁" label="Run..." onClick={onClose} onMouseEnter={() => setProgramsOpen(false)} />
+          <MenuItem icon="📄" label="Documents" onClick={() => pick("resume")} onMouseEnter={() => setProgramsOpen(false)} />
+          <MenuItem icon="⚙️" label="Settings" onClick={() => pick("settings")} onMouseEnter={() => setProgramsOpen(false)} />
+          <MenuItem icon="🔍" label="Find" onClick={() => pick("find")} onMouseEnter={() => setProgramsOpen(false)} />
+          <MenuItem icon="❓" label="Help" onClick={() => pick("help")} onMouseEnter={() => setProgramsOpen(false)} />
+          <MenuItem icon="🏁" label="Run..." onClick={() => pick("terminal")} onMouseEnter={() => setProgramsOpen(false)} />
           <Separator />
           <MenuItem icon="🔌" label="Shut Down..." onClick={() => { onClose(); onShutDown(); }} onMouseEnter={() => setProgramsOpen(false)} />
 
           {programsOpen && (
             <Panel style={{ position: "absolute", left: "100%", top: 2, minWidth: 180, padding: "2px 0" }}>
-              {appRegistry.map((app) => (
+              {appRegistry.filter((app) => !app.hidden).map((app) => (
                 <MenuItem key={app.id} iconSrc={app.iconSrc} label={app.label} onClick={() => pick(app.id)} />
               ))}
             </Panel>

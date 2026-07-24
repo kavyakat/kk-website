@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { AppId } from "@/lib/appRegistry";
 import {
   BEGINNER,
   createBoard,
@@ -37,7 +36,7 @@ function panel(children: React.ReactNode) {
   );
 }
 
-export default function MinesweeperApp(_props: { onLaunchApp?: (id: AppId) => void }) {
+export default function MinesweeperApp() {
   const [board, setBoard] = useState<Board>(() => createBoard(BEGINNER.rows, BEGINNER.cols));
   const [placed, setPlaced] = useState(false);
   const [elapsed, setElapsed] = useState(0);

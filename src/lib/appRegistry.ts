@@ -1,4 +1,16 @@
-export type AppId = "about" | "experience" | "skills" | "resume" | "contact" | "agents" | "minesweeper" | "solitaire";
+export type AppId =
+  | "about"
+  | "experience"
+  | "skills"
+  | "resume"
+  | "contact"
+  | "agents"
+  | "minesweeper"
+  | "solitaire"
+  | "terminal"
+  | "settings"
+  | "find"
+  | "help";
 
 export interface AppDefinition {
   id: AppId;
@@ -6,6 +18,7 @@ export interface AppDefinition {
   iconSrc: string;
   defaultPosition: { x: number; y: number };
   defaultSize: { width: number; height: number };
+  hidden?: boolean;
 }
 
 export const appRegistry: AppDefinition[] = [
@@ -17,4 +30,8 @@ export const appRegistry: AppDefinition[] = [
   { id: "agents", label: "About Kavya", iconSrc: "/icons/agents.png", defaultPosition: { x: 240, y: 60 }, defaultSize: { width: 400, height: 480 } },
   { id: "minesweeper", label: "Minesweeper", iconSrc: "/icons/minesweeper.svg", defaultPosition: { x: 300, y: 100 }, defaultSize: { width: 250, height: 322 } },
   { id: "solitaire", label: "Solitaire", iconSrc: "/icons/solitaire.svg", defaultPosition: { x: 120, y: 60 }, defaultSize: { width: 480, height: 440 } },
+  { id: "terminal", label: "MS-DOS Prompt", iconSrc: "/icons/terminal.svg", defaultPosition: { x: 160, y: 70 }, defaultSize: { width: 540, height: 380 }, hidden: true },
+  { id: "settings", label: "Display Properties", iconSrc: "/icons/settings.svg", defaultPosition: { x: 220, y: 90 }, defaultSize: { width: 400, height: 380 }, hidden: true },
+  { id: "find", label: "Find: All Files", iconSrc: "/icons/find.svg", defaultPosition: { x: 260, y: 110 }, defaultSize: { width: 440, height: 320 }, hidden: true },
+  { id: "help", label: "Help", iconSrc: "/icons/help.svg", defaultPosition: { x: 300, y: 130 }, defaultSize: { width: 420, height: 340 }, hidden: true },
 ];
