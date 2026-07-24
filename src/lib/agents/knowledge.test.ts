@@ -9,6 +9,11 @@ describe("knowledge", () => {
     expect(kavyaKnowledge).toMatch(/github\.com\/kavyakat/);
   });
 
+  it("kavyaKnowledge includes education and a professional summary", () => {
+    expect(kavyaKnowledge).toMatch(/Manipal Institute of Technology/);
+    expect(kavyaKnowledge).toMatch(/10\+ years/);
+  });
+
   it("funFactsKnowledge is the table tennis block", () => {
     expect(funFactsKnowledge).toMatch(/table tennis/i);
   });

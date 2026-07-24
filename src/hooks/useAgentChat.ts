@@ -13,8 +13,8 @@ export interface ChatEntry {
 
 const LABELS: Record<string, string> = {
   about: "Tell me about Kavya",
-  experience: "What's her experience?",
-  skills: "What are her skills?",
+  experience: "What's his experience?",
+  skills: "What are his skills?",
   funFacts: "Any fun facts? 🏓",
 };
 
