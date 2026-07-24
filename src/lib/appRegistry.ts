@@ -1,4 +1,4 @@
-export type AppId = "about" | "experience" | "skills" | "resume" | "contact" | "agents";
+export type AppId = "about" | "experience" | "skills" | "resume" | "contact" | "agents" | "minesweeper";
 
 export interface AppDefinition {
   id: AppId;
@@ -15,4 +15,5 @@ export const appRegistry: AppDefinition[] = [
   { id: "resume", label: "Resume.pdf", iconSrc: "/icons/resume.png", defaultPosition: { x: 320, y: 80 }, defaultSize: { width: 500, height: 620 } },
   { id: "contact", label: "Contact.exe", iconSrc: "/icons/contact.png", defaultPosition: { x: 180, y: 200 }, defaultSize: { width: 420, height: 320 } },
   { id: "agents", label: "Ask Kavya's Agents", iconSrc: "/icons/agents.png", defaultPosition: { x: 240, y: 60 }, defaultSize: { width: 400, height: 480 } },
+  { id: "minesweeper", label: "Minesweeper", iconSrc: "/icons/minesweeper.svg", defaultPosition: { x: 300, y: 100 }, defaultSize: { width: 250, height: 322 } },
 ];

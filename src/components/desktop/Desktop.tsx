@@ -18,6 +18,7 @@ import SkillsApp from "./apps/SkillsApp";
 import ResumeApp from "./apps/ResumeApp";
 import ContactApp from "./apps/ContactApp";
 import AgentChatApp from "./apps/AgentChatApp";
+import MinesweeperApp from "./apps/MinesweeperApp";
 
 type AppContentProps = { onLaunchApp: (id: AppId) => void };
 
@@ -27,6 +28,7 @@ const APP_CONTENT: Record<Exclude<AppId, "agents">, ComponentType<AppContentProp
   skills: SkillsApp,
   resume: ResumeApp,
   contact: ContactApp,
+  minesweeper: MinesweeperApp,
 };
 
 const defaultCharacter = characters.find((c) => c.id === "clippy")!;
