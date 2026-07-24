@@ -2,11 +2,13 @@
 
 import { useState, type ComponentType } from "react";
 import { appRegistry, type AppId } from "@/lib/appRegistry";
+import { characters, type Character } from "@/lib/agents/characters";
 import { useWindowManager } from "@/hooks/useWindowManager";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import BootSequence from "./BootSequence";
 import ShutdownSequence from "./ShutdownSequence";
 import DesktopIcons from "./DesktopIcons";
+import DesktopBuddy from "./DesktopBuddy";
 import Taskbar from "./Taskbar";
 import Window from "./Window";
 import NotepadApp from "./apps/NotepadApp";
@@ -18,19 +20,21 @@ import AgentChatApp from "./apps/AgentChatApp";
 
 type AppContentProps = { onLaunchApp: (id: AppId) => void };
 
-const APP_CONTENT: Record<AppId, ComponentType<AppContentProps>> = {
+const APP_CONTENT: Record<Exclude<AppId, "agents">, ComponentType<AppContentProps>> = {
   about: NotepadApp,
   experience: ExperienceApp,
   skills: SkillsApp,
   resume: ResumeApp,
   contact: ContactApp,
-  agents: AgentChatApp,
 };
+
+const defaultCharacter = characters.find((c) => c.id === "clippy")!;
 
 type Phase = "boot" | "running" | "shutdown";
 
 export default function Desktop() {
   const [phase, setPhase] = useState<Phase>("boot");
+  const [character, setCharacter] = useState<Character>(defaultCharacter);
   const isMobile = useIsMobile();
   const { windows, openWindow, closeWindow, minimizeWindow, focusWindow, moveWindow, resizeWindow, toggleMaximize } =
     useWindowManager();
@@ -58,7 +62,6 @@ export default function Desktop() {
       {appRegistry.map((app) => {
         const state = windows[app.id];
         if (!state || !state.open || state.minimized) return null;
-        const Content = APP_CONTENT[app.id];
         return (
           <Window
             key={app.id}
@@ -75,10 +78,19 @@ export default function Desktop() {
             onMove={(pos) => moveWindow(app.id, pos)}
             onResize={(size) => resizeWindow(app.id, size)}
           >
-            <Content onLaunchApp={launch} />
+            {app.id === "agents" ? (
+              <AgentChatApp onLaunchApp={launch} character={character} onChangeCharacter={setCharacter} />
+            ) : (
+              (() => {
+                const Content = APP_CONTENT[app.id];
+                return <Content onLaunchApp={launch} />;
+              })()
+            )}
           </Window>
         );
       })}
+
+      {!isMobile && <DesktopBuddy character={character} agents={windows.agents} onOpen={() => launch("agents")} />}
 
       <Taskbar isMobile={isMobile} windows={windows} onSelectApp={launch} onShutDown={() => setPhase("shutdown")} />
     </div>

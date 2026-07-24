@@ -4,20 +4,33 @@ import { useState } from "react";
 import type { AppId } from "@/lib/appRegistry";
 import { characters, type Character } from "@/lib/agents/characters";
 import { useAgentChat } from "@/hooks/useAgentChat";
+import { DOCK_SIZE } from "../DesktopBuddy";
 import CharacterPicker from "./chat/CharacterPicker";
 import QuickActions from "./chat/QuickActions";
 import ChatMessageView from "./chat/ChatMessageView";
-import Avatar from "./chat/Avatar";
 
 const MAX_INPUT = 200;
 
-export default function AgentChatApp({ onLaunchApp }: { onLaunchApp: (id: AppId) => void }) {
-  const [character, setCharacter] = useState<Character | null>(null);
+interface AgentChatAppProps {
+  onLaunchApp: (id: AppId) => void;
+  character: Character;
+  onChangeCharacter: (character: Character) => void;
+}
+
+export default function AgentChatApp({ onLaunchApp, character, onChangeCharacter }: AgentChatAppProps) {
+  const [pickerOpen, setPickerOpen] = useState(false);
   const [input, setInput] = useState("");
   const { messages, sending, resting, send } = useAgentChat();
 
-  if (!character) {
-    return <CharacterPicker onPick={(id) => setCharacter(characters.find((c) => c.id === id)!)} />;
+  if (pickerOpen) {
+    return (
+      <CharacterPicker
+        onPick={(id) => {
+          onChangeCharacter(characters.find((c) => c.id === id)!);
+          setPickerOpen(false);
+        }}
+      />
+    );
   }
 
   const submit = (e: React.FormEvent) => {
@@ -31,8 +44,15 @@ export default function AgentChatApp({ onLaunchApp }: { onLaunchApp: (id: AppId)
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100%", background: "#c0c0c0" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 8, padding: 6, borderBottom: "1px solid #808080" }}>
-        <Avatar character={character} size={28} />
+        <span aria-hidden style={{ width: DOCK_SIZE, height: DOCK_SIZE, flexShrink: 0 }} />
         <span style={{ fontSize: 12, color: "#000" }}>{character.name} &mdash; Kavya&apos;s assistant</span>
+        <button
+          type="button"
+          onClick={() => setPickerOpen(true)}
+          style={{ marginLeft: "auto", fontSize: 11, color: "#000", padding: "2px 8px" }}
+        >
+          Change assistant
+        </button>
       </div>
 
       <div style={{ flex: 1, overflowY: "auto", padding: 8, background: "#fff", border: "1px solid #808080", margin: 6 }}>
@@ -56,7 +76,7 @@ export default function AgentChatApp({ onLaunchApp }: { onLaunchApp: (id: AppId)
           maxLength={MAX_INPUT}
           disabled={sending || resting}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask about Kavya…"
+          placeholder="Ask me anything…"
           aria-label="Message"
           style={{ flex: 1, fontSize: 12, padding: "3px 6px" }}
         />
