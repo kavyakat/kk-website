@@ -10,10 +10,10 @@ export const DOCK_SIZE = 32;
 const TASKBAR_H = 30;
 
 const MOTION: Record<Character["id"], { ms: number; easing: string; anim: string }> = {
-  clippy: { ms: 820, easing: "cubic-bezier(0.28,0.84,0.42,1)", anim: "buddyHop" },
-  merlin: { ms: 900, easing: "cubic-bezier(0.4,0,0.2,1)", anim: "buddyFly" },
-  rover: { ms: 560, easing: "cubic-bezier(0.3,0.1,0.3,1)", anim: "buddyRun" },
-  genius: { ms: 700, easing: "cubic-bezier(0.4,0,0.2,1)", anim: "buddyFloat" },
+  clippy: { ms: 1400, easing: "cubic-bezier(0.28,0.84,0.42,1)", anim: "buddyHop" },
+  merlin: { ms: 1550, easing: "cubic-bezier(0.4,0,0.2,1)", anim: "buddyFly" },
+  rover: { ms: 1000, easing: "cubic-bezier(0.3,0.1,0.3,1)", anim: "buddyRun" },
+  genius: { ms: 1250, easing: "cubic-bezier(0.4,0,0.2,1)", anim: "buddyFloat" },
 };
 
 interface DesktopBuddyProps {
@@ -25,8 +25,12 @@ interface DesktopBuddyProps {
 export default function DesktopBuddy({ character, agents, onOpen }: DesktopBuddyProps) {
   const [viewport, setViewport] = useState({ w: 0, h: 0 });
   const [flying, setFlying] = useState(false);
+  const [tripId, setTripId] = useState(0);
   const active = !!agents?.open && !agents.minimized;
-  const prevActive = useRef(active);
+  const maximized = !!agents?.maximized;
+  const [display, setDisplay] = useState({ active, maximized });
+  const signature = `${active}:${maximized}`;
+  const prevSignature = useRef(signature);
   const motion = MOTION[character.id];
 
   useEffect(() => {
@@ -37,30 +41,38 @@ export default function DesktopBuddy({ character, agents, onOpen }: DesktopBuddy
   }, []);
 
   useEffect(() => {
-    if (prevActive.current === active) return;
-    prevActive.current = active;
+    if (prevSignature.current === signature) return;
+    prevSignature.current = signature;
     setFlying(true);
+    setTripId((n) => n + 1);
+    const raf = requestAnimationFrame(() => setDisplay({ active, maximized }));
     const t = setTimeout(() => setFlying(false), motion.ms + 100);
-    return () => clearTimeout(t);
-  }, [active, motion.ms]);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(t);
+    };
+  }, [signature, active, maximized, motion.ms]);
 
   if (!viewport.w) return null;
 
-  const target = active
-    ? {
-        left: (agents!.maximized ? 0 : agents!.position.x) + 9,
-        top: (agents!.maximized ? 0 : agents!.position.y) + 30,
-        size: DOCK_SIZE,
-      }
-    : {
-        left: viewport.w - CORNER_SIZE - 24,
-        top: viewport.h - TASKBAR_H - CORNER_SIZE - 18,
-        size: CORNER_SIZE,
-      };
+  const target =
+    display.active && agents
+      ? {
+          left: (display.maximized ? 0 : agents.position.x) + 9,
+          top: (display.maximized ? 0 : agents.position.y) + 30,
+          size: DOCK_SIZE,
+        }
+      : {
+          left: viewport.w - CORNER_SIZE - 24,
+          top: viewport.h - TASKBAR_H - CORNER_SIZE - 18,
+          size: CORNER_SIZE,
+        };
+
+  const atRest = !active && !flying;
 
   const innerAnimation = flying
     ? `${motion.anim} ${motion.ms}ms ${motion.easing}`
-    : !active
+    : atRest
       ? "buddyBob 2.4s ease-in-out infinite"
       : undefined;
 
@@ -85,11 +97,12 @@ export default function DesktopBuddy({ character, agents, onOpen }: DesktopBuddy
         zIndex: 1000,
         cursor: "pointer",
         transition: flying
-          ? `left ${motion.ms}ms ${motion.easing}, top ${motion.ms}ms ${motion.easing}, width 0.3s ease, height 0.3s ease`
+          ? `left ${motion.ms}ms ${motion.easing}, top ${motion.ms}ms ${motion.easing}, width ${motion.ms}ms ${motion.easing}, height ${motion.ms}ms ${motion.easing}`
           : "none",
       }}
     >
       <div
+        key={tripId}
         style={{
           width: "100%",
           height: "100%",
@@ -100,7 +113,7 @@ export default function DesktopBuddy({ character, agents, onOpen }: DesktopBuddy
         <Avatar character={character} size={target.size} />
       </div>
 
-      {!active && (
+      {atRest && (
         <div
           style={{
             position: "absolute",
