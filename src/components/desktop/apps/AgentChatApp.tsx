@@ -32,7 +32,7 @@ export default function AgentChatApp({ onLaunchApp }: { onLaunchApp: (id: AppId)
     <div style={{ display: "flex", flexDirection: "column", height: "100%", background: "#c0c0c0" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 8, padding: 6, borderBottom: "1px solid #808080" }}>
         <Avatar character={character} size={28} />
-        <span style={{ fontSize: 12, color: "#000" }}>{character.name} — Kavya's assistant</span>
+        <span style={{ fontSize: 12, color: "#000" }}>{character.name} &mdash; Kavya&apos;s assistant</span>
       </div>
 
       <div style={{ flex: 1, overflowY: "auto", padding: 8, background: "#fff", border: "1px solid #808080", margin: 6 }}>

@@ -1,4 +1,4 @@
-export type AppId = "about" | "experience" | "skills" | "resume" | "contact";
+export type AppId = "about" | "experience" | "skills" | "resume" | "contact" | "agents";
 
 export interface AppDefinition {
   id: AppId;
@@ -14,4 +14,5 @@ export const appRegistry: AppDefinition[] = [
   { id: "skills", label: "System Properties", iconSrc: "/icons/skills.png", defaultPosition: { x: 260, y: 150 }, defaultSize: { width: 440, height: 380 } },
   { id: "resume", label: "Resume.pdf", iconSrc: "/icons/resume.png", defaultPosition: { x: 320, y: 80 }, defaultSize: { width: 500, height: 620 } },
   { id: "contact", label: "Contact.exe", iconSrc: "/icons/contact.png", defaultPosition: { x: 180, y: 200 }, defaultSize: { width: 420, height: 320 } },
+  { id: "agents", label: "Ask Kavya's Agents", iconSrc: "/icons/agents.png", defaultPosition: { x: 240, y: 60 }, defaultSize: { width: 400, height: 480 } },
 ];

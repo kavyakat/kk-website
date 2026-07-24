@@ -13,4 +13,10 @@ describe("appRegistry", () => {
       expect(app.iconSrc.length).toBeGreaterThan(0);
     }
   });
+
+  it("includes the agents chat app", () => {
+    const agents = appRegistry.find((a) => a.id === "agents");
+    expect(agents).toBeDefined();
+    expect(agents!.label).toMatch(/Agents/i);
+  });
 });

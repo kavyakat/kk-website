@@ -14,13 +14,17 @@ import ExperienceApp from "./apps/ExperienceApp";
 import SkillsApp from "./apps/SkillsApp";
 import ResumeApp from "./apps/ResumeApp";
 import ContactApp from "./apps/ContactApp";
+import AgentChatApp from "./apps/AgentChatApp";
 
-const APP_CONTENT: Record<AppId, ComponentType> = {
+type AppContentProps = { onLaunchApp: (id: AppId) => void };
+
+const APP_CONTENT: Record<AppId, ComponentType<AppContentProps>> = {
   about: NotepadApp,
   experience: ExperienceApp,
   skills: SkillsApp,
   resume: ResumeApp,
   contact: ContactApp,
+  agents: AgentChatApp,
 };
 
 type Phase = "boot" | "running" | "shutdown";
@@ -71,7 +75,7 @@ export default function Desktop() {
             onMove={(pos) => moveWindow(app.id, pos)}
             onResize={(size) => resizeWindow(app.id, size)}
           >
-            <Content />
+            <Content onLaunchApp={launch} />
           </Window>
         );
       })}

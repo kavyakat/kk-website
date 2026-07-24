@@ -26,13 +26,13 @@ describe("kavya route", () => {
   });
 
   it("returns 429 when the per-IP limit is hit", async () => {
-    (checkRateLimit as any).mockResolvedValueOnce({ allowed: false, reason: "ip" });
+    vi.mocked(checkRateLimit).mockResolvedValueOnce({ allowed: false, reason: "ip" });
     const res = await post({ text: "hi" });
     expect(res.status).toBe(429);
   });
 
   it("returns a resting body when the daily cap is hit", async () => {
-    (checkRateLimit as any).mockResolvedValueOnce({ allowed: false, reason: "daily" });
+    vi.mocked(checkRateLimit).mockResolvedValueOnce({ allowed: false, reason: "daily" });
     const res = await post({ text: "hi" });
     expect(res.status).toBe(200);
     expect((await res.json()).resting).toBe(true);
