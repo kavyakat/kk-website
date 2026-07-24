@@ -5,6 +5,7 @@ import { appRegistry, type AppId } from "@/lib/appRegistry";
 import { characters, type Character } from "@/lib/agents/characters";
 import { useWindowManager } from "@/hooks/useWindowManager";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { useAgentChat } from "@/hooks/useAgentChat";
 import BootSequence from "./BootSequence";
 import ShutdownSequence from "./ShutdownSequence";
 import DesktopIcons from "./DesktopIcons";
@@ -36,6 +37,7 @@ export default function Desktop() {
   const [phase, setPhase] = useState<Phase>("boot");
   const [character, setCharacter] = useState<Character>(defaultCharacter);
   const isMobile = useIsMobile();
+  const chat = useAgentChat();
   const { windows, openWindow, closeWindow, minimizeWindow, focusWindow, moveWindow, resizeWindow, toggleMaximize } =
     useWindowManager();
 
@@ -79,7 +81,15 @@ export default function Desktop() {
             onResize={(size) => resizeWindow(app.id, size)}
           >
             {app.id === "agents" ? (
-              <AgentChatApp onLaunchApp={launch} character={character} onChangeCharacter={setCharacter} />
+              <AgentChatApp
+                onLaunchApp={launch}
+                character={character}
+                onChangeCharacter={setCharacter}
+                messages={chat.messages}
+                sending={chat.sending}
+                resting={chat.resting}
+                send={chat.send}
+              />
             ) : (
               (() => {
                 const Content = APP_CONTENT[app.id];

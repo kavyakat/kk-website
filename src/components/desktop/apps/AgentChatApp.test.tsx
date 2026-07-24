@@ -2,6 +2,7 @@ import { describe, it, expect, vi, afterEach } from "vitest";
 import { useState } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import AgentChatApp from "./AgentChatApp";
+import { useAgentChat } from "@/hooks/useAgentChat";
 import { characters, type Character } from "@/lib/agents/characters";
 import type { AppId } from "@/lib/appRegistry";
 
@@ -9,7 +10,18 @@ const clippy = characters.find((c) => c.id === "clippy")!;
 
 function Harness({ onLaunchApp = vi.fn() }: { onLaunchApp?: (id: AppId) => void }) {
   const [character, setCharacter] = useState<Character>(clippy);
-  return <AgentChatApp onLaunchApp={onLaunchApp} character={character} onChangeCharacter={setCharacter} />;
+  const { messages, sending, resting, send } = useAgentChat();
+  return (
+    <AgentChatApp
+      onLaunchApp={onLaunchApp}
+      character={character}
+      onChangeCharacter={setCharacter}
+      messages={messages}
+      sending={sending}
+      resting={resting}
+      send={send}
+    />
+  );
 }
 
 afterEach(() => vi.unstubAllGlobals());

@@ -3,7 +3,8 @@
 import { useState } from "react";
 import type { AppId } from "@/lib/appRegistry";
 import { characters, type Character } from "@/lib/agents/characters";
-import { useAgentChat } from "@/hooks/useAgentChat";
+import type { ChatEntry } from "@/hooks/useAgentChat";
+import type { ChatRequest } from "@/lib/agents/types";
 import { DOCK_SIZE } from "../DesktopBuddy";
 import CharacterPicker from "./chat/CharacterPicker";
 import QuickActions from "./chat/QuickActions";
@@ -15,12 +16,23 @@ interface AgentChatAppProps {
   onLaunchApp: (id: AppId) => void;
   character: Character;
   onChangeCharacter: (character: Character) => void;
+  messages: ChatEntry[];
+  sending: boolean;
+  resting: boolean;
+  send: (body: ChatRequest) => void;
 }
 
-export default function AgentChatApp({ onLaunchApp, character, onChangeCharacter }: AgentChatAppProps) {
+export default function AgentChatApp({
+  onLaunchApp,
+  character,
+  onChangeCharacter,
+  messages,
+  sending,
+  resting,
+  send,
+}: AgentChatAppProps) {
   const [pickerOpen, setPickerOpen] = useState(false);
   const [input, setInput] = useState("");
-  const { messages, sending, resting, send } = useAgentChat();
 
   if (pickerOpen) {
     return (
