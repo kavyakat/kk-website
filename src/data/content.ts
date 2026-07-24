@@ -8,6 +8,7 @@ export const contactLinks = {
   email: "kavyakat@gmail.com",
   github: "https://github.com/kavyakat",
   linkedin: "https://linkedin.com/in/kavyakathuria",
+  instagram: "https://instagram.com/kavyakathuria",
 };
 
 export const resumePath = "/Kavya_Kathuria_Resume.pdf";

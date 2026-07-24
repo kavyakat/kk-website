@@ -19,6 +19,7 @@ import ResumeApp from "./apps/ResumeApp";
 import ContactApp from "./apps/ContactApp";
 import AgentChatApp from "./apps/AgentChatApp";
 import MinesweeperApp from "./apps/MinesweeperApp";
+import SolitaireApp from "./apps/SolitaireApp";
 
 type AppContentProps = { onLaunchApp: (id: AppId) => void };
 
@@ -29,6 +30,7 @@ const APP_CONTENT: Record<Exclude<AppId, "agents">, ComponentType<AppContentProp
   resume: ResumeApp,
   contact: ContactApp,
   minesweeper: MinesweeperApp,
+  solitaire: SolitaireApp,
 };
 
 const defaultCharacter = characters.find((c) => c.id === "clippy")!;

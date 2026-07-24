@@ -55,23 +55,38 @@ export default function Taskbar({ isMobile, windows, onSelectApp, onShutDown }: 
       </button>
       {startOpen && <StartMenu isMobile={isMobile} onSelect={(id) => onSelectApp(id)} onShutDown={onShutDown} onClose={() => setStartOpen(false)} />}
 
-      {!isMobile && (
-        <>
-          <Separator />
-          {appRegistry.map((app) => (
-            <button
-              key={app.id}
-              title={app.label}
-              aria-label={app.label}
-              onClick={() => onSelectApp(app.id)}
-              style={{ color: "#000", fontSize: 11, height: 22, padding: "0 8px", display: "flex", alignItems: "center", gap: 5 }}
-            >
-              <img src={app.iconSrc} alt="" width={16} height={16} style={{ imageRendering: "pixelated" }} /> {app.label}
-            </button>
-          ))}
-          <Separator />
-        </>
-      )}
+      <Separator />
+      <a
+        href={contactLinks.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        title="LinkedIn"
+        aria-label="LinkedIn"
+        style={{ display: "flex", alignItems: "center", padding: 2 }}
+      >
+        <img src="/icons/linkedin.svg" alt="" width={22} height={22} />
+      </a>
+      <a
+        href={contactLinks.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        title="GitHub"
+        aria-label="GitHub"
+        style={{ display: "flex", alignItems: "center", padding: 2 }}
+      >
+        <img src="/icons/github.svg" alt="" width={22} height={22} />
+      </a>
+      <a
+        href={contactLinks.instagram}
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Instagram"
+        aria-label="Instagram"
+        style={{ display: "flex", alignItems: "center", padding: 2 }}
+      >
+        <img src="/icons/instagram.svg" alt="" width={22} height={22} />
+      </a>
+      <Separator />
 
       {openApps.map((app) => (
         <button
@@ -96,26 +111,6 @@ export default function Taskbar({ isMobile, windows, onSelectApp, onShutDown }: 
           borderColor: "#808080 #fff #fff #808080",
         }}
       >
-        <a
-          href={contactLinks.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          title="GitHub"
-          aria-label="GitHub"
-          style={{ fontSize: 13, lineHeight: 1, textDecoration: "none" }}
-        >
-          🐙
-        </a>
-        <a
-          href={contactLinks.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          title="LinkedIn"
-          aria-label="LinkedIn"
-          style={{ fontSize: 13, lineHeight: 1, textDecoration: "none" }}
-        >
-          💼
-        </a>
         {!isMobile && <span style={{ fontSize: 12, lineHeight: 1 }} title="Volume">🔊</span>}
         <span>{time}</span>
       </div>

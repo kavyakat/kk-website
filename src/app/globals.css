@@ -8,6 +8,16 @@ body {
   overflow: hidden;
 }
 
+.desktop-icon,
+.desktop-icon:active,
+.desktop-icon:focus {
+  box-shadow: none;
+  outline: none;
+  min-width: 0;
+  padding: 2px;
+}
+
+
 @keyframes boot-bar {
   0% {
     transform: translateX(-100%);
