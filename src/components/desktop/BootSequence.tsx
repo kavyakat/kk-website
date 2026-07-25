@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { useTheme } from "@/hooks/useTheme";
 
 interface BootSequenceProps {
   onComplete: () => void;
@@ -11,10 +12,74 @@ const BOOT_DURATION_MS = 3400;
 const FLAG_COLORS = ["#ff3b30", "#4cd964", "#007aff", "#ffcc00"];
 
 export default function BootSequence({ onComplete }: BootSequenceProps) {
+  const { theme } = useTheme();
+
   useEffect(() => {
     const timeout = setTimeout(onComplete, BOOT_DURATION_MS);
     return () => clearTimeout(timeout);
   }, [onComplete]);
+
+  if (theme === "winxp") {
+    return (
+      <div
+        role="button"
+        aria-label="Skip boot sequence"
+        onClick={onComplete}
+        style={{
+          position: "fixed",
+          inset: 0,
+          background: "#000",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          cursor: "pointer",
+          zIndex: 1000,
+          fontFamily: "Tahoma, sans-serif",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 40 }}>
+          <img src="/icons/xp/start-flag.png" alt="" width={44} height={44} />
+          <div style={{ color: "#fff" }}>
+            <div style={{ fontSize: 14 }}>
+              Microsoft<sup>&reg;</sup>
+            </div>
+            <div style={{ fontSize: 40, fontWeight: 700 }}>
+              Windows<span style={{ color: "#ff7a00" }}>xp</span>
+            </div>
+          </div>
+        </div>
+        <div
+          style={{
+            width: 180,
+            height: 14,
+            border: "1px solid #444",
+            borderRadius: 4,
+            overflow: "hidden",
+            position: "relative",
+            background: "#111",
+          }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              bottom: 0,
+              width: 60,
+              display: "flex",
+              gap: 4,
+              animation: "boot-bar 1.6s linear infinite",
+            }}
+          >
+            <div style={{ flex: 1, background: "#3b7dff", borderRadius: 2 }} />
+            <div style={{ flex: 1, background: "#3b7dff", borderRadius: 2 }} />
+            <div style={{ flex: 1, background: "#3b7dff", borderRadius: 2 }} />
+          </div>
+        </div>
+        <div style={{ marginTop: 40, color: "#8a8a8a", fontSize: 12 }}>click anywhere to skip</div>
+      </div>
+    );
+  }
 
   return (
     <div
