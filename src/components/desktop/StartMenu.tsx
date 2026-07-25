@@ -2,6 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import { appRegistry, type AppId } from "@/lib/appRegistry";
+import { useTheme } from "@/hooks/useTheme";
 
 interface StartMenuProps {
   isMobile: boolean;
@@ -82,6 +83,11 @@ function Panel({ children, style }: { children: ReactNode; style?: React.CSSProp
 
 export default function StartMenu({ isMobile, onSelect, onShutDown, onClose }: StartMenuProps) {
   const [programsOpen, setProgramsOpen] = useState(false);
+  const { theme } = useTheme();
+  const [gamesOpen, setGamesOpen] = useState(false);
+  const [allProgramsOpen, setAllProgramsOpen] = useState(false);
+  const programApps = appRegistry.filter((a) => !a.hidden && a.group !== "games");
+  const gameApps = appRegistry.filter((a) => a.group === "games");
 
   const pick = (id: AppId) => {
     onSelect(id);
@@ -95,11 +101,78 @@ export default function StartMenu({ isMobile, onSelect, onShutDown, onClose }: S
           <span style={{ fontWeight: 700, fontSize: 16, color: "#000" }}>Programs</span>
           <button onClick={onClose} style={{ color: "#000" }}>Close</button>
         </div>
-        {appRegistry.filter((app) => !app.hidden).map((app) => (
+        {programApps.map((app) => (
           <MenuItem key={app.id} iconSrc={app.iconSrc} label={app.label} onClick={() => pick(app.id)} />
+        ))}
+        <div style={{ fontWeight: 700, fontSize: 13, color: "#000", margin: "8px 0 4px 8px" }}>Games</div>
+        {gameApps.map((g) => (
+          <MenuItem key={g.id} iconSrc={g.iconSrc} label={g.label} onClick={() => pick(g.id)} />
         ))}
         <Separator />
         <MenuItem icon="🔌" label="Shut Down..." onClick={() => { onClose(); onShutDown(); }} />
+      </div>
+    );
+  }
+
+  if (theme === "winxp") {
+    const XpItem = ({ app }: { app: (typeof appRegistry)[number] }) => (
+      <button
+        role="menuitem"
+        onClick={() => pick(app.id)}
+        style={{ display: "flex", alignItems: "center", gap: 8, width: "100%", textAlign: "left", border: "none", background: "transparent", padding: "5px 10px", fontSize: 12, color: "#00157f", cursor: "pointer" }}
+      >
+        <img src={app.xpIconSrc ?? app.iconSrc} alt="" width={22} height={22} />
+        {app.label}
+      </button>
+    );
+    const rightIds: AppId[] = ["resume", "contact", "settings", "find", "help"];
+    const rightApps = rightIds.map((id) => appRegistry.find((a) => a.id === id)!).filter(Boolean);
+    const pinned = programApps.filter((a) => ["agents", "experience", "about"].includes(a.id));
+
+    return (
+      <div role="menu" style={{ position: "absolute", bottom: 34, left: 0, width: 300, zIndex: 200, borderRadius: "8px 8px 0 0", overflow: "hidden", boxShadow: "3px -3px 14px rgba(0,0,0,.5)", fontFamily: "Tahoma, sans-serif" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 10px", color: "#fff", fontWeight: "bold", fontSize: 14, background: "linear-gradient(180deg,#1b52c8,#2f6fd6)", borderBottom: "2px solid #eec14a" }}>
+          <img src="/icons/xp/user.png" alt="" width={30} height={30} style={{ borderRadius: 4, border: "1px solid #fff" }} />
+          Kavya Kathuria
+        </div>
+        <div style={{ display: "flex", background: "#fff" }}>
+          <div style={{ width: 178, padding: "6px 0", background: "#fff" }}>
+            {pinned.map((a) => <XpItem key={a.id} app={a} />)}
+            <Separator />
+            <div style={{ position: "relative" }}>
+              <button
+                role="menuitem"
+                onClick={() => setAllProgramsOpen((v) => !v)}
+                onMouseEnter={() => setAllProgramsOpen(true)}
+                style={{ display: "flex", alignItems: "center", gap: 6, width: "100%", border: "none", background: "transparent", padding: "5px 10px", fontSize: 12, fontWeight: "bold", color: "#00157f", cursor: "pointer" }}
+              >
+                All Programs <span style={{ marginLeft: "auto" }}>▶</span>
+              </button>
+              {allProgramsOpen && (
+                <Panel style={{ position: "absolute", left: "100%", bottom: 0, minWidth: 170, padding: "2px 0" }}>
+                  {programApps.map((app) => (
+                    <MenuItem key={app.id} iconSrc={app.xpIconSrc ?? app.iconSrc} label={app.label} onClick={() => pick(app.id)} onMouseEnter={() => setGamesOpen(false)} />
+                  ))}
+                  <div style={{ position: "relative" }}>
+                    <MenuItem icon="🎮" label="Games" arrow onClick={() => setGamesOpen((v) => !v)} onMouseEnter={() => setGamesOpen(true)} />
+                    {gamesOpen && (
+                      <Panel style={{ position: "absolute", left: "100%", top: 0, minWidth: 150, padding: "2px 0" }}>
+                        {gameApps.map((g) => <MenuItem key={g.id} iconSrc={g.xpIconSrc ?? g.iconSrc} label={g.label} onClick={() => pick(g.id)} />)}
+                      </Panel>
+                    )}
+                  </div>
+                </Panel>
+              )}
+            </div>
+          </div>
+          <div style={{ width: 122, padding: "6px 0", background: "linear-gradient(180deg,#d3e5fa,#b6d5f5)" }}>
+            {rightApps.map((a) => <XpItem key={a.id} app={a} />)}
+          </div>
+        </div>
+        <div style={{ display: "flex", justifyContent: "flex-end", gap: 14, padding: "6px 12px", color: "#fff", fontSize: 12, background: "linear-gradient(180deg,#2f6fd6,#1b52c8)" }}>
+          <button onClick={onClose} style={{ background: "transparent", border: "none", color: "#fff", cursor: "pointer" }}>⏻ Log Off</button>
+          <button onClick={() => { onClose(); onShutDown(); }} style={{ background: "transparent", border: "none", color: "#fff", cursor: "pointer" }}>⭘ Turn Off</button>
+        </div>
       </div>
     );
   }
@@ -143,9 +216,19 @@ export default function StartMenu({ isMobile, onSelect, onShutDown, onClose }: S
 
           {programsOpen && (
             <Panel style={{ position: "absolute", left: "100%", top: 2, minWidth: 180, padding: "2px 0" }}>
-              {appRegistry.filter((app) => !app.hidden).map((app) => (
-                <MenuItem key={app.id} iconSrc={app.iconSrc} label={app.label} onClick={() => pick(app.id)} />
+              {programApps.map((app) => (
+                <MenuItem key={app.id} iconSrc={app.iconSrc} label={app.label} onClick={() => pick(app.id)} onMouseEnter={() => setGamesOpen(false)} />
               ))}
+              <div style={{ position: "relative" }}>
+                <MenuItem icon="🎮" label="Games" arrow onClick={() => setGamesOpen((v) => !v)} onMouseEnter={() => setGamesOpen(true)} />
+                {gamesOpen && (
+                  <Panel style={{ position: "absolute", left: "100%", top: 0, minWidth: 150, padding: "2px 0" }}>
+                    {gameApps.map((g) => (
+                      <MenuItem key={g.id} iconSrc={g.iconSrc} label={g.label} onClick={() => pick(g.id)} />
+                    ))}
+                  </Panel>
+                )}
+              </div>
             </Panel>
           )}
         </div>
