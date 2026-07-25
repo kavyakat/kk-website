@@ -19,4 +19,15 @@ describe("appRegistry", () => {
     expect(agents).toBeDefined();
     expect(agents!.label).toMatch(/Kavya/i);
   });
+
+  it("marks Minesweeper and Solitaire as games", () => {
+    const games = appRegistry.filter((a) => a.group === "games").map((a) => a.id);
+    expect(games).toEqual(expect.arrayContaining(["minesweeper", "solitaire"]));
+  });
+
+  it("gives every visible app an XP icon", () => {
+    for (const app of appRegistry.filter((a) => !a.hidden)) {
+      expect(app.xpIconSrc && app.xpIconSrc.length).toBeGreaterThan(0);
+    }
+  });
 });

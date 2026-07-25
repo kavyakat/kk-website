@@ -17,8 +17,8 @@ export default function DesktopIcons({ isMobile, onOpen }: DesktopIconsProps) {
           : { position: "absolute", top: 16, left: 16, display: "flex", flexDirection: "column", gap: 22 }
       }
     >
-      {appRegistry.filter((app) => !app.hidden).map((app) => (
-        <DesktopIcon key={app.id} label={app.label} iconSrc={app.iconSrc} isMobile={isMobile} onOpen={() => onOpen(app.id)} />
+      {appRegistry.filter((app) => !app.hidden && app.group !== "games").map((app) => (
+        <DesktopIcon key={app.id} label={app.label} iconSrc={app.iconSrc} xpIconSrc={app.xpIconSrc} isMobile={isMobile} onOpen={() => onOpen(app.id)} />
       ))}
     </div>
   );
