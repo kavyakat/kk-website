@@ -1,0 +1,37 @@
+import { aboutText, contactLinks, summaryText } from "@/data/content";
+import { experience } from "@/data/experience";
+import { skills } from "@/data/skills";
+import { education } from "@/data/education";
+import { funFactsText } from "@/data/funFacts";
+
+const experienceText = experience
+  .map((r) => `- ${r.title}, ${r.company} (${r.period}, ${r.location}): ${r.bullets.join(" ")}`)
+  .join("\n");
+
+const skillsText = skills.map((g) => `- ${g.group}: ${g.tags.join(", ")}`).join("\n");
+
+const educationText = education
+  .map((e) => `- ${e.degree}, ${e.institution} (${e.location}, ${e.year}) — GPA ${e.gpa}`)
+  .join("\n");
+
+const contactText = `- Email: ${contactLinks.email}\n- GitHub: ${contactLinks.github}\n- LinkedIn: ${contactLinks.linkedin}`;
+
+export const kavyaKnowledge = `SUMMARY
+${summaryText}
+
+ABOUT KAVYA
+${aboutText}
+
+EXPERIENCE
+${experienceText}
+
+SKILLS
+${skillsText}
+
+EDUCATION
+${educationText}
+
+CONTACT
+${contactText}`;
+
+export const funFactsKnowledge = funFactsText;
