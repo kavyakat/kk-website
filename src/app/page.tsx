@@ -1,5 +1,10 @@
 import Desktop from "@/components/desktop/Desktop";
+import { ThemeProvider } from "@/hooks/useTheme";
 
 export default function Home() {
-  return <Desktop />;
+  return (
+    <ThemeProvider>
+      <Desktop />
+    </ThemeProvider>
+  );
 }

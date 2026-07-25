@@ -6,6 +6,7 @@ import { characters, type Character } from "@/lib/agents/characters";
 import { useWindowManager } from "@/hooks/useWindowManager";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useAgentChat } from "@/hooks/useAgentChat";
+import { useTheme } from "@/hooks/useTheme";
 import BootSequence from "./BootSequence";
 import ShutdownSequence from "./ShutdownSequence";
 import DesktopIcons from "./DesktopIcons";
@@ -50,6 +51,7 @@ export default function Desktop() {
   const [character, setCharacter] = useState<Character>(defaultCharacter);
   const isMobile = useIsMobile();
   const chat = useAgentChat();
+  const { theme } = useTheme();
   const { windows, openWindow, closeWindow, minimizeWindow, focusWindow, moveWindow, resizeWindow, toggleMaximize } =
     useWindowManager();
 
@@ -70,7 +72,19 @@ export default function Desktop() {
   };
 
   return (
-    <div style={{ position: "relative", width: "100%", height: "100dvh", background: "#008080", overflow: "hidden" }}>
+    <div
+      data-theme={theme}
+      style={{
+        position: "relative",
+        width: "100%",
+        height: "100dvh",
+        background:
+          theme === "winxp"
+            ? "#5a8bd6 url(/wallpapers/bliss.jpg) center/cover no-repeat"
+            : "#008080",
+        overflow: "hidden",
+      }}
+    >
       <DesktopIcons isMobile={isMobile} onOpen={launch} />
 
       {appRegistry.map((app) => {
