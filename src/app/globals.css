@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import "98.css";
+@import "./xp.css";
 
 body {
   margin: 0;
