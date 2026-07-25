@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { appRegistry, type AppId } from "@/lib/appRegistry";
 import type { WindowState } from "@/hooks/useWindowManager";
 import { contactLinks } from "@/data/content";
+import { useTheme } from "@/hooks/useTheme";
 import StartMenu from "./StartMenu";
 
 interface TaskbarProps {
@@ -18,6 +19,8 @@ function Separator() {
 }
 
 export default function Taskbar({ isMobile, windows, onSelectApp, onShutDown }: TaskbarProps) {
+  const { theme } = useTheme();
+  const xp = theme === "winxp";
   const [startOpen, setStartOpen] = useState(false);
   const [time, setTime] = useState("");
 
@@ -37,9 +40,11 @@ export default function Taskbar({ isMobile, windows, onSelectApp, onShutDown }: 
         bottom: 0,
         left: 0,
         right: 0,
-        height: 30,
-        background: "#c0c0c0",
-        borderTop: "2px solid #fff",
+        height: xp ? 34 : 30,
+        background: xp
+          ? "linear-gradient(180deg,#3f8cf3 0%,#2265e0 8%,#245edb 42%,#2158d4 90%,#1c50c8 100%)"
+          : "#c0c0c0",
+        borderTop: xp ? "1px solid #1042c4" : "2px solid #fff",
         display: "flex",
         alignItems: "center",
         padding: "0 4px",
@@ -49,9 +54,36 @@ export default function Taskbar({ isMobile, windows, onSelectApp, onShutDown }: 
     >
       <button
         onClick={() => setStartOpen((v) => !v)}
-        style={{ display: "flex", alignItems: "center", gap: 4, fontWeight: "bold", fontSize: 11, color: "#000", height: 22, padding: "0 8px" }}
+        style={
+          xp
+            ? {
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+                height: 34,
+                padding: "0 22px 3px 12px",
+                marginRight: 8,
+                fontStyle: "italic",
+                fontWeight: "bold",
+                fontSize: 15,
+                color: "#fff",
+                textShadow: "1px 1px 2px rgba(0,0,0,.5)",
+                border: "none",
+                borderRadius: "0 12px 12px 0",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,.4)",
+                background: "linear-gradient(180deg,#59b158 0%,#39923a 46%,#2e8b2e 52%,#0f6d0f 100%)",
+              }
+            : { display: "flex", alignItems: "center", gap: 4, fontWeight: "bold", fontSize: 11, color: "#000", height: 22, padding: "0 8px" }
+        }
       >
-        <img src="/icons/start.png" alt="" width={16} height={16} style={{ imageRendering: "pixelated" }} /> Start
+        <img
+          src={xp ? "/icons/xp/start-flag.png" : "/icons/start.png"}
+          alt=""
+          width={xp ? 22 : 16}
+          height={16}
+          style={{ imageRendering: xp ? "auto" : "pixelated" }}
+        />{" "}
+        {xp ? "start" : "Start"}
       </button>
       {startOpen && <StartMenu isMobile={isMobile} onSelect={(id) => onSelectApp(id)} onShutDown={onShutDown} onClose={() => setStartOpen(false)} />}
 
@@ -92,9 +124,34 @@ export default function Taskbar({ isMobile, windows, onSelectApp, onShutDown }: 
         <button
           key={app.id}
           onClick={() => onSelectApp(app.id)}
-          style={{ fontSize: 11, color: "#000", height: 22, padding: "0 10px", minWidth: 100, textAlign: "left", display: "flex", alignItems: "center", gap: 6 }}
+          style={
+            xp
+              ? {
+                  fontSize: 11,
+                  color: "#fff",
+                  height: 24,
+                  padding: "0 10px",
+                  minWidth: 100,
+                  textAlign: "left",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                  border: "1px solid #1b52c8",
+                  borderRadius: 3,
+                  background: "linear-gradient(180deg,#4993f0,#2360d8)",
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,.3)",
+                }
+              : { fontSize: 11, color: "#000", height: 22, padding: "0 10px", minWidth: 100, textAlign: "left", display: "flex", alignItems: "center", gap: 6 }
+          }
         >
-          <img src={app.iconSrc} alt="" width={16} height={16} style={{ imageRendering: "pixelated" }} /> {app.label}
+          <img
+            src={xp ? (app.xpIconSrc ?? app.iconSrc) : app.iconSrc}
+            alt=""
+            width={16}
+            height={16}
+            style={{ imageRendering: xp ? "auto" : "pixelated" }}
+          />{" "}
+          {app.label}
         </button>
       ))}
 
@@ -105,9 +162,9 @@ export default function Taskbar({ isMobile, windows, onSelectApp, onShutDown }: 
           alignItems: "center",
           gap: 6,
           fontSize: 11,
-          color: "#000",
+          color: xp ? "#fff" : "#000",
           padding: "2px 8px",
-          border: "1px solid",
+          border: xp ? "none" : "1px solid",
           borderColor: "#808080 #fff #fff #808080",
         }}
       >
