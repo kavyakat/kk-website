@@ -37,7 +37,15 @@ next-env.d.ts
 
 # ide
 .idea/
+*.iml
 
 # claude brainstorming companion
 .superpowers/
+
+# local QA screenshots + working files (root only; keeps public/ + src/ assets)
+/*.png
+/*.jpeg
+/*.jpg
+/.playwright-mcp/
+/Kavya_Kathuria_Resume-2025.pdf
 
