@@ -1,6 +1,6 @@
 import { callGroq } from "./groq";
 import { handleFunFactsTask } from "./funFactsAgent";
-import { kavyaSystemPrompt } from "./prompts";
+import { kavyaSystemPrompt, flirtyKavyaSystemPrompt } from "./prompts";
 import type { ChatRequest, ChatResponse, JsonRpcRequest } from "./types";
 
 const QT_REPLIES = [
@@ -40,8 +40,10 @@ export async function runCoordinator(body: ChatRequest): Promise<ChatResponse> {
 
   if (isQT(body)) {
     const reply = QT_REPLIES[Math.floor(Math.random() * QT_REPLIES.length)];
-    return { reply, agent: "kavya" };
+    return { reply, agent: "kavya", flirty: true };
   }
+
+  const systemPrompt = body.flirty ? flirtyKavyaSystemPrompt : kavyaSystemPrompt;
 
   if (isFunFacts(body)) {
     const request: JsonRpcRequest = {
@@ -58,6 +60,6 @@ export async function runCoordinator(body: ChatRequest): Promise<ChatResponse> {
     };
   }
 
-  const reply = await callGroq(kavyaSystemPrompt, question);
+  const reply = await callGroq(systemPrompt, question);
   return { reply, agent: "kavya" };
 }

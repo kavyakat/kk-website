@@ -22,6 +22,7 @@ export function useAgentChat() {
   const [messages, setMessages] = useState<ChatEntry[]>([]);
   const [sending, setSending] = useState(false);
   const [resting, setResting] = useState(false);
+  const [flirtyMode, setFlirtyMode] = useState(false);
 
   const send = useCallback(async (body: ChatRequest) => {
     const userText = body.text?.trim() || (body.action ? LABELS[body.action] : "");
@@ -33,9 +34,10 @@ export function useAgentChat() {
       const res = await fetch("/api/agents/kavya", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+        body: JSON.stringify({ ...body, flirty: flirtyMode || undefined }),
       });
       const data = (await res.json()) as ChatResponse;
+      if (data.flirty) setFlirtyMode(true);
       if (data.resting) { setResting(true); return; }
       const text = res.status === 429
         ? "The agents are catching their breath — please try again in a minute."
@@ -52,7 +54,7 @@ export function useAgentChat() {
     } finally {
       setSending(false);
     }
-  }, [sending]);
+  }, [sending, flirtyMode]);
 
   return { messages, sending, resting, send };
 }

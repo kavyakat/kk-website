@@ -41,6 +41,7 @@ export type ChatAction = "about" | "experience" | "skills" | "funFacts";
 export interface ChatRequest {
   action?: ChatAction;
   text?: string;
+  flirty?: boolean;
 }
 
 export interface ChatResponse {
@@ -49,4 +50,5 @@ export interface ChatResponse {
   delegation?: Delegation;
   resting?: boolean;
   error?: string;
+  flirty?: boolean;
 }
