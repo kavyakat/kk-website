@@ -124,7 +124,7 @@ export default function Desktop() {
         );
       })}
 
-      {!isMobile && <DesktopBuddy character={character} agents={windows.agents} onOpen={() => launch("agents")} />}
+      <DesktopBuddy isMobile={isMobile} character={character} agents={windows.agents} onOpen={() => launch("agents")} />
 
       <Taskbar isMobile={isMobile} windows={windows} onSelectApp={launch} onShutDown={handleShutdown} />
     </div>

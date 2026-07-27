@@ -20,9 +20,10 @@ interface DesktopBuddyProps {
   character: Character;
   agents: WindowState | undefined;
   onOpen: () => void;
+  isMobile?: boolean;
 }
 
-export default function DesktopBuddy({ character, agents, onOpen }: DesktopBuddyProps) {
+export default function DesktopBuddy({ character, agents, onOpen, isMobile }: DesktopBuddyProps) {
   const [viewport, setViewport] = useState({ w: 0, h: 0 });
   const [flying, setFlying] = useState(false);
   const [tripId, setTripId] = useState(0);
@@ -54,6 +55,44 @@ export default function DesktopBuddy({ character, agents, onOpen }: DesktopBuddy
   }, [signature, active, maximized, motion.ms]);
 
   if (!viewport.w) return null;
+
+  if (isMobile) {
+    if (active) return null;
+    return (
+      <div
+        role="button"
+        tabIndex={0}
+        aria-label={`Open chat with ${character.name}`}
+        onClick={onOpen}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onOpen();
+          }
+        }}
+        style={{
+          position: "fixed",
+          right: 16,
+          bottom: TASKBAR_H + 16,
+          width: 60,
+          height: 60,
+          zIndex: 200,
+          cursor: "pointer",
+        }}
+      >
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            animation: "buddyBob 2.4s ease-in-out infinite",
+            filter: "drop-shadow(1px 2px 2px rgba(0,0,0,0.4))",
+          }}
+        >
+          <Avatar character={character} size={60} />
+        </div>
+      </div>
+    );
+  }
 
   const target =
     display.active && agents

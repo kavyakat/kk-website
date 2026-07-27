@@ -38,6 +38,13 @@ export default function Taskbar({ isMobile, windows, onSelectApp, onShutDown }: 
     : { display: "flex", alignItems: "center", padding: 2 };
 
   return (
+    <>
+    {startOpen && (
+      <div
+        style={{ position: "fixed", inset: 0, zIndex: 299 }}
+        onClick={() => setStartOpen(false)}
+      />
+    )}
     <div
       style={{
         position: "fixed",
@@ -176,5 +183,6 @@ export default function Taskbar({ isMobile, windows, onSelectApp, onShutDown }: 
         <span>{time}</span>
       </div>
     </div>
+    </>
   );
 }
