@@ -70,7 +70,7 @@ export default function DesktopBuddy({ character, agents, onOpen }: DesktopBuddy
 
   const atRest = !active && !flying;
 
-  const zIndex = flying ? 1000 : display.active && agents ? agents.zIndex + 1 : 0;
+  const zIndex = flying ? 1000 : display.active && agents ? 101 : 0;
 
   const innerAnimation = flying
     ? `${motion.anim} ${motion.ms}ms ${motion.easing}`
