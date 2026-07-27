@@ -125,7 +125,7 @@ export default function StartMenu({ isMobile, onSelect, onShutDown, onClose }: S
         {app.label}
       </button>
     );
-    const rightIds: AppId[] = ["resume", "contact", "settings", "find", "help"];
+    const rightIds: AppId[] = ["resume", "contact", "find", "help"];
     const rightApps = rightIds.map((id) => appRegistry.find((a) => a.id === id)!).filter(Boolean);
     const pinned = programApps.filter((a) => ["agents", "experience", "about"].includes(a.id));
 
@@ -207,7 +207,6 @@ export default function StartMenu({ isMobile, onSelect, onShutDown, onClose }: S
         <div style={{ position: "relative", minWidth: 190, padding: "2px 0" }}>
           <MenuItem icon="📂" label="Programs" arrow onClick={() => setProgramsOpen((v) => !v)} onMouseEnter={() => setProgramsOpen(true)} />
           <MenuItem icon="📄" label="Documents" onClick={() => pick("resume")} onMouseEnter={() => setProgramsOpen(false)} />
-          <MenuItem icon="⚙️" label="Settings" onClick={() => pick("settings")} onMouseEnter={() => setProgramsOpen(false)} />
           <MenuItem icon="🔍" label="Find" onClick={() => pick("find")} onMouseEnter={() => setProgramsOpen(false)} />
           <MenuItem icon="❓" label="Help" onClick={() => pick("help")} onMouseEnter={() => setProgramsOpen(false)} />
           <MenuItem icon="🏁" label="Run..." onClick={() => pick("terminal")} onMouseEnter={() => setProgramsOpen(false)} />

@@ -70,6 +70,8 @@ export default function DesktopBuddy({ character, agents, onOpen }: DesktopBuddy
 
   const atRest = !active && !flying;
 
+  const zIndex = flying ? 1000 : display.active && agents ? agents.zIndex + 1 : 0;
+
   const innerAnimation = flying
     ? `${motion.anim} ${motion.ms}ms ${motion.easing}`
     : atRest
@@ -94,7 +96,7 @@ export default function DesktopBuddy({ character, agents, onOpen }: DesktopBuddy
         top: target.top,
         width: target.size,
         height: target.size,
-        zIndex: 1000,
+        zIndex,
         cursor: "pointer",
         transition: flying
           ? `left ${motion.ms}ms ${motion.easing}, top ${motion.ms}ms ${motion.easing}, width ${motion.ms}ms ${motion.easing}, height ${motion.ms}ms ${motion.easing}`

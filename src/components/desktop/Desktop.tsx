@@ -22,7 +22,6 @@ import AgentChatApp from "./apps/AgentChatApp";
 import MinesweeperApp from "./apps/MinesweeperApp";
 import SolitaireApp from "./apps/SolitaireApp";
 import TerminalApp from "./apps/TerminalApp";
-import SettingsApp from "./apps/SettingsApp";
 import FindApp from "./apps/FindApp";
 import HelpApp from "./apps/HelpApp";
 
@@ -37,7 +36,6 @@ const APP_CONTENT: Record<Exclude<AppId, "agents">, ComponentType<AppContentProp
   minesweeper: MinesweeperApp,
   solitaire: SolitaireApp,
   terminal: TerminalApp,
-  settings: SettingsApp,
   find: FindApp,
   help: HelpApp,
 };

@@ -33,6 +33,10 @@ export default function Taskbar({ isMobile, windows, onSelectApp, onShutDown }: 
 
   const openApps = appRegistry.filter((app) => windows[app.id]?.open);
 
+  const socialStyle: React.CSSProperties = xp
+    ? { display: "flex", alignItems: "center", padding: 3, background: "#fff", borderRadius: 3, boxShadow: "inset 0 0 0 1px rgba(0,0,0,.15)" }
+    : { display: "flex", alignItems: "center", padding: 2 };
+
   return (
     <div
       style={{
@@ -94,7 +98,7 @@ export default function Taskbar({ isMobile, windows, onSelectApp, onShutDown }: 
         rel="noopener noreferrer"
         title="LinkedIn"
         aria-label="LinkedIn"
-        style={{ display: "flex", alignItems: "center", padding: 2 }}
+        style={socialStyle}
       >
         <img src="/icons/linkedin.svg" alt="" width={22} height={22} />
       </a>
@@ -104,7 +108,7 @@ export default function Taskbar({ isMobile, windows, onSelectApp, onShutDown }: 
         rel="noopener noreferrer"
         title="GitHub"
         aria-label="GitHub"
-        style={{ display: "flex", alignItems: "center", padding: 2 }}
+        style={socialStyle}
       >
         <img src="/icons/github.svg" alt="" width={22} height={22} />
       </a>
@@ -114,7 +118,7 @@ export default function Taskbar({ isMobile, windows, onSelectApp, onShutDown }: 
         rel="noopener noreferrer"
         title="Instagram"
         aria-label="Instagram"
-        style={{ display: "flex", alignItems: "center", padding: 2 }}
+        style={socialStyle}
       >
         <img src="/icons/instagram.svg" alt="" width={22} height={22} />
       </a>

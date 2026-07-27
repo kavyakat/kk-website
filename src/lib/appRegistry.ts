@@ -8,7 +8,6 @@ export type AppId =
   | "minesweeper"
   | "solitaire"
   | "terminal"
-  | "settings"
   | "find"
   | "help";
 
@@ -33,7 +32,6 @@ export const appRegistry: AppDefinition[] = [
   { id: "minesweeper", label: "Minesweeper", iconSrc: "/icons/minesweeper.svg", xpIconSrc: "/icons/xp/minesweeper.png", group: "games", defaultPosition: { x: 300, y: 100 }, defaultSize: { width: 250, height: 322 } },
   { id: "solitaire", label: "Solitaire", iconSrc: "/icons/solitaire.svg", xpIconSrc: "/icons/xp/solitaire.png", group: "games", defaultPosition: { x: 120, y: 60 }, defaultSize: { width: 480, height: 440 } },
   { id: "terminal", label: "MS-DOS Prompt", iconSrc: "/icons/terminal.svg", xpIconSrc: "/icons/terminal.svg", defaultPosition: { x: 160, y: 70 }, defaultSize: { width: 540, height: 380 }, hidden: true },
-  { id: "settings", label: "Display Properties", iconSrc: "/icons/settings.svg", xpIconSrc: "/icons/xp/control-panel.png", defaultPosition: { x: 220, y: 90 }, defaultSize: { width: 400, height: 380 }, hidden: true },
   { id: "find", label: "Find: All Files", iconSrc: "/icons/find.svg", xpIconSrc: "/icons/xp/search.png", defaultPosition: { x: 260, y: 110 }, defaultSize: { width: 440, height: 320 }, hidden: true },
   { id: "help", label: "Help", iconSrc: "/icons/help.svg", xpIconSrc: "/icons/xp/help.png", defaultPosition: { x: 300, y: 130 }, defaultSize: { width: 420, height: 340 }, hidden: true },
 ];
