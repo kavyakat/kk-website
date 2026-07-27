@@ -12,7 +12,7 @@ const QT_REPLIES = [
 
 function isQT(body: ChatRequest): boolean {
   const t = (body.text ?? "").toLowerCase().trim();
-  return /\bi(?:'?m| am)\s+(a\s+)?qt\b/.test(t) || t === "qt" || t === "i'm qt" || t === "im qt" || t === "i am qt";
+  return /\bqt\b/.test(t);
 }
 
 const ACTION_PROMPTS: Record<string, string> = {
