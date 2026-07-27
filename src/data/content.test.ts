@@ -18,7 +18,7 @@ describe("content data integrity", () => {
   });
 
   it("has valid contact links", () => {
-    expect(contactLinks.email).toBe("kavyakat@gmail.com");
+    expect(contactLinks.email).toBe("mail@kavyakat.de");
     expect(contactLinks.github).toMatch(/^https:\/\/github\.com\//);
     expect(contactLinks.linkedin).toMatch(/^https:\/\/linkedin\.com\//);
   });

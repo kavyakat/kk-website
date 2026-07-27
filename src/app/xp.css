@@ -38,11 +38,21 @@
   width: 21px;
   height: 21px;
   min-width: 21px;
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  min-height: 21px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 3px;
   box-shadow: none;
-  background-image: none;
+  background: radial-gradient(circle at 40% 30%, #7db2ff, #245edb);
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 9px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  text-shadow: none;
 }
 
 [data-theme="winxp"] .title-bar-controls button[aria-label="Minimize"],
@@ -53,6 +63,28 @@
 
 [data-theme="winxp"] .title-bar-controls button[aria-label="Close"] {
   background: radial-gradient(circle at 40% 30%, #ff8a7a, #d13020);
+}
+
+[data-theme="winxp"] .title-bar-controls button[aria-label="Minimize"]::after {
+  content: "─";
+  line-height: 1;
+  margin-top: 4px;
+}
+
+[data-theme="winxp"] .title-bar-controls button[aria-label="Maximize"]::after {
+  content: "□";
+  line-height: 1;
+}
+
+[data-theme="winxp"] .title-bar-controls button[aria-label="Restore"]::after {
+  content: "⧉";
+  line-height: 1;
+  font-size: 8px;
+}
+
+[data-theme="winxp"] .title-bar-controls button[aria-label="Close"]::after {
+  content: "✕";
+  line-height: 1;
 }
 
 [data-theme="winxp"] .window-body {
