@@ -13,7 +13,7 @@ export default function DesktopIcons({ isMobile, onOpen }: DesktopIconsProps) {
     <div
       style={
         isMobile
-          ? { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, padding: 20, position: "absolute", inset: 0 }
+          ? { display: "grid", gridTemplateColumns: "repeat(3, auto)", gap: 8, padding: 16, position: "absolute", top: 0, left: 0, alignContent: "start" }
           : { position: "absolute", top: 16, left: 16, display: "flex", flexDirection: "column", gap: 22 }
       }
     >

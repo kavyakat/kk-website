@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ComponentType } from "react";
+import { useState, useCallback, type ComponentType } from "react";
 import { appRegistry, type AppId } from "@/lib/appRegistry";
 import { useWindowManager } from "@/hooks/useWindowManager";
 import { useIsMobile } from "@/hooks/useIsMobile";
@@ -45,6 +45,9 @@ type Phase = "boot" | "running" | "shutdown";
 
 export default function Desktop() {
   const [phase, setPhase] = useState<Phase>("boot");
+  const handleBootComplete = useCallback(() => setPhase("running"), []);
+  const handleReboot = useCallback(() => setPhase("boot"), []);
+  const handleShutdown = useCallback(() => setPhase("shutdown"), []);
   const isMobile = useIsMobile();
   const chat = useAgentChat();
   const { theme } = useTheme();
@@ -54,11 +57,11 @@ export default function Desktop() {
     useWindowManager();
 
   if (phase === "boot") {
-    return <BootSequence onComplete={() => setPhase("running")} />;
+    return <BootSequence onComplete={handleBootComplete} />;
   }
 
   if (phase === "shutdown") {
-    return <ShutdownSequence onReboot={() => setPhase("boot")} />;
+    return <ShutdownSequence onReboot={handleReboot} />;
   }
 
   const openStates = Object.entries(windows).filter(([, w]) => w.open && !w.minimized);
@@ -123,7 +126,7 @@ export default function Desktop() {
 
       {!isMobile && <DesktopBuddy character={character} agents={windows.agents} onOpen={() => launch("agents")} />}
 
-      <Taskbar isMobile={isMobile} windows={windows} onSelectApp={launch} onShutDown={() => setPhase("shutdown")} />
+      <Taskbar isMobile={isMobile} windows={windows} onSelectApp={launch} onShutDown={handleShutdown} />
     </div>
   );
 }

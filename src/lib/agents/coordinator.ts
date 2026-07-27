@@ -3,6 +3,18 @@ import { handleFunFactsTask } from "./funFactsAgent";
 import { kavyaSystemPrompt } from "./prompts";
 import type { ChatRequest, ChatResponse, JsonRpcRequest } from "./types";
 
+const QT_REPLIES = [
+  "hi qt ❤️",
+  "hi qt ❤️ glad you stopped by~",
+  "hi qt ❤️ welcome to Kavya's corner of the internet",
+  "hi qt ❤️ you're my favourite visitor today",
+];
+
+function isQT(body: ChatRequest): boolean {
+  const t = (body.text ?? "").toLowerCase().trim();
+  return /\bi(?:'?m| am)\s+(a\s+)?qt\b/.test(t) || t === "qt" || t === "i'm qt" || t === "im qt" || t === "i am qt";
+}
+
 const ACTION_PROMPTS: Record<string, string> = {
   about: "Give a short professional summary of Kavya.",
   experience: "Summarize Kavya's work experience.",
@@ -25,6 +37,11 @@ function userText(body: ChatRequest): string {
 
 export async function runCoordinator(body: ChatRequest): Promise<ChatResponse> {
   const question = userText(body);
+
+  if (isQT(body)) {
+    const reply = QT_REPLIES[Math.floor(Math.random() * QT_REPLIES.length)];
+    return { reply, agent: "kavya" };
+  }
 
   if (isFunFacts(body)) {
     const request: JsonRpcRequest = {
