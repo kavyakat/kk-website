@@ -7,6 +7,7 @@ import { useIsMobile } from "@/hooks/useIsMobile";
 import { useAgentChat } from "@/hooks/useAgentChat";
 import { useTheme } from "@/hooks/useTheme";
 import { useCharacter } from "@/hooks/useCharacter";
+import { useWallpaper } from "@/hooks/useWallpaper";
 import BootSequence from "./BootSequence";
 import ShutdownSequence from "./ShutdownSequence";
 import DesktopIcons from "./DesktopIcons";
@@ -48,6 +49,7 @@ export default function Desktop() {
   const chat = useAgentChat();
   const { theme } = useTheme();
   const { character, setCharacter } = useCharacter();
+  const { wallpaperBackground } = useWallpaper();
   const { windows, openWindow, closeWindow, minimizeWindow, focusWindow, moveWindow, resizeWindow, toggleMaximize } =
     useWindowManager();
 
@@ -74,10 +76,7 @@ export default function Desktop() {
         position: "relative",
         width: "100%",
         height: "100dvh",
-        background:
-          theme === "winxp"
-            ? "#5a8bd6 url(/wallpapers/bliss.jpg) center/cover no-repeat"
-            : "#008080",
+        background: wallpaperBackground,
         overflow: "hidden",
       }}
     >
