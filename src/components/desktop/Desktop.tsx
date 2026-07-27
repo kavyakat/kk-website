@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, type ComponentType } from "react";
+import { useState, useEffect, type ComponentType } from "react";
 import { appRegistry, type AppId } from "@/lib/appRegistry";
 import { characters, type Character } from "@/lib/agents/characters";
 import { useWindowManager } from "@/hooks/useWindowManager";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useAgentChat } from "@/hooks/useAgentChat";
-import { useTheme } from "@/hooks/useTheme";
+import { useTheme, type Theme } from "@/hooks/useTheme";
 import BootSequence from "./BootSequence";
 import ShutdownSequence from "./ShutdownSequence";
 import DesktopIcons from "./DesktopIcons";
@@ -40,16 +40,21 @@ const APP_CONTENT: Record<Exclude<AppId, "agents">, ComponentType<AppContentProp
   help: HelpApp,
 };
 
-const defaultCharacter = characters.find((c) => c.id === "clippy")!;
+const characterForTheme = (t: Theme) =>
+  characters.find((c) => c.id === (t === "winxp" ? "rover" : "clippy"))!;
 
 type Phase = "boot" | "running" | "shutdown";
 
 export default function Desktop() {
   const [phase, setPhase] = useState<Phase>("boot");
-  const [character, setCharacter] = useState<Character>(defaultCharacter);
   const isMobile = useIsMobile();
   const chat = useAgentChat();
   const { theme } = useTheme();
+  const [character, setCharacter] = useState<Character>(() => characterForTheme(theme));
+
+  useEffect(() => {
+    setCharacter(characterForTheme(theme));
+  }, [theme]);
   const { windows, openWindow, closeWindow, minimizeWindow, focusWindow, moveWindow, resizeWindow, toggleMaximize } =
     useWindowManager();
 

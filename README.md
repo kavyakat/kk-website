@@ -2,7 +2,7 @@
 
 Personal portfolio built as a **Windows 98 desktop simulation**. Live at **[kavyakathuria.vercel.app](https://kavyakathuria.vercel.app)**.
 
-Boot into a retro desktop with draggable windows, a taskbar and Start menu, a boot/shutdown sequence, playable games, and a live AI agent chat. Switch the whole thing to a Windows XP (Luna) look from the Settings dialog.
+Boot into a retro desktop with draggable windows, a taskbar and Start menu, a boot/shutdown sequence, playable games, and a live AI agent chat. Switch the whole thing to a Windows XP (Luna) look from the **Appearance** tab of System Properties.
 
 ## Stack
 
@@ -21,8 +21,8 @@ Boot into a retro desktop with draggable windows, a taskbar and Start menu, a bo
 - **Content windows** — About, Experience, Skills (System Properties), Resume, Contact
 - **Ask Kavya's Agents** — a live 2-agent A2A chat: a Kavya coordinator agent delegates to a Fun Facts agent via task-based JSON-RPC, with real Agent Cards served at `/api/agents/*/card` and an in-UI payload inspector. Pick a classic Office-style character (Clippy/Merlin/Rover/Genius).
 - **Desktop buddy** — a floating Clippy-style assistant that syncs with the chat character
-- **Games** — Minesweeper and Solitaire, grouped under Programs > Games
-- **Theme toggle** — live-switchable Windows 98 ↔ Windows XP look, persisted in `localStorage`
+- **Games** — Minesweeper and Solitaire, shown as desktop icons and under Programs > Games
+- **Theme toggle** — live-switchable Windows 98 ↔ Windows XP look from System Properties > Appearance, persisted in `localStorage`
 - **Mobile fallback** — a simplified layout for small screens
 
 ## Structure

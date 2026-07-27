@@ -13,15 +13,17 @@ The site is a **Windows 98 desktop simulation** — draggable windows, taskbar/S
 - **tsconfig `@/*` alias** → `./src/*`
 - **Deployment:** Vercel, auto-deploy on push to `main`
 - **Env vars:** `GROQ_API_KEY` (required for agent chat replies), `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` (optional rate limiting; no-ops without them)
-- **Tests:** Vitest + React Testing Library, 42 test files (148 tests), all green; `npx vitest run`, `npx tsc --noEmit`, `npm run build`
+- **Tests:** Vitest + React Testing Library, 42 test files (149 tests), all green; `npx vitest run`, `npx tsc --noEmit`, `npm run build`
 
 ### Key pieces
 - **Desktop shell:** `src/components/desktop/` — `useWindowManager` (open/focus/min/max/drag), `BootSequence`, `ShutdownSequence`, `Taskbar`, `StartMenu`, `Window`, `DesktopBuddy`
-- **App registry:** `src/lib/appRegistry.ts` — the list of windows. `hidden` apps (terminal/settings/find/help) launch from the Start menu but aren't desktop icons; `group: "games"` (minesweeper/solitaire) live under Programs > Games.
+- **App registry:** `src/lib/appRegistry.ts` — the list of windows. `hidden` apps (terminal/find/help) launch from the Start menu but aren't desktop icons; `group: "games"` (minesweeper/solitaire) show both as desktop icons and under Programs > Games.
 - **Content windows:** `src/components/desktop/apps/` — About, Experience, Skills (System Properties), Resume, Contact
 - **Ask Kavya's Agents:** live 2-agent A2A chat — Kavya coordinator (Groq `llama-3.1-8b-instant`) delegates to a Fun Facts agent via `tasks/send` JSON-RPC; real Agent Cards at `/api/agents/*/card`; in-UI payload inspector; character picker (Clippy/Merlin/Rover/Genius). Logic in `src/lib/agents/`, hook `src/hooks/useAgentChat.ts`.
 - **Games:** `src/lib/games/` (minesweeper + solitaire logic), rendered by `MinesweeperApp`/`SolitaireApp`
-- **Theme toggle:** `src/hooks/useTheme.tsx` + `src/app/xp.css` — live-switchable Windows 98 ↔ XP (Luna), persisted in `localStorage` key `kk-theme` (default `win98`), read synchronously on first render so the boot screen matches. Switched from the Settings ("Display Properties") dialog.
+- **Theme toggle:** `src/hooks/useTheme.tsx` + `src/app/xp.css` — live-switchable Windows 98 ↔ XP (Luna), persisted in `localStorage` key `kk-theme` (default `win98`), read synchronously on first render so the boot screen matches. Switched from the **Appearance tab of System Properties** (the `skills` app / `SkillsApp.tsx`). The old standalone "Display Properties" (`settings`) dialog was removed entirely.
+- **Taskbar social icons:** LinkedIn/GitHub/Instagram sit on a white chip in the XP theme (`Taskbar.tsx` `socialStyle`) so they stay visible against the blue Luna taskbar.
+- **Desktop buddy z-index:** rests on the desktop layer (`z=0`) so any window — including maximized — covers it; `agents.zIndex+1` when docked to the open chat; `1000` only mid-flight. (`DesktopBuddy.tsx`)
 
 ### Design docs (`docs/superpowers/`)
 - Specs and plans for the redesign live here (committed). The XP theme toggle feature: `specs/2026-07-25-win98-xp-theme-toggle-design.md` + `plans/2026-07-25-win98-xp-theme-toggle.md`.

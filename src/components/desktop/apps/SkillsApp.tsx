@@ -1,104 +1,83 @@
 "use client";
 
-import { useState } from "react";
-import { skills } from "@/data/skills";
-import { useTheme } from "@/hooks/useTheme";
+import { Fragment } from "react";
+import { useTheme, type Theme } from "@/hooks/useTheme";
 
-const PILL_COLORS = ["#c0392b", "#2980b9", "#27ae60", "#8e44ad", "#d35400", "#16a085", "#2c3e50", "#b7950b"];
-
-function pillColor(tag: string) {
-  let hash = 0;
-  for (let i = 0; i < tag.length; i++) hash = (hash * 31 + tag.charCodeAt(i)) >>> 0;
-  return PILL_COLORS[hash % PILL_COLORS.length];
-}
-
-const APPEARANCE_TAB = skills.length;
+const INFO: { label: string; value: string }[] = [
+  { label: "Registered to", value: "Kavya Kathuria" },
+  { label: "Role", value: "Senior Data Engineer & Software Developer" },
+  { label: "Organization", value: "SAP — Commerce Cloud Analytics" },
+  { label: "Location", value: "Munich, Germany" },
+  { label: "Experience", value: "10+ years" },
+];
 
 export default function SkillsApp() {
-  const [activeTab, setActiveTab] = useState(0);
   const { theme, setTheme } = useTheme();
-  const isAppearance = activeTab === APPEARANCE_TAB;
-  const group = skills[activeTab];
+  const xp = theme === "winxp";
+  const osName = xp ? "Kavya OS XP" : "Kavya OS 98";
+  const osVersion = xp ? "Luna Edition · Build 5.1.2600" : "Second Edition · Build 4.10.1998";
 
   return (
-    <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+    <div style={{ height: "100%", display: "flex", flexDirection: "column", color: "#000", fontSize: 12 }}>
       <div style={{ display: "flex", borderBottom: "1px solid #808080" }}>
-        {skills.map((g, i) => (
-          <button
-            key={g.group}
-            onClick={() => setActiveTab(i)}
-            style={{
-              padding: "6px 10px",
-              fontSize: 11,
-              color: "#000",
-              background: i === activeTab ? "#c0c0c0" : "#dcdcdc",
-              border: "1px solid #808080",
-              marginBottom: -1,
-            }}
-          >
-            {g.group}
-          </button>
-        ))}
-        <button
-          onClick={() => setActiveTab(APPEARANCE_TAB)}
+        <div
           style={{
-            padding: "6px 10px",
+            padding: "6px 14px",
             fontSize: 11,
-            color: "#000",
-            background: isAppearance ? "#c0c0c0" : "#dcdcdc",
+            background: "#c0c0c0",
             border: "1px solid #808080",
+            borderBottom: "none",
             marginBottom: -1,
           }}
         >
-          Appearance
-        </button>
+          General
+        </div>
       </div>
 
-      {isAppearance ? (
-        <div style={{ padding: 12, fontSize: 12, color: "#000" }}>
-          <fieldset style={{ padding: 10 }}>
-            <legend>Theme</legend>
-
-            <div style={{ background: theme === "winxp" ? "#5a8bd6" : "#008080", border: "2px solid", borderColor: "#808080 #fff #fff #808080", height: 90, marginBottom: 10, display: "flex", alignItems: "flex-end" }}>
-              <div style={{ background: "#c0c0c0", border: "2px solid", borderColor: "#fff #000 #000 #fff", margin: 8, padding: "3px 10px", fontSize: 11 }}>
-                Inactive Window
-              </div>
-            </div>
-
-            <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }}>
-              <span style={{ width: 60 }}>Scheme:</span>
-              <span>{theme === "winxp" ? "Windows XP (Luna)" : "Windows Standard"}</span>
-            </div>
-
-            <label style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
-              <input type="radio" name="theme" checked={theme === "win98"} onChange={() => setTheme("win98")} />
-              Windows 98
-            </label>
-            <label style={{ display: "flex", alignItems: "center", gap: 6 }}>
-              <input type="radio" name="theme" checked={theme === "winxp"} onChange={() => setTheme("winxp")} />
-              Windows XP
-            </label>
-          </fieldset>
+      <div style={{ flex: 1, overflowY: "auto", padding: 16, display: "flex", gap: 18 }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, minWidth: 88 }}>
+          <img
+            src={xp ? "/icons/xp/start-flag.png" : "/icons/start.png"}
+            alt=""
+            width={56}
+            height={56}
+            style={{ imageRendering: xp ? "auto" : "pixelated" }}
+          />
+          <div style={{ fontSize: 11, color: "#555" }}>System</div>
         </div>
-      ) : (
-        <div style={{ padding: 10, display: "flex", flexWrap: "wrap", gap: 8 }}>
-          {group.tags.map((tag) => (
-            <span
-              key={tag}
-              style={{
-                border: "1px solid rgba(0,0,0,0.3)",
-                borderRadius: 3,
-                padding: "4px 10px",
-                fontSize: 11,
-                color: "#fff",
-                background: pillColor(tag),
-              }}
+
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: 15, fontWeight: 700 }}>{osName}</div>
+          <div style={{ color: "#555", marginBottom: 14 }}>{osVersion}</div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", columnGap: 12, rowGap: 5 }}>
+            {INFO.map((row) => (
+              <Fragment key={row.label}>
+                <span style={{ color: "#555", whiteSpace: "nowrap" }}>{row.label}:</span>
+                <span style={{ fontWeight: 600 }}>{row.value}</span>
+              </Fragment>
+            ))}
+          </div>
+
+          <div style={{ borderTop: "1px solid #808080", borderBottom: "1px solid #fff", margin: "16px 0" }} />
+
+          <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <span style={{ fontWeight: 700 }}>Appearance:</span>
+            <select
+              aria-label="Appearance"
+              value={theme}
+              onChange={(e) => setTheme(e.target.value as Theme)}
+              style={{ fontSize: 12, padding: "2px 4px" }}
             >
-              {tag}
-            </span>
-          ))}
+              <option value="win98">Windows 98</option>
+              <option value="winxp">Windows XP</option>
+            </select>
+          </label>
+          <div style={{ color: "#555", fontSize: 11, marginTop: 6 }}>
+            Choose a look for the desktop. Changes apply instantly.
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }

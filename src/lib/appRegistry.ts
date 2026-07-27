@@ -28,7 +28,7 @@ export const appRegistry: AppDefinition[] = [
   { id: "skills", label: "System Properties", iconSrc: "/icons/skills.png", xpIconSrc: "/icons/xp/skills.png", defaultPosition: { x: 260, y: 150 }, defaultSize: { width: 440, height: 380 } },
   { id: "resume", label: "Resume.pdf", iconSrc: "/icons/resume.png", xpIconSrc: "/icons/xp/resume.png", defaultPosition: { x: 320, y: 80 }, defaultSize: { width: 500, height: 620 } },
   { id: "contact", label: "Contact.exe", iconSrc: "/icons/contact.png", xpIconSrc: "/icons/xp/contact.png", defaultPosition: { x: 180, y: 200 }, defaultSize: { width: 420, height: 320 } },
-  { id: "agents", label: "About Kavya", iconSrc: "/icons/agents.png", xpIconSrc: "/icons/xp/agents.png", defaultPosition: { x: 240, y: 60 }, defaultSize: { width: 400, height: 480 } },
+  { id: "agents", label: "About Kavya", iconSrc: "/icons/agents.png", xpIconSrc: "/icons/xp/agents.png", defaultPosition: { x: 240, y: 60 }, defaultSize: { width: 500, height: 480 } },
   { id: "minesweeper", label: "Minesweeper", iconSrc: "/icons/minesweeper.svg", xpIconSrc: "/icons/xp/minesweeper.png", group: "games", defaultPosition: { x: 300, y: 100 }, defaultSize: { width: 250, height: 322 } },
   { id: "solitaire", label: "Solitaire", iconSrc: "/icons/solitaire.svg", xpIconSrc: "/icons/xp/solitaire.png", group: "games", defaultPosition: { x: 120, y: 60 }, defaultSize: { width: 480, height: 440 } },
   { id: "terminal", label: "MS-DOS Prompt", iconSrc: "/icons/terminal.svg", xpIconSrc: "/icons/terminal.svg", defaultPosition: { x: 160, y: 70 }, defaultSize: { width: 540, height: 380 }, hidden: true },
