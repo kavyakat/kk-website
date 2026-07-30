@@ -45,7 +45,7 @@ export async function runCoordinator(body: ChatRequest): Promise<ChatResponse> {
   }
 
   if (body.flirty) {
-    const reply = await callOpenAI(flirtyKavyaSystemPrompt, question, body.history);
+    const reply = await callGroq(flirtyKavyaSystemPrompt, question, body.history);
     return { reply, agent: "kavya" };
   }
 
