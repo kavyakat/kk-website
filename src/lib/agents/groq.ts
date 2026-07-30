@@ -1,11 +1,22 @@
 import { MAX_REPLY_CHARS } from "./prompts";
+import type { HistoryEntry } from "./types";
 
 const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
 const MODEL = "llama-3.3-70b-versatile";
 
-export async function callGroq(system: string, user: string): Promise<string> {
+export async function callGroq(
+  system: string,
+  user: string,
+  history?: HistoryEntry[]
+): Promise<string> {
   const key = process.env.GROQ_API_KEY;
   if (!key) throw new Error("GROQ_API_KEY is not set");
+
+  const messages = [
+    { role: "system", content: system },
+    ...(history ?? []),
+    { role: "user", content: user },
+  ];
 
   const res = await fetch(GROQ_URL, {
     method: "POST",
@@ -14,10 +25,7 @@ export async function callGroq(system: string, user: string): Promise<string> {
       model: MODEL,
       temperature: 0.4,
       max_tokens: 300,
-      messages: [
-        { role: "system", content: system },
-        { role: "user", content: user },
-      ],
+      messages,
     }),
   });
 
