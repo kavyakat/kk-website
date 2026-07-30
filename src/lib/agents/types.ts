@@ -38,10 +38,16 @@ export interface Delegation {
 
 export type ChatAction = "about" | "experience" | "skills" | "funFacts";
 
+export interface HistoryEntry {
+  role: "user" | "assistant";
+  content: string;
+}
+
 export interface ChatRequest {
   action?: ChatAction;
   text?: string;
   flirty?: boolean;
+  history?: HistoryEntry[];
 }
 
 export interface ChatResponse {
