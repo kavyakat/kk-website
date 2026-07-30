@@ -1,4 +1,5 @@
 import { callGroq } from "./groq";
+import { callOpenAI } from "./openai";
 import { handleFunFactsTask } from "./funFactsAgent";
 import { kavyaSystemPrompt, flirtyKavyaSystemPrompt } from "./prompts";
 import type { ChatRequest, ChatResponse, JsonRpcRequest } from "./types";
@@ -43,7 +44,10 @@ export async function runCoordinator(body: ChatRequest): Promise<ChatResponse> {
     return { reply, agent: "kavya", flirty: true };
   }
 
-  const systemPrompt = body.flirty ? flirtyKavyaSystemPrompt : kavyaSystemPrompt;
+  if (body.flirty) {
+    const reply = await callOpenAI(flirtyKavyaSystemPrompt, question, body.history);
+    return { reply, agent: "kavya" };
+  }
 
   if (isFunFacts(body)) {
     const request: JsonRpcRequest = {
@@ -60,6 +64,6 @@ export async function runCoordinator(body: ChatRequest): Promise<ChatResponse> {
     };
   }
 
-  const reply = await callGroq(systemPrompt, question);
+  const reply = await callGroq(kavyaSystemPrompt, question, body.history);
   return { reply, agent: "kavya" };
 }
