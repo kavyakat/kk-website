@@ -77,6 +77,6 @@ describe("runCoordinator", () => {
       { role: "assistant" as const, content: "reply" },
     ];
     await runCoordinator({ text: "hello", flirty: true, history });
-    expect(callGroq).toHaveBeenCalledWith(expect.any(String), "hello", history);
+    expect(callGroq).toHaveBeenCalledWith(expect.any(String), "hello", history, 0.75);
   });
 });

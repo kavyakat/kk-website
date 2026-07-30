@@ -7,7 +7,8 @@ const MODEL = "llama-3.3-70b-versatile";
 export async function callGroq(
   system: string,
   user: string,
-  history?: HistoryEntry[]
+  history?: HistoryEntry[],
+  temperature = 0.4
 ): Promise<string> {
   const key = process.env.GROQ_API_KEY;
   if (!key) throw new Error("GROQ_API_KEY is not set");
@@ -23,7 +24,7 @@ export async function callGroq(
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
     body: JSON.stringify({
       model: MODEL,
-      temperature: 0.4,
+      temperature,
       max_tokens: 300,
       messages,
     }),
