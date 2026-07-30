@@ -93,10 +93,10 @@ export default function AgentChatApp({
           <button
             type="button"
             onClick={onToggleQtModel}
-            title={qtModel === "groq" ? "Switch to GPT-4o mini" : "Switch to Groq"}
+            title="Switch AI"
             style={{ fontSize: 10, color: "#000", padding: "2px 6px", whiteSpace: "nowrap" }}
           >
-            {qtModel === "groq" ? "Groq ↕" : "GPT-4o ↕"}
+            {qtModel === "openai" ? "Smart ✦" : "Fast ↺"}
           </button>
         )}
         <input

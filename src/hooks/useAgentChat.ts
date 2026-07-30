@@ -30,7 +30,7 @@ export function useAgentChat() {
   const [sending, setSending] = useState(false);
   const [resting, setResting] = useState(false);
   const [flirtyMode, setFlirtyMode] = useState(false);
-  const [qtModel, setQtModel] = useState<"groq" | "openai">("groq");
+  const [qtModel, setQtModel] = useState<"groq" | "openai">("openai");
 
   const send = useCallback(async (body: ChatRequest) => {
     const userText = body.text?.trim() || (body.action ? LABELS[body.action] : "");

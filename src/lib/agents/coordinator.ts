@@ -5,10 +5,10 @@ import { kavyaSystemPrompt, flirtyKavyaSystemPrompt } from "./prompts";
 import type { ChatRequest, ChatResponse, JsonRpcRequest } from "./types";
 
 const QT_REPLIES = [
-  "hi qt ❤️",
-  "hi qt ❤️ glad you stopped by~",
-  "hi qt ❤️ welcome to Kavya's corner of the internet",
-  "hi qt ❤️ you're my favourite visitor today",
+  "hi qt ❤️ miss kar raha tha — extra smart AI laya hoon aaj tumhare liye, switch bhi kar sakte ho 😛",
+  "hi jaan ❤️ tum aayi! best waala AI laya hoon, neeche switch karni ho toh option hai 😊",
+  "hi qt ❤️ was thinking about you 💕 fancy kiya toh aaj upgrade mila hai — change karni ho toh kar lena~",
+  "hi qt ❤️ aaj toh extra special — sabse smart AI bhi laya hoon tumhare liye 😘",
 ];
 
 function isQT(body: ChatRequest): boolean {
