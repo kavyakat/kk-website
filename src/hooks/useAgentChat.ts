@@ -30,6 +30,7 @@ export function useAgentChat() {
   const [sending, setSending] = useState(false);
   const [resting, setResting] = useState(false);
   const [flirtyMode, setFlirtyMode] = useState(false);
+  const [qtModel, setQtModel] = useState<"groq" | "openai">("groq");
 
   const send = useCallback(async (body: ChatRequest) => {
     const userText = body.text?.trim() || (body.action ? LABELS[body.action] : "");
@@ -49,6 +50,7 @@ export function useAgentChat() {
         body: JSON.stringify({
           ...body,
           flirty: flirtyMode || undefined,
+          model: flirtyMode ? qtModel : undefined,
           history: history.length ? history : undefined,
         }),
       });
@@ -70,7 +72,7 @@ export function useAgentChat() {
     } finally {
       setSending(false);
     }
-  }, [sending, flirtyMode, messages]);
+  }, [sending, flirtyMode, qtModel, messages]);
 
-  return { messages, sending, resting, send };
+  return { messages, sending, resting, send, flirtyMode, qtModel, setQtModel };
 }

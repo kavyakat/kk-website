@@ -48,6 +48,7 @@ export interface ChatRequest {
   text?: string;
   flirty?: boolean;
   history?: HistoryEntry[];
+  model?: "groq" | "openai";
 }
 
 export interface ChatResponse {

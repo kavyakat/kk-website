@@ -113,6 +113,9 @@ export default function Desktop() {
                 sending={chat.sending}
                 resting={chat.resting}
                 send={chat.send}
+                flirtyMode={chat.flirtyMode}
+                qtModel={chat.qtModel}
+                onToggleQtModel={() => chat.setQtModel(chat.qtModel === "groq" ? "openai" : "groq")}
               />
             ) : (
               (() => {

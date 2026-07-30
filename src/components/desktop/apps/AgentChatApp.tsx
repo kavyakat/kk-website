@@ -20,6 +20,9 @@ interface AgentChatAppProps {
   sending: boolean;
   resting: boolean;
   send: (body: ChatRequest) => void;
+  flirtyMode: boolean;
+  qtModel: "groq" | "openai";
+  onToggleQtModel: () => void;
 }
 
 export default function AgentChatApp({
@@ -30,6 +33,9 @@ export default function AgentChatApp({
   sending,
   resting,
   send,
+  flirtyMode,
+  qtModel,
+  onToggleQtModel,
 }: AgentChatAppProps) {
   const [pickerOpen, setPickerOpen] = useState(false);
   const [input, setInput] = useState("");
@@ -83,6 +89,16 @@ export default function AgentChatApp({
       <QuickActions disabled={sending || resting} onAction={(a) => send({ action: a })} onOpenResume={() => onLaunchApp("resume")} />
 
       <form onSubmit={submit} style={{ display: "flex", gap: 4, padding: 6, borderTop: "1px solid #808080" }}>
+        {flirtyMode && (
+          <button
+            type="button"
+            onClick={onToggleQtModel}
+            title={qtModel === "groq" ? "Switch to GPT-4o mini" : "Switch to Groq"}
+            style={{ fontSize: 10, color: "#000", padding: "2px 6px", whiteSpace: "nowrap" }}
+          >
+            {qtModel === "groq" ? "Groq ↕" : "GPT-4o ↕"}
+          </button>
+        )}
         <input
           value={input}
           maxLength={MAX_INPUT}

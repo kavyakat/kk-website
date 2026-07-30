@@ -79,4 +79,18 @@ describe("runCoordinator", () => {
     await runCoordinator({ text: "hello", flirty: true, history });
     expect(callGroq).toHaveBeenCalledWith(expect.any(String), "hello", history, 0.75);
   });
+
+  it("routes to OpenAI when flirty and model is openai", async () => {
+    const res = await runCoordinator({ text: "hello", flirty: true, model: "openai" });
+    expect(res.agent).toBe("kavya");
+    expect(callOpenAI).toHaveBeenCalled();
+    expect(callGroq).not.toHaveBeenCalled();
+  });
+
+  it("routes to Groq when flirty and model is groq (default)", async () => {
+    const res = await runCoordinator({ text: "hello", flirty: true, model: "groq" });
+    expect(res.agent).toBe("kavya");
+    expect(callGroq).toHaveBeenCalled();
+    expect(callOpenAI).not.toHaveBeenCalled();
+  });
 });
