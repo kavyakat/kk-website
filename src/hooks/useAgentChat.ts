@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import type { ChatRequest, ChatResponse, Delegation } from "@/lib/agents/types";
+import type { ChatRequest, ChatResponse, Delegation, HistoryEntry } from "@/lib/agents/types";
 
 export interface ChatEntry {
   id: string;
@@ -18,6 +18,13 @@ const LABELS: Record<string, string> = {
   funFacts: "Any fun facts? 🏓",
 };
 
+function toHistory(messages: ChatEntry[]): HistoryEntry[] {
+  return messages.map((m) => ({
+    role: m.role === "agent" ? "assistant" : "user",
+    content: m.text,
+  }));
+}
+
 export function useAgentChat() {
   const [messages, setMessages] = useState<ChatEntry[]>([]);
   const [sending, setSending] = useState(false);
@@ -28,13 +35,22 @@ export function useAgentChat() {
     const userText = body.text?.trim() || (body.action ? LABELS[body.action] : "");
     if (!userText || sending) return;
 
-    setMessages((m) => [...m, { id: crypto.randomUUID(), role: "user", text: userText }]);
+    setMessages((m) => {
+      const next = [...m, { id: crypto.randomUUID(), role: "user" as const, text: userText }];
+      return next;
+    });
+
     setSending(true);
     try {
+      const history = toHistory(messages);
       const res = await fetch("/api/agents/kavya", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...body, flirty: flirtyMode || undefined }),
+        body: JSON.stringify({
+          ...body,
+          flirty: flirtyMode || undefined,
+          history: history.length ? history : undefined,
+        }),
       });
       const data = (await res.json()) as ChatResponse;
       if (data.flirty) setFlirtyMode(true);
@@ -54,7 +70,7 @@ export function useAgentChat() {
     } finally {
       setSending(false);
     }
-  }, [sending, flirtyMode]);
+  }, [sending, flirtyMode, messages]);
 
   return { messages, sending, resting, send };
 }

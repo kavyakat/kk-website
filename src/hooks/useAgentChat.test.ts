@@ -31,4 +31,25 @@ describe("useAgentChat", () => {
 
     await waitFor(() => expect(result.current.resting).toBe(true));
   });
+
+  it("includes conversation history in subsequent requests", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ reply: "First reply.", agent: "kavya" }),
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const { result } = renderHook(() => useAgentChat());
+    await act(async () => { await result.current.send({ text: "First message" }); });
+    await waitFor(() => expect(result.current.messages.length).toBe(2));
+
+    await act(async () => { await result.current.send({ text: "Second message" }); });
+    await waitFor(() => expect(result.current.messages.length).toBe(4));
+
+    const secondCall = JSON.parse(fetchMock.mock.calls[1][1].body);
+    expect(secondCall.history).toEqual([
+      { role: "user", content: "First message" },
+      { role: "assistant", content: "First reply." },
+    ]);
+  });
 });
