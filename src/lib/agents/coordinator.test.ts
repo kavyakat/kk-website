@@ -80,6 +80,19 @@ describe("runCoordinator", () => {
     expect(callGroq).toHaveBeenCalledWith(expect.any(String), "hello", history, 0.75);
   });
 
+  it("returns resetFlirty when user says bye in flirty mode", async () => {
+    const res = await runCoordinator({ text: "bye", flirty: true });
+    expect(res.resetFlirty).toBe(true);
+    expect(res.reply.length).toBeGreaterThan(0);
+    expect(callGroq).not.toHaveBeenCalled();
+    expect(callOpenAI).not.toHaveBeenCalled();
+  });
+
+  it("does not reset flirty on bye when not in flirty mode", async () => {
+    const res = await runCoordinator({ text: "bye" });
+    expect(res.resetFlirty).toBeUndefined();
+  });
+
   it("routes to OpenAI when flirty and model is openai", async () => {
     const res = await runCoordinator({ text: "hello", flirty: true, model: "openai" });
     expect(res.agent).toBe("kavya");

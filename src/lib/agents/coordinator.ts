@@ -11,6 +11,21 @@ const QT_REPLIES = [
   "hi qt ❤️ aaj toh extra special — sabse smart AI bhi laya hoon tumhare liye 😘",
 ];
 
+const BYE_REPLIES = [
+  "bye qt ❤️ talk soon~",
+  "okay bye 💕 miss you already",
+  "take care qt ❤️ come back soon!",
+  "bye jaan 😘 talk later~",
+];
+
+const BYE_KEYWORDS = ["bye", "goodbye", "gotta go", "gtg", "cya", "see you", "ttyl", "later", "good night", "goodnight", "gn"];
+
+function isBye(body: ChatRequest): boolean {
+  if (!body.flirty) return false;
+  const t = (body.text ?? "").toLowerCase().trim();
+  return BYE_KEYWORDS.some((k) => t.includes(k));
+}
+
 function isQT(body: ChatRequest): boolean {
   const t = (body.text ?? "").toLowerCase().trim();
   return /\bqt\b/.test(t);
@@ -42,6 +57,11 @@ export async function runCoordinator(body: ChatRequest): Promise<ChatResponse> {
   if (isQT(body)) {
     const reply = QT_REPLIES[Math.floor(Math.random() * QT_REPLIES.length)];
     return { reply, agent: "kavya", flirty: true };
+  }
+
+  if (isBye(body)) {
+    const reply = BYE_REPLIES[Math.floor(Math.random() * BYE_REPLIES.length)];
+    return { reply, agent: "kavya", resetFlirty: true };
   }
 
   if (body.flirty) {

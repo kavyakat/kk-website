@@ -56,6 +56,7 @@ export function useAgentChat() {
       });
       const data = (await res.json()) as ChatResponse;
       if (data.flirty) setFlirtyMode(true);
+      if (data.resetFlirty) setFlirtyMode(false);
       if (data.resting) { setResting(true); return; }
       const text = res.status === 429
         ? "The agents are catching their breath — please try again in a minute."

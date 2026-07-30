@@ -58,4 +58,5 @@ export interface ChatResponse {
   resting?: boolean;
   error?: string;
   flirty?: boolean;
+  resetFlirty?: boolean;
 }
