@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
 
 export type Theme = "win98" | "winxp";
 
@@ -12,11 +12,12 @@ const ThemeContext = createContext<{ theme: Theme; setTheme: (t: Theme) => void 
 });
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>(() => {
-    if (typeof window === "undefined") return "win98";
-    const saved = window.localStorage.getItem(STORAGE_KEY);
-    return saved === "winxp" || saved === "win98" ? saved : "win98";
-  });
+  const [theme, setThemeState] = useState<Theme>("win98");
+
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved === "winxp" || saved === "win98") setThemeState(saved);
+  }, []);
 
   const setTheme = (t: Theme) => {
     setThemeState(t);
