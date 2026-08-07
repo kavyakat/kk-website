@@ -16,7 +16,7 @@ export async function POST(request: Request) {
 
   const body = (await request.json()) as ChatRequest;
 
-  if ((body.flirty && !isBye(body)) || isQT(body)) {
+  if ((body.flirty || isQT(body)) && !isBye(body)) {
     const sessionId = crypto.randomUUID();
     await setActiveSession(sessionId);
     await setPending(sessionId);
