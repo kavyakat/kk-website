@@ -59,4 +59,6 @@ export interface ChatResponse {
   error?: string;
   flirty?: boolean;
   resetFlirty?: boolean;
+  status?: "pending";
+  sessionId?: string;
 }

@@ -9,6 +9,7 @@ export interface ChatEntry {
   text: string;
   agent?: "kavya" | "funFacts";
   delegation?: Delegation;
+  waiting?: boolean;
 }
 
 const LABELS: Record<string, string> = {
