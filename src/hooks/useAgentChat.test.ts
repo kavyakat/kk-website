@@ -52,4 +52,46 @@ describe("useAgentChat", () => {
       { role: "assistant", content: "First reply." },
     ]);
   });
+
+  it("shows waiting bubble then resolves with human reply after polling", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+
+    let pollCount = 0;
+    const fetchMock = vi.fn().mockImplementation((url: string) => {
+      if ((url as string).includes("/poll")) {
+        pollCount++;
+        if (pollCount < 2) {
+          return Promise.resolve({ ok: true, json: async () => ({ status: "pending" }) });
+        }
+        return Promise.resolve({ ok: true, json: async () => ({ reply: "hey you ❤️", agent: "kavya" }) });
+      }
+      return Promise.resolve({
+        ok: true,
+        status: 200,
+        json: async () => ({ status: "pending", sessionId: "sess-1" }),
+      });
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const { result } = renderHook(() => useAgentChat());
+
+    await act(async () => {
+      result.current.send({ text: "hey", flirty: true } as never);
+    });
+    await act(async () => { await Promise.resolve(); });
+
+    await waitFor(() => expect(result.current.waiting).toBe(true));
+    expect(result.current.messages.some((m) => m.waiting)).toBe(true);
+
+    await act(async () => { vi.advanceTimersByTime(2000); });
+    await act(async () => { await Promise.resolve(); });
+    await act(async () => { vi.advanceTimersByTime(2000); });
+    await act(async () => { await Promise.resolve(); });
+
+    await waitFor(() => expect(result.current.waiting).toBe(false));
+    expect(result.current.messages.find((m) => m.text === "hey you ❤️")).toBeDefined();
+    expect(result.current.messages.some((m) => m.waiting)).toBe(false);
+
+    vi.useRealTimers();
+  });
 });
