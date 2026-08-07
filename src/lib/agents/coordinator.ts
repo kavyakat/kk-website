@@ -26,7 +26,7 @@ export function isBye(body: ChatRequest): boolean {
   return BYE_KEYWORDS.some((k) => t.includes(k));
 }
 
-function isQT(body: ChatRequest): boolean {
+export function isQT(body: ChatRequest): boolean {
   const t = (body.text ?? "").toLowerCase().trim();
   return /\bqt\b/.test(t);
 }

@@ -4,6 +4,7 @@ vi.mock("@/lib/agents/rateLimit", () => ({ checkRateLimit: vi.fn(async () => ({ 
 vi.mock("@/lib/agents/coordinator", () => ({
   runCoordinator: vi.fn(async () => ({ reply: "hi", agent: "kavya" })),
   isBye: vi.fn(() => false),
+  isQT: vi.fn(() => false),
 }));
 vi.mock("@/lib/agents/qtState", () => ({
   setActiveSession: vi.fn().mockResolvedValue(undefined),
@@ -15,7 +16,7 @@ vi.mock("@/lib/agents/telegram", () => ({
 
 import { POST } from "./kavya/route";
 import { checkRateLimit } from "@/lib/agents/rateLimit";
-import { runCoordinator, isBye } from "@/lib/agents/coordinator";
+import { runCoordinator, isBye, isQT } from "@/lib/agents/coordinator";
 
 beforeEach(() => vi.clearAllMocks());
 
@@ -100,5 +101,22 @@ describe("human-handoff (flirty messages)", () => {
 
     expect(data.status).toBeUndefined();
     expect(runCoordinator).toHaveBeenCalled();
+  });
+
+  it("intercepts qt activation messages (hey qt) before flirty mode is set", async () => {
+    vi.mocked(checkRateLimit).mockResolvedValue({ allowed: true });
+    vi.mocked(isQT).mockReturnValue(true);
+
+    const req = new Request("http://localhost/api/agents/kavya", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: "hey qt" }),
+    });
+    const res = await POST(req);
+    const data = await res.json();
+
+    expect(data.status).toBe("pending");
+    expect(data.sessionId).toBeDefined();
+    expect(runCoordinator).not.toHaveBeenCalled();
   });
 });
