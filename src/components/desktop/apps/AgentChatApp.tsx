@@ -80,6 +80,8 @@ export default function AgentChatApp({
         {messages.map((m) =>
           m.waiting ? (
             <div key={m.id} style={{ fontSize: 11, color: "#888", fontStyle: "italic", padding: "4px 0" }}>checking if Kavya&apos;s around... ✨</div>
+          ) : m.kavyaBusy ? (
+            <div key={m.id} style={{ fontSize: 11, color: "#888", fontStyle: "italic", padding: "4px 0" }}>Kavya&apos;s a bit busy — but I&apos;m still here ✨</div>
           ) : (
             <ChatMessageView key={m.id} entry={m} />
           )

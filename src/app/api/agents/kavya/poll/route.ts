@@ -21,5 +21,5 @@ export async function POST(request: Request) {
   }
 
   const result = await runCoordinator(chatBody as ChatRequest);
-  return Response.json(result);
+  return Response.json({ ...result, aiTookOver: true });
 }

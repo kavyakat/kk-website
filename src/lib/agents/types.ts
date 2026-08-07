@@ -61,4 +61,5 @@ export interface ChatResponse {
   resetFlirty?: boolean;
   status?: "pending";
   sessionId?: string;
+  aiTookOver?: boolean;
 }

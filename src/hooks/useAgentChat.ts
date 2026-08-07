@@ -10,6 +10,7 @@ export interface ChatEntry {
   agent?: "kavya" | "funFacts";
   delegation?: Delegation;
   waiting?: boolean;
+  kavyaBusy?: boolean;
 }
 
 const LABELS: Record<string, string> = {
@@ -64,8 +65,12 @@ export function useAgentChat() {
           stopPolling();
           if (data.flirty) setFlirtyMode(true);
           if (data.resetFlirty) setFlirtyMode(false);
+          const noticeEntry = data.aiTookOver
+            ? [{ id: crypto.randomUUID(), role: "agent" as const, text: "", kavyaBusy: true }]
+            : [];
           setMessages((m) => [
             ...m.filter((msg) => !msg.waiting),
+            ...noticeEntry,
             {
               id: crypto.randomUUID(),
               role: "agent",
