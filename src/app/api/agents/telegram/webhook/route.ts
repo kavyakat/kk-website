@@ -19,6 +19,7 @@ export async function POST(request: Request) {
     if (fromId !== expectedId) return Response.json({ ok: true });
 
     const text = (message.text ?? "").trim();
+    if (!text) return Response.json({ ok: true });
 
     if (text === "/done" || text === "/afk") {
       await clearHumanLive();
