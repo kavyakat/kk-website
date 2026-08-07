@@ -62,6 +62,8 @@ export function useAgentChat() {
           const data = (await res.json()) as ChatResponse;
           if (data.status === "pending") return;
           stopPolling();
+          if (data.flirty) setFlirtyMode(true);
+          if (data.resetFlirty) setFlirtyMode(false);
           setMessages((m) => [
             ...m.filter((msg) => !msg.waiting),
             {
@@ -103,6 +105,7 @@ export function useAgentChat() {
         const data = (await res.json()) as ChatResponse;
 
         if (data.status === "pending" && data.sessionId) {
+          if (data.flirty) setFlirtyMode(true);
           setWaiting(true);
           setMessages((m) => [
             ...m,

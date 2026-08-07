@@ -1,6 +1,6 @@
-const IP_LIMIT = 8;
+const IP_LIMIT = 30;
 const IP_WINDOW_SEC = 600;
-const DAILY_LIMIT = 300;
+const DAILY_LIMIT = 500;
 
 type Result = { allowed: boolean; reason?: "ip" | "daily" };
 

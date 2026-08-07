@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     sendTelegramMessage(
       `💬 qt is messaging you\n\n"${body.text ?? ""}"\n\nReply here within 30s. Send /done when you're done.`
     ).catch(() => {});
-    return Response.json({ reply: "", agent: "kavya", status: "pending", sessionId });
+    return Response.json({ reply: "", agent: "kavya", status: "pending", sessionId, flirty: isQT(body) ? true : undefined });
   }
 
   const result = await runCoordinator(body);
