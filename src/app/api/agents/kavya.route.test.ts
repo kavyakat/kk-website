@@ -9,6 +9,9 @@ vi.mock("@/lib/agents/coordinator", () => ({
 vi.mock("@/lib/agents/qtState", () => ({
   setActiveSession: vi.fn().mockResolvedValue(undefined),
   setPending: vi.fn().mockResolvedValue(undefined),
+  checkHumanLive: vi.fn().mockResolvedValue(false),
+  checkAiMode: vi.fn().mockResolvedValue(false),
+  clearAiMode: vi.fn().mockResolvedValue(undefined),
 }));
 vi.mock("@/lib/agents/telegram", () => ({
   sendTelegramMessage: vi.fn().mockResolvedValue(undefined),
@@ -17,6 +20,7 @@ vi.mock("@/lib/agents/telegram", () => ({
 import { POST } from "./kavya/route";
 import { checkRateLimit } from "@/lib/agents/rateLimit";
 import { runCoordinator, isBye, isQT } from "@/lib/agents/coordinator";
+import { checkHumanLive, checkAiMode, clearAiMode } from "@/lib/agents/qtState";
 
 beforeEach(() => vi.clearAllMocks());
 
@@ -117,6 +121,53 @@ describe("human-handoff (flirty messages)", () => {
 
     expect(data.status).toBe("pending");
     expect(data.sessionId).toBeDefined();
+    expect(runCoordinator).not.toHaveBeenCalled();
+  });
+
+  it("clears ai_mode on fresh qt trigger", async () => {
+    vi.mocked(isQT).mockReturnValue(true);
+    const req = new Request("http://localhost/api/agents/kavya", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: "hey qt" }),
+    });
+    await POST(req);
+    expect(clearAiMode).toHaveBeenCalled();
+  });
+
+  it("skips to AI immediately when ai_mode is set and human is not live", async () => {
+    vi.mocked(isQT).mockReturnValue(false);
+    vi.mocked(checkHumanLive).mockResolvedValue(false);
+    vi.mocked(checkAiMode).mockResolvedValue(true);
+    vi.mocked(runCoordinator).mockResolvedValue({ reply: "AI reply", agent: "kavya" });
+
+    const req = new Request("http://localhost/api/agents/kavya", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: "how are you?", flirty: true }),
+    });
+    const res = await POST(req);
+    const data = await res.json();
+
+    expect(data.status).toBeUndefined();
+    expect(data.reply).toBe("AI reply");
+    expect(runCoordinator).toHaveBeenCalled();
+  });
+
+  it("still creates pending when human is live even if ai_mode is set", async () => {
+    vi.mocked(isQT).mockReturnValue(false);
+    vi.mocked(checkHumanLive).mockResolvedValue(true);
+    vi.mocked(checkAiMode).mockResolvedValue(true);
+
+    const req = new Request("http://localhost/api/agents/kavya", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: "hey", flirty: true }),
+    });
+    const res = await POST(req);
+    const data = await res.json();
+
+    expect(data.status).toBe("pending");
     expect(runCoordinator).not.toHaveBeenCalled();
   });
 });

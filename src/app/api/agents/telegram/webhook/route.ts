@@ -1,4 +1,4 @@
-import { getActiveSession, pushHumanReply, setHumanLive, clearHumanLive } from "@/lib/agents/qtState";
+import { getActiveSession, pushHumanReply, setHumanLive, clearHumanLive, setAiMode } from "@/lib/agents/qtState";
 import { sendTelegramMessage } from "@/lib/agents/telegram";
 
 interface TelegramUpdate {
@@ -23,6 +23,7 @@ export async function POST(request: Request) {
 
     if (text === "/done" || text === "/afk") {
       await clearHumanLive();
+      await setAiMode();
       await sendTelegramMessage("ok, AI is back 🤖");
       return Response.json({ ok: true });
     }

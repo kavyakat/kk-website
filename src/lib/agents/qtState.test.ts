@@ -78,6 +78,34 @@ describe("qtState", () => {
     expect(body).toEqual(["DEL", "qt:human_live"]);
   });
 
+  it("setAiMode posts SET with 1hr TTL", async () => {
+    mockRedis("OK");
+    const fetchMock = vi.mocked(globalThis.fetch);
+    const { setAiMode } = await import("./qtState");
+    await setAiMode();
+    expect(JSON.parse(fetchMock.mock.calls[0][1]!.body as string)).toEqual(["SET", "qt:ai_mode", "1", "EX", 3600]);
+  });
+
+  it("checkAiMode returns true when key exists", async () => {
+    mockRedis("1");
+    const { checkAiMode } = await import("./qtState");
+    expect(await checkAiMode()).toBe(true);
+  });
+
+  it("checkAiMode returns false when key missing", async () => {
+    mockRedis(null);
+    const { checkAiMode } = await import("./qtState");
+    expect(await checkAiMode()).toBe(false);
+  });
+
+  it("clearAiMode posts DEL", async () => {
+    mockRedis(1);
+    const fetchMock = vi.mocked(globalThis.fetch);
+    const { clearAiMode } = await import("./qtState");
+    await clearAiMode();
+    expect(JSON.parse(fetchMock.mock.calls[0][1]!.body as string)).toEqual(["DEL", "qt:ai_mode"]);
+  });
+
   it("pushHumanReply posts RPUSH then EXPIRE with 300s TTL", async () => {
     vi.stubEnv("UPSTASH_REDIS_REST_URL", "https://fake.upstash.io");
     vi.stubEnv("UPSTASH_REDIS_REST_TOKEN", "fake-token");

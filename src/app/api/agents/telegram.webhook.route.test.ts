@@ -5,13 +5,14 @@ vi.mock("@/lib/agents/qtState", () => ({
   pushHumanReply: vi.fn().mockResolvedValue(undefined),
   setHumanLive: vi.fn().mockResolvedValue(undefined),
   clearHumanLive: vi.fn().mockResolvedValue(undefined),
+  setAiMode: vi.fn().mockResolvedValue(undefined),
 }));
 vi.mock("@/lib/agents/telegram", () => ({
   sendTelegramMessage: vi.fn().mockResolvedValue(undefined),
 }));
 
 import { POST } from "./telegram/webhook/route";
-import { getActiveSession, pushHumanReply, setHumanLive, clearHumanLive } from "@/lib/agents/qtState";
+import { getActiveSession, pushHumanReply, setHumanLive, clearHumanLive, setAiMode } from "@/lib/agents/qtState";
 import { sendTelegramMessage } from "@/lib/agents/telegram";
 
 beforeEach(() => {
@@ -51,17 +52,19 @@ describe("POST /api/agents/telegram/webhook", () => {
     expect(pushHumanReply).not.toHaveBeenCalled();
   });
 
-  it("clears human_live and confirms on /done", async () => {
+  it("clears human_live, sets ai_mode, and confirms on /done", async () => {
     const req = makeWebhookRequest({ from: { id: 99999 }, text: "/done" });
     await POST(req);
     expect(clearHumanLive).toHaveBeenCalled();
+    expect(setAiMode).toHaveBeenCalled();
     expect(sendTelegramMessage).toHaveBeenCalledWith("ok, AI is back 🤖");
   });
 
-  it("clears human_live and confirms on /afk", async () => {
+  it("clears human_live, sets ai_mode, and confirms on /afk", async () => {
     const req = makeWebhookRequest({ from: { id: 99999 }, text: "/afk" });
     await POST(req);
     expect(clearHumanLive).toHaveBeenCalled();
+    expect(setAiMode).toHaveBeenCalled();
     expect(sendTelegramMessage).toHaveBeenCalledWith("ok, AI is back 🤖");
   });
 

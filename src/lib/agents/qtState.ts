@@ -47,6 +47,19 @@ export async function clearHumanLive() {
   await redis("DEL", "qt:human_live");
 }
 
+export async function setAiMode() {
+  await redis("SET", "qt:ai_mode", "1", "EX", 3600);
+}
+
+export async function checkAiMode(): Promise<boolean> {
+  const result = await redis<string | null>("GET", "qt:ai_mode");
+  return result !== null;
+}
+
+export async function clearAiMode() {
+  await redis("DEL", "qt:ai_mode");
+}
+
 export async function pushHumanReply(sessionId: string, text: string) {
   const key = `qt:human_reply:${sessionId}`;
   await redis("RPUSH", key, text);

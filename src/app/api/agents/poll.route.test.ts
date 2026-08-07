@@ -5,6 +5,7 @@ vi.mock("@/lib/agents/qtState", () => ({
   checkPending: vi.fn(),
   checkHumanLive: vi.fn(),
   setHumanLive: vi.fn().mockResolvedValue(undefined),
+  setAiMode: vi.fn().mockResolvedValue(undefined),
 }));
 vi.mock("@/lib/agents/coordinator", () => ({
   runCoordinator: vi.fn(),
@@ -13,7 +14,7 @@ vi.mock("@/lib/agents/coordinator", () => ({
 vi.mock("@/lib/agents/rateLimit", () => ({ checkRateLimit: vi.fn() }));
 
 import { POST } from "./kavya/poll/route";
-import { popHumanReply, checkPending, checkHumanLive, setHumanLive } from "@/lib/agents/qtState";
+import { popHumanReply, checkPending, checkHumanLive, setHumanLive, setAiMode } from "@/lib/agents/qtState";
 import { runCoordinator } from "@/lib/agents/coordinator";
 
 beforeEach(() => vi.clearAllMocks());
@@ -51,6 +52,7 @@ describe("POST /api/agents/kavya/poll", () => {
 
     expect(data.reply).toBe("AI fallback reply.");
     expect(data.aiTookOver).toBe(true);
+    expect(setAiMode).toHaveBeenCalled();
     expect(runCoordinator).toHaveBeenCalledWith({ flirty: true, text: "hey" });
   });
 

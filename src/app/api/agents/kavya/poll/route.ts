@@ -1,4 +1,4 @@
-import { popHumanReply, checkPending, setHumanLive, checkHumanLive } from "@/lib/agents/qtState";
+import { popHumanReply, checkPending, setHumanLive, checkHumanLive, setAiMode } from "@/lib/agents/qtState";
 import { runCoordinator } from "@/lib/agents/coordinator";
 import type { ChatRequest } from "@/lib/agents/types";
 
@@ -25,6 +25,7 @@ export async function POST(request: Request) {
     return Response.json({ status: "pending" });
   }
 
+  await setAiMode();
   const result = await runCoordinator(chatBody as ChatRequest);
   return Response.json({ ...result, aiTookOver: true });
 }

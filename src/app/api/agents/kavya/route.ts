@@ -1,6 +1,6 @@
 import { checkRateLimit } from "@/lib/agents/rateLimit";
 import { runCoordinator, isBye, isQT } from "@/lib/agents/coordinator";
-import { setActiveSession, setPending } from "@/lib/agents/qtState";
+import { setActiveSession, setPending, checkHumanLive, checkAiMode, clearAiMode } from "@/lib/agents/qtState";
 import { sendTelegramMessage } from "@/lib/agents/telegram";
 import type { ChatRequest } from "@/lib/agents/types";
 
@@ -17,13 +17,28 @@ export async function POST(request: Request) {
   const body = (await request.json()) as ChatRequest;
 
   if ((body.flirty || isQT(body)) && !isBye(body)) {
+    const qtTrigger = isQT(body);
+
+    if (!qtTrigger) {
+      const humanLive = await checkHumanLive();
+      if (!humanLive) {
+        const inAiMode = await checkAiMode();
+        if (inAiMode) {
+          const result = await runCoordinator(body);
+          return Response.json(result);
+        }
+      }
+    } else {
+      await clearAiMode();
+    }
+
     const sessionId = crypto.randomUUID();
     await setActiveSession(sessionId);
     await setPending(sessionId);
     sendTelegramMessage(
       `💬 qt is messaging you\n\n"${body.text ?? ""}"\n\nReply here within 30s. Send /done when you're done.`
     ).catch(() => {});
-    return Response.json({ reply: "", agent: "kavya", status: "pending", sessionId, flirty: isQT(body) ? true : undefined });
+    return Response.json({ reply: "", agent: "kavya", status: "pending", sessionId, flirty: qtTrigger ? true : undefined });
   }
 
   const result = await runCoordinator(body);
