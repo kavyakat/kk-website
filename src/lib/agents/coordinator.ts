@@ -20,7 +20,7 @@ const BYE_REPLIES = [
 
 const BYE_KEYWORDS = ["bye", "goodbye", "gotta go", "gtg", "cya", "see you", "ttyl", "later", "good night", "goodnight", "gn"];
 
-function isBye(body: ChatRequest): boolean {
+export function isBye(body: ChatRequest): boolean {
   if (!body.flirty) return false;
   const t = (body.text ?? "").toLowerCase().trim();
   return BYE_KEYWORDS.some((k) => t.includes(k));

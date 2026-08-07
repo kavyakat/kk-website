@@ -1,5 +1,7 @@
 import { checkRateLimit } from "@/lib/agents/rateLimit";
-import { runCoordinator } from "@/lib/agents/coordinator";
+import { runCoordinator, isBye } from "@/lib/agents/coordinator";
+import { setActiveSession, setPending } from "@/lib/agents/qtState";
+import { sendTelegramMessage } from "@/lib/agents/telegram";
 import type { ChatRequest } from "@/lib/agents/types";
 
 export async function POST(request: Request) {
@@ -13,6 +15,17 @@ export async function POST(request: Request) {
   }
 
   const body = (await request.json()) as ChatRequest;
+
+  if (body.flirty && !isBye(body)) {
+    const sessionId = crypto.randomUUID();
+    await setActiveSession(sessionId);
+    await setPending(sessionId);
+    sendTelegramMessage(
+      `💬 qt is messaging you\n\n"${body.text ?? ""}"\n\nReply here within 30s. Send /done when you're done.`
+    ).catch(() => {});
+    return Response.json({ reply: "", agent: "kavya", status: "pending", sessionId });
+  }
+
   const result = await runCoordinator(body);
   return Response.json(result);
 }
