@@ -47,13 +47,12 @@ export async function clearHumanLive() {
   await redis("DEL", "qt:human_live");
 }
 
-export async function setHumanReply(sessionId: string, text: string) {
-  await redis("SET", `qt:human_reply:${sessionId}`, text, "EX", 60);
+export async function pushHumanReply(sessionId: string, text: string) {
+  const key = `qt:human_reply:${sessionId}`;
+  await redis("RPUSH", key, text);
+  await redis("EXPIRE", key, 300);
 }
 
-export async function getAndConsumeHumanReply(sessionId: string): Promise<string | null> {
-  const text = await redis<string | null>("GET", `qt:human_reply:${sessionId}`);
-  if (text === null) return null;
-  await redis("DEL", `qt:human_reply:${sessionId}`);
-  return text;
+export async function popHumanReply(sessionId: string): Promise<string | null> {
+  return redis<string | null>("LPOP", `qt:human_reply:${sessionId}`);
 }

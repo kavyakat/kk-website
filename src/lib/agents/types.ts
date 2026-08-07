@@ -62,4 +62,5 @@ export interface ChatResponse {
   status?: "pending";
   sessionId?: string;
   aiTookOver?: boolean;
+  keepPolling?: boolean;
 }

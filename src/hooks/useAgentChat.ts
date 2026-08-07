@@ -35,6 +35,7 @@ export function useAgentChat() {
   const [qtModel, setQtModel] = useState<"groq" | "openai">("openai");
   const [waiting, setWaiting] = useState(false);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const drainCountRef = useRef(0);
 
   useEffect(() => {
     return () => {
@@ -47,12 +48,14 @@ export function useAgentChat() {
       clearInterval(pollRef.current);
       pollRef.current = null;
     }
+    drainCountRef.current = 0;
     setWaiting(false);
   }, []);
 
   const startPolling = useCallback(
     (sessionId: string, originalBody: ChatRequest) => {
       if (pollRef.current) clearInterval(pollRef.current);
+      drainCountRef.current = 0;
       pollRef.current = setInterval(async () => {
         try {
           const res = await fetch("/api/agents/kavya/poll", {
@@ -61,7 +64,26 @@ export function useAgentChat() {
             body: JSON.stringify({ sessionId, ...originalBody }),
           });
           const data = (await res.json()) as ChatResponse;
-          if (data.status === "pending") return;
+
+          if (data.keepPolling) {
+            if (data.flirty) setFlirtyMode(true);
+            setMessages((m) => [
+              ...m.filter((msg) => !msg.waiting),
+              { id: crypto.randomUUID(), role: "agent", text: data.reply || "", agent: data.agent },
+            ]);
+            setWaiting(false);
+            drainCountRef.current = 4;
+            return;
+          }
+
+          if (data.status === "pending") {
+            if (drainCountRef.current > 0) {
+              drainCountRef.current--;
+              if (drainCountRef.current === 0) stopPolling();
+            }
+            return;
+          }
+
           stopPolling();
           if (data.flirty) setFlirtyMode(true);
           if (data.resetFlirty) setFlirtyMode(false);

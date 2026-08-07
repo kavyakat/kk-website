@@ -1,4 +1,4 @@
-import { getActiveSession, setHumanReply, setHumanLive, clearHumanLive } from "@/lib/agents/qtState";
+import { getActiveSession, pushHumanReply, setHumanLive, clearHumanLive } from "@/lib/agents/qtState";
 import { sendTelegramMessage } from "@/lib/agents/telegram";
 
 interface TelegramUpdate {
@@ -33,7 +33,7 @@ export async function POST(request: Request) {
       return Response.json({ ok: true });
     }
 
-    await setHumanReply(sessionId, text);
+    await pushHumanReply(sessionId, text);
     await setHumanLive(sessionId);
     return Response.json({ ok: true });
   } catch {

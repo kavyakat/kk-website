@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 
 vi.mock("@/lib/agents/qtState", () => ({
   getActiveSession: vi.fn(),
-  setHumanReply: vi.fn().mockResolvedValue(undefined),
+  pushHumanReply: vi.fn().mockResolvedValue(undefined),
   setHumanLive: vi.fn().mockResolvedValue(undefined),
   clearHumanLive: vi.fn().mockResolvedValue(undefined),
 }));
@@ -11,7 +11,7 @@ vi.mock("@/lib/agents/telegram", () => ({
 }));
 
 import { POST } from "./telegram/webhook/route";
-import { getActiveSession, setHumanReply, setHumanLive, clearHumanLive } from "@/lib/agents/qtState";
+import { getActiveSession, pushHumanReply, setHumanLive, clearHumanLive } from "@/lib/agents/qtState";
 import { sendTelegramMessage } from "@/lib/agents/telegram";
 
 beforeEach(() => {
@@ -32,14 +32,14 @@ describe("POST /api/agents/telegram/webhook", () => {
     const req = makeWebhookRequest({ from: { id: 11111 }, text: "hello" });
     const res = await POST(req);
     expect(res.status).toBe(200);
-    expect(setHumanReply).not.toHaveBeenCalled();
+    expect(pushHumanReply).not.toHaveBeenCalled();
   });
 
   it("stores human reply for the active session", async () => {
     vi.mocked(getActiveSession).mockResolvedValue("sess-1");
-    const req = makeWebhookRequest({ from: { id: 99999 }, text: "hey you ❤️" });
+    const req = makeWebhookRequest({ from: { id: 99999 }, text: "hey you" });
     await POST(req);
-    expect(setHumanReply).toHaveBeenCalledWith("sess-1", "hey you ❤️");
+    expect(pushHumanReply).toHaveBeenCalledWith("sess-1", "hey you");
     expect(setHumanLive).toHaveBeenCalledWith("sess-1");
   });
 
@@ -48,7 +48,7 @@ describe("POST /api/agents/telegram/webhook", () => {
     const req = makeWebhookRequest({ from: { id: 99999 }, text: "hey" });
     await POST(req);
     expect(sendTelegramMessage).toHaveBeenCalledWith("no active qt session");
-    expect(setHumanReply).not.toHaveBeenCalled();
+    expect(pushHumanReply).not.toHaveBeenCalled();
   });
 
   it("clears human_live and confirms on /done", async () => {

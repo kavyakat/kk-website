@@ -1,4 +1,4 @@
-import { getAndConsumeHumanReply, checkPending, setHumanLive } from "@/lib/agents/qtState";
+import { popHumanReply, checkPending, setHumanLive, checkHumanLive } from "@/lib/agents/qtState";
 import { runCoordinator } from "@/lib/agents/coordinator";
 import type { ChatRequest } from "@/lib/agents/types";
 
@@ -9,14 +9,19 @@ export async function POST(request: Request) {
     return Response.json({ error: "missing sessionId" }, { status: 400 });
   }
 
-  const humanReply = await getAndConsumeHumanReply(sessionId);
+  const humanReply = await popHumanReply(sessionId);
   if (humanReply !== null) {
     await setHumanLive(sessionId);
-    return Response.json({ reply: humanReply, agent: "kavya" });
+    return Response.json({ reply: humanReply, agent: "kavya", keepPolling: true });
   }
 
   const stillPending = await checkPending(sessionId);
   if (stillPending) {
+    return Response.json({ status: "pending" });
+  }
+
+  const humanLive = await checkHumanLive();
+  if (humanLive) {
     return Response.json({ status: "pending" });
   }
 

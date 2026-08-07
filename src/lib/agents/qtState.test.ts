@@ -78,32 +78,31 @@ describe("qtState", () => {
     expect(body).toEqual(["DEL", "qt:human_live"]);
   });
 
-  it("setHumanReply posts SET with 60s TTL", async () => {
-    mockRedis("OK");
-    const fetchMock = vi.mocked(globalThis.fetch);
-    const { setHumanReply } = await import("./qtState");
-    await setHumanReply("sess-1", "hey you");
-    const body = JSON.parse(fetchMock.mock.calls[0][1]!.body as string);
-    expect(body).toEqual(["SET", "qt:human_reply:sess-1", "hey you", "EX", 60]);
-  });
-
-  it("getAndConsumeHumanReply returns null when key missing", async () => {
-    mockRedis(null);
-    const { getAndConsumeHumanReply } = await import("./qtState");
-    expect(await getAndConsumeHumanReply("sess-1")).toBeNull();
-  });
-
-  it("getAndConsumeHumanReply returns text and deletes key", async () => {
+  it("pushHumanReply posts RPUSH then EXPIRE with 300s TTL", async () => {
     vi.stubEnv("UPSTASH_REDIS_REST_URL", "https://fake.upstash.io");
     vi.stubEnv("UPSTASH_REDIS_REST_TOKEN", "fake-token");
     const fetchMock = vi.fn()
-      .mockResolvedValueOnce({ ok: true, json: async () => ({ result: "hey you" }) })
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ result: 1 }) })
       .mockResolvedValueOnce({ ok: true, json: async () => ({ result: 1 }) });
     vi.stubGlobal("fetch", fetchMock);
-    const { getAndConsumeHumanReply } = await import("./qtState");
-    const reply = await getAndConsumeHumanReply("sess-1");
+    const { pushHumanReply } = await import("./qtState");
+    await pushHumanReply("sess-1", "hey you");
+    expect(JSON.parse(fetchMock.mock.calls[0][1]!.body as string)).toEqual(["RPUSH", "qt:human_reply:sess-1", "hey you"]);
+    expect(JSON.parse(fetchMock.mock.calls[1][1]!.body as string)).toEqual(["EXPIRE", "qt:human_reply:sess-1", 300]);
+  });
+
+  it("popHumanReply returns null when list is empty", async () => {
+    mockRedis(null);
+    const { popHumanReply } = await import("./qtState");
+    expect(await popHumanReply("sess-1")).toBeNull();
+  });
+
+  it("popHumanReply posts LPOP and returns first item", async () => {
+    mockRedis("hey you");
+    const fetchMock = vi.mocked(globalThis.fetch);
+    const { popHumanReply } = await import("./qtState");
+    const reply = await popHumanReply("sess-1");
     expect(reply).toBe("hey you");
-    const delBody = JSON.parse(fetchMock.mock.calls[1][1]!.body as string);
-    expect(delBody).toEqual(["DEL", "qt:human_reply:sess-1"]);
+    expect(JSON.parse(fetchMock.mock.calls[0][1]!.body as string)).toEqual(["LPOP", "qt:human_reply:sess-1"]);
   });
 });
