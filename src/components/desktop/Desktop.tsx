@@ -112,6 +112,7 @@ export default function Desktop() {
                 messages={chat.messages}
                 sending={chat.sending}
                 resting={chat.resting}
+                waiting={chat.waiting}
                 send={chat.send}
                 flirtyMode={chat.flirtyMode}
                 qtModel={chat.qtModel}

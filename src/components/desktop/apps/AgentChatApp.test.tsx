@@ -10,7 +10,7 @@ const clippy = characters.find((c) => c.id === "clippy")!;
 
 function Harness({ onLaunchApp = vi.fn() }: { onLaunchApp?: (id: AppId) => void }) {
   const [character, setCharacter] = useState<Character>(clippy);
-  const { messages, sending, resting, send } = useAgentChat();
+  const { messages, sending, resting, waiting, send } = useAgentChat();
   return (
     <AgentChatApp
       onLaunchApp={onLaunchApp}
@@ -19,7 +19,11 @@ function Harness({ onLaunchApp = vi.fn() }: { onLaunchApp?: (id: AppId) => void 
       messages={messages}
       sending={sending}
       resting={resting}
+      waiting={waiting}
       send={send}
+      flirtyMode={false}
+      qtModel="groq"
+      onToggleQtModel={vi.fn()}
     />
   );
 }
